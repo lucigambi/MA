@@ -141,45 +141,51 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 
 /* ============================= ACCESOS (3 CTAs) ============================= */
 /* Mendoza Aumentada tiene 3 puntos de acceso (a diferencia del "Ingresar"
-   unico del sitio hermano): mismo pill/degrade chunky que tenia el CTA
-   unico del sitio hermano, con los colores de marca nuevos. Un solo
-   componente (.access-row/.access-btn),
-   dos tamaños de contexto vía modificador (--nav compacto, --hero grande) para
-   que el nav y el hero no dupliquen reglas. */
-.access-row{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;}
+   unico del sitio hermano). Lo unico heredado del boton viejo es el radio
+   de borde (pill, 100px) — el resto (degrade horizontal, ancho parejo entre
+   los 3, aclaracion afuera/debajo del boton) sigue el ejemplo de referencia.
+   .access-item envuelve boton + aclaracion (solo donde hay aclaracion, ej.
+   hero); en el nav (desktop y mobile) va solo .access-btn, sin aclaracion. */
+/* flex con la MISMA flex-basis en los 3 hijos (no grid): asi quedan del
+   mismo ancho sin depender de que el contenedor padre tenga un ancho
+   definido (nav-ctas/hero-cta-wrap son shrink-to-fit) — con basis
+   compartida, cada uno arranca del mismo ancho y el texto mas largo
+   ("Pensamiento Interdisciplinario") es el que fuerza el salto de linea. */
+.access-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
+.access-item{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0;}
 .access-btn{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  display:flex;width:100%;height:100%;align-items:center;justify-content:center;text-align:center;box-sizing:border-box;
   border-radius:100px;border:none;cursor:pointer;text-decoration:none;color:var(--text-on-dark);
+  font-family:'Nunito',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:0.02em;line-height:1.15;
   box-shadow:0 8px 18px rgba(0,0,0,0.3);
   transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.25s ease,filter 0.25s ease;
 }
 .access-btn:hover{text-decoration:none;color:var(--text-on-dark);transform:translateY(-2px) scale(1.02);filter:brightness(1.06);box-shadow:0 12px 24px rgba(0,0,0,0.35);}
 .access-btn:active{transform:translateY(1px) scale(0.98);}
-.access-btn--orange{background:linear-gradient(135deg,color-mix(in srgb,var(--accent-coral) 65%,white 35%),var(--accent-coral));}
-.access-btn--green{background:linear-gradient(135deg,color-mix(in srgb,var(--accent-lime) 65%,white 35%),var(--accent-lime));}
-.access-btn-title{font-family:'Nunito',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:0.02em;line-height:1.15;}
-.access-btn-sub{font-family:'Nunito',sans-serif;font-weight:600;opacity:0.92;}
+.access-btn--orange{background:linear-gradient(90deg,color-mix(in srgb,var(--accent-coral) 70%,white 30%),var(--accent-coral));}
+.access-btn--green{background:linear-gradient(90deg,color-mix(in srgb,var(--accent-lime) 70%,white 30%),var(--accent-lime));}
+.access-item-caption{font-family:'Nunito',sans-serif;font-weight:600;text-align:center;color:var(--text-on-dark-secondary);}
 
-/* Contexto nav — compacto, una sola linea de texto, min 44px de alto (area tactil) */
-.access-row--nav .access-btn{min-height:44px;padding:8px 16px;gap:0;}
-.access-row--nav .access-btn-title{font-size:12.5px;}
-.access-row--nav .access-btn-sub{font-size:9.5px;margin-top:1px;}
+/* Contexto nav — compacto, sin aclaracion, min 44px de alto (area tactil) */
+.access-row--nav .access-btn{flex:1 1 150px;min-height:44px;padding:8px 14px;font-size:12px;}
 
-/* Contexto hero — grande, dos lineas + subtitulo, como el resto de las hero-cta */
-.access-row--hero{justify-content:center;}
-.access-row--hero .access-btn{min-width:220px;padding:16px 28px;gap:6px;}
-.access-row--hero .access-btn-title{font-size:17px;}
-.access-row--hero .access-btn-sub{font-size:13px;}
+/* Contexto hero — grande, con aclaracion debajo (afuera del boton).
+   width:100% es necesario: #hero-cta-wrap es flex con justify-content:center,
+   y sin ancho explicito access-row queda shrink-to-fit (un item por vez
+   busca su tamaño y el conjunto no usa el ancho real disponible del hero). */
+.access-row--hero{width:100%;}
+.access-row--hero .access-item{flex:1 1 260px;max-width:300px;}
+.access-row--hero .access-btn{min-height:76px;padding:16px 24px;font-size:16px;}
+.access-row--hero .access-item-caption{font-size:13px;}
 @media (max-width:900px){
-  .access-row--hero{width:100%;}
-  .access-row--hero .access-btn{flex:1 1 100%;min-width:0;width:100%;max-width:360px;margin-inline:auto;padding:12px 20px;}
+  .access-row--hero{width:100%;max-width:360px;margin-inline:auto;gap:16px;}
+  .access-row--hero .access-item{flex:1 1 100%;max-width:100%;}
+  .access-row--hero .access-btn{min-height:56px;padding:12px 20px;}
 }
 
-/* Contexto mobile panel — full width, apiladas, con subtitulo (hay lugar vertical) */
-.access-row--mobile{flex-direction:column;width:100%;margin-top:10px;}
-.access-row--mobile .access-btn{width:100%;padding:12px 20px;gap:4px;}
-.access-row--mobile .access-btn-title{font-size:14px;}
-.access-row--mobile .access-btn-sub{font-size:11px;}
+/* Contexto mobile panel — full width, apiladas, sin aclaracion */
+.access-row--mobile{flex-direction:column;width:100%;margin-top:10px;gap:8px;}
+.access-row--mobile .access-btn{min-height:48px;padding:10px 18px;font-size:14px;}
 
 /* ============================= NAV ============================= */
 /* Header — capa oscura sutil y uniforme sobre el hero por defecto (el video

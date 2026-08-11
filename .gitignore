@@ -1,0 +1,10 @@
+# Carpeta de referencia (sitio de otro programa, no forma parte de este proyecto)
+referencia/
+
+# Export original de las creaciones reales (ya integrado en index.html) -
+# se deja fuera del repo por peso (imagenes en base64); borrar si ya no hace falta.
+Mejores_creaciones_IA_Mendoza_Aumentada.html
+
+# OS / editor
+.DS_Store
+Thumbs.db

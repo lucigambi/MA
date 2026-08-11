@@ -54,23 +54,23 @@
 
 // FlexClass / PACCC — panel de detalle desktop
 const STEP_DATA = {
-  1: { title: 'Personaliza', color: 'var(--accent-violet)', tabLabel: 'P', badge: '01',
+  1: { title: 'Personaliza', color: 'var(--paccc-p)', tabLabel: 'P', badge: '01',
     intro: 'Adaptá FlexClass para tu aula.',
     long: 'Elige las preguntas del reservorio curricular, suma las suyas, decide con qué herramienta de IA van a trabajar sus estudiantes y ajusta los tiempos. Acá se orquesta la experiencia cognitiva para este grupo, en este contexto, en este momento.',
     imgSrc: 'assets/img/Paccc-01-Personaliza.jpg' },
-  2: { title: 'Aprende', color: 'var(--accent-fuchsia)', tabLabel: 'A', badge: '02',
+  2: { title: 'Aprende', color: 'var(--paccc-a)', tabLabel: 'A', badge: '02',
     intro: 'Contenido adaptado a Mendoza',
     long: 'El tema se lo cuenta un personaje en primera persona, con la historia y la identidad de la provincia como base del curso, y sobre eso el estudiante conversa y crea después.',
     imgSrc: 'assets/img/Paccc-02-Aprende.jpg' },
-  3: { title: 'Conversa', color: 'var(--accent-cyan)', tabLabel: 'C', badge: '03',
+  3: { title: 'Conversa', color: 'var(--paccc-c1)', tabLabel: 'C', badge: '03',
     intro: 'Preguntas antes que respuestas',
     long: 'FlexFlixGPT es el chat de la plataforma: una IA que solo habla del tema de la clase y está hecha para repreguntar. El estudiante dialoga con ella a partir de preguntas curadas y agrupadas por intención: repaso, exploración, preguntas esenciales. La IA no cierra el tema, lo abre.',
     imgSrc: 'assets/img/Paccc-03-Conversa.jpg' },
-  4: { title: 'Crea', color: 'var(--accent-coral)', tabLabel: 'C', badge: '04',
+  4: { title: 'Crea', color: 'var(--paccc-c2)', tabLabel: 'C', badge: '04',
     intro: 'De consumir a producir',
     long: 'Cada tema trae una IA y una consigna concreta: un video, una canción, una infografía. La clase da los pasos y el tutorial de la IA; el resultado es la pieza del estudiante.',
     imgSrc: 'assets/img/Paccc-04-Crea.jpg' },
-  5: { title: 'Comparte', color: 'var(--accent-lime)', tabLabel: 'C', badge: '05',
+  5: { title: 'Comparte', color: 'var(--paccc-c3)', tabLabel: 'C', badge: '05',
     intro: 'El trabajo creado sube a la hoja de entrega del curso.',
     long: 'El docente lo revisa y devuelve una retroalimentación puntual sobre la producción real del estudiante, cerrando el ciclo pedagógico.',
     imgSrc: 'assets/img/Paccc-05-Comparte.jpg' }

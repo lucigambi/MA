@@ -9,17 +9,24 @@
    Capa 3: componentes — nunca leen un primitivo directo, siempre semántico.
    ========================================================================= */
 :root{
-  /* ---- Capa 1: primitivos de marca (fijos) ---- */
-  --color-purple-900:#10002F;--color-purple-900-rgb:16,0,47;
-  --color-purple-800:#18064A;--color-purple-800-rgb:24,6,74;
+  /* ---- Capa 1: primitivos de marca (fijos) ----
+     Paleta propia de Mendoza Aumentada: fondo #260055, acentos violeta
+     #8C51F0 / verde #45A44D / naranja #FC6403. Los roles que en el sitio
+     hermano usaban 6 acentos distintos (lima/cian/azul/fucsia/coral/violeta)
+     se consolidan en estos 3: verde reemplaza al lima (CTA/positivo), violeta
+     reemplaza a cian y azul (interactivo/foco/decorativo), naranja reemplaza
+     a fucsia y coral (decorativo/segundo acento). Como todo el sitio lee de
+     la capa semantica de abajo, alcanza con tocar esto para re-tematizar todo. */
+  --color-purple-900:#260055;--color-purple-900-rgb:38,0,85;
+  --color-purple-800:#3B0683;--color-purple-800-rgb:59,6,131;
   --color-offwhite:#F5F7FB;
   --color-white:#FFFFFF;--color-white-rgb:255,255,255;
-  --color-lime:#9BDD5A;--color-lime-rgb:155,221,90;
-  --color-cyan:#0075A4;--color-cyan-rgb:0,117,164;
-  --color-blue:#1D5AD8;--color-blue-rgb:29,90,216;
-  --color-fuchsia:#E63AA4;--color-fuchsia-rgb:230,58,164;
-  --color-coral:#F36B3D;--color-coral-rgb:243,107,61;
-  --color-violet:#7C55B3;--color-violet-rgb:124,85,179;
+  --color-lime:#45A44D;--color-lime-rgb:69,164,77;
+  --color-cyan:#8C51F0;--color-cyan-rgb:140,81,240;
+  --color-blue:#8C51F0;--color-blue-rgb:140,81,240;
+  --color-fuchsia:#FC6403;--color-fuchsia-rgb:252,100,3;
+  --color-coral:#FC6403;--color-coral-rgb:252,100,3;
+  --color-violet:#8C51F0;--color-violet-rgb:140,81,240;
   --color-ink:#111735;
   --color-ink-secondary:#536078;
 
@@ -122,34 +129,47 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 @media (max-width:1200px){.pixel-sq:nth-child(2n){display:none;}}
 @media (max-width:900px){.pixel-texture,.squares-layer{display:none!important;}}
 
-/* Hero CTA — chunky, high-volume button with lots of hover flair */
-.hero-cta{
-  display:inline-block;
-  padding:14px 48px;
-  border-radius:100px;
-  background:linear-gradient(to bottom,#DBFF3C,#9EC165);
-  color:color-mix(in srgb,var(--accent-blue) 55%,black);
-  font-family:'Nunito',sans-serif;
-  font-size:24px;
-  font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:0.03em;
-  border:none;
+/* ============================= ACCESOS (3 CTAs) ============================= */
+/* Mendoza Aumentada tiene 3 puntos de acceso (a diferencia del "Ingresar"
+   unico del sitio hermano): mismo pill/degrade chunky que tenia el CTA
+   unico del sitio hermano, con los colores de marca nuevos. Un solo
+   componente (.access-row/.access-btn),
+   dos tamaños de contexto vía modificador (--nav compacto, --hero grande) para
+   que el nav y el hero no dupliquen reglas. */
+.access-row{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;}
+.access-btn{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  border-radius:100px;border:none;cursor:pointer;text-decoration:none;color:var(--text-on-dark);
   box-shadow:0 8px 18px rgba(0,0,0,0.3);
-  cursor:pointer;
   transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.25s ease,filter 0.25s ease;
 }
-.hero-cta:hover{
-  color:color-mix(in srgb,var(--accent-blue) 55%,black);
-  text-decoration:none;
-  transform:translateY(-3px) scale(1.03);
-  filter:brightness(1.06);
-  box-shadow:0 12px 24px rgba(0,0,0,0.35);
+.access-btn:hover{text-decoration:none;color:var(--text-on-dark);transform:translateY(-2px) scale(1.02);filter:brightness(1.06);box-shadow:0 12px 24px rgba(0,0,0,0.35);}
+.access-btn:active{transform:translateY(1px) scale(0.98);}
+.access-btn--orange{background:linear-gradient(135deg,color-mix(in srgb,var(--accent-coral) 65%,white 35%),var(--accent-coral));}
+.access-btn--green{background:linear-gradient(135deg,color-mix(in srgb,var(--accent-lime) 65%,white 35%),var(--accent-lime));}
+.access-btn-title{font-family:'Nunito',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:0.02em;line-height:1.15;}
+.access-btn-sub{font-family:'Nunito',sans-serif;font-weight:600;opacity:0.92;}
+
+/* Contexto nav — compacto, una sola linea de texto, min 44px de alto (area tactil) */
+.access-row--nav .access-btn{min-height:44px;padding:8px 16px;gap:0;}
+.access-row--nav .access-btn-title{font-size:12.5px;}
+.access-row--nav .access-btn-sub{font-size:9.5px;margin-top:1px;}
+
+/* Contexto hero — grande, dos lineas + subtitulo, como el resto de las hero-cta */
+.access-row--hero{justify-content:center;}
+.access-row--hero .access-btn{min-width:220px;padding:16px 28px;gap:6px;}
+.access-row--hero .access-btn-title{font-size:17px;}
+.access-row--hero .access-btn-sub{font-size:13px;}
+@media (max-width:900px){
+  .access-row--hero{width:100%;}
+  .access-row--hero .access-btn{flex:1 1 100%;min-width:0;width:100%;max-width:360px;margin-inline:auto;padding:12px 20px;}
 }
-.hero-cta:active{
-  transform:translateY(1px) scale(0.97);
-  box-shadow:0 8px 18px rgba(0,0,0,0.4);
-}
+
+/* Contexto mobile panel — full width, apiladas, con subtitulo (hay lugar vertical) */
+.access-row--mobile{flex-direction:column;width:100%;margin-top:10px;}
+.access-row--mobile .access-btn{width:100%;padding:12px 20px;gap:4px;}
+.access-row--mobile .access-btn-title{font-size:14px;}
+.access-row--mobile .access-btn-sub{font-size:11px;}
 
 /* ============================= NAV ============================= */
 /* Header — capa oscura sutil y uniforme sobre el hero por defecto (el video
@@ -167,9 +187,6 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 .nav-links a:focus-visible{color:var(--text-on-dark);background-color:rgba(255,255,255,0.1);outline:2px solid var(--accent-lime);outline-offset:2px;}
 .nav-ctas{display:flex;align-items:center;gap:10px;}
 .btn-outline{padding:9px 14px;border-radius:8px;border:1px solid var(--border-on-dark);color:var(--text-on-dark);font-size:14px;font-weight:600;min-height:44px;display:inline-flex;align-items:center;}
-.btn-solid{padding:9px 22px;border-radius:100px;background:linear-gradient(to bottom,#DBFF3C,#9EC165);color:color-mix(in srgb,var(--accent-blue) 55%,black);font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;box-shadow:0 4px 10px rgba(0,0,0,0.25);transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.25s ease,filter 0.25s ease;min-height:44px;display:inline-flex;align-items:center;}
-.btn-solid:hover{text-decoration:none;transform:translateY(-2px) scale(1.03);filter:brightness(1.06);box-shadow:0 6px 14px rgba(0,0,0,0.3);}
-.btn-solid:active{transform:translateY(1px) scale(0.97);}
 
 .nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;background:none;border:none;cursor:pointer;padding:0;flex-shrink:0;}
 .nav-burger span{display:block;width:100%;height:2px;background:var(--text-on-dark);border-radius:2px;transition:transform 0.25s ease,opacity 0.25s ease;}
@@ -178,8 +195,8 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 .nav-burger.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 .nav-mobile-panel{display:none;flex-direction:column;gap:2px;padding:8px 20px 20px;background:rgba(var(--bg-dark-1-rgb),0.97);}
 .nav-mobile-panel a{color:var(--text-on-dark-secondary);font-size:16px;font-weight:600;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.08);}
-.nav-mobile-panel .btn-outline,.nav-mobile-panel .btn-solid{text-align:center;margin-top:10px;border-bottom:none;padding:12px 20px;color:inherit;justify-content:center;}
-.nav-mobile-panel .btn-solid{color:var(--text-on-light);}
+.nav-mobile-panel .btn-outline{text-align:center;margin-top:10px;border-bottom:none;padding:12px 20px;color:inherit;justify-content:center;}
+.nav-mobile-panel .access-btn{border-bottom:none;color:var(--text-on-dark);}
 /* Nav — desde 1280px inclusive se muestra la navegacion desktop completa;
    por debajo, menu hamburguesa (spec del brief de header/hero). */
 @media (max-width:1279px){
@@ -231,8 +248,6 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
   #hero-segline > div{width:48px!important;height:3px!important;}
   .inl-20{font-size:14px!important;margin-top:8px!important;}
   #hero-cta-wrap{margin-top:10px!important;}
-  #hero-cta-wrap .hero-cta{display:block;width:100%;max-width:360px;margin-inline:auto;text-align:center;}
-  .hero-cta{font-size:16px!important;padding:10px 28px!important;}
   .hero-institutional-lockup{margin-top:10px!important;}
   .hero-institutional-lockup img{height:18px!important;}
   .hero-institutional-lockup img.logo-cfi{height:26px!important;}
@@ -277,7 +292,7 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 .nav-arrow-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:44px;height:44px;border-radius:50%;background:var(--accent-violet);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(0,0,0,0.35);transition:filter 0.2s;}
 .nav-arrow-btn:hover{filter:brightness(1.15);}
 
-#paccc-detail{position:relative;border:1px solid var(--border-on-dark);border-top:none;border-radius:0 0 20px 20px;background:#0D0B56;max-width:1920px;margin-inline:auto}
+#paccc-detail{position:relative;border:1px solid var(--border-on-dark);border-top:none;border-radius:0 0 20px 20px;background:var(--bg-dark-2);max-width:1920px;margin-inline:auto}
 #paccc-prev{left:-17px;top:50%;z-index:5}
 .inl-79{width:14px;height:14px;object-fit:contain;transform:rotate(180deg)}
 #paccc-next{right:-17px;left:auto;top:50%;z-index:5}
@@ -319,7 +334,7 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 .paccc-mobile-dot.active{background:var(--dot-color,#fff);transform:scale(1.35);}
 .paccc-mobile-carousel{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 24px 12px;margin:0 -24px;scrollbar-width:none;}
 .paccc-mobile-carousel::-webkit-scrollbar{display:none;}
-.paccc-mobile-card{display:flex;flex-direction:column;scroll-snap-align:center;flex:0 0 84%;max-width:400px;background:color-mix(in srgb,#0D0B56 82%,black 18%);border:1px solid rgba(255,255,255,0.16);border-top:8px solid var(--card-color,#fff);border-radius:20px;overflow:hidden;}
+.paccc-mobile-card{display:flex;flex-direction:column;scroll-snap-align:center;flex:0 0 84%;max-width:400px;background:color-mix(in srgb,var(--bg-dark-2) 82%,black 18%);border:1px solid rgba(255,255,255,0.16);border-top:8px solid var(--card-color,#fff);border-radius:20px;overflow:hidden;}
 .paccc-mobile-card-photo{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;background:#000;flex-shrink:0;}
 .paccc-mobile-card-photo img{width:100%;height:100%;object-fit:cover;}
 .paccc-mobile-card-body{flex:1;position:relative;padding:22px 22px 26px;overflow:hidden;}
@@ -335,7 +350,7 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 .paccc-mobile-crea-list img{width:24px;height:24px;object-fit:contain;flex-shrink:0;}
 
 /* ============================= CREACIONES ============================= */
-.creaciones-section{--creaciones-bg-rgb:16,0,47;position:relative;padding:clamp(72px,6vw,112px) 64px;background:rgb(var(--creaciones-bg-rgb));overflow:hidden;}
+.creaciones-section{--creaciones-bg-rgb:var(--bg-dark-1-rgb);position:relative;padding:clamp(72px,6vw,112px) 64px;background:rgb(var(--creaciones-bg-rgb));overflow:hidden;}
 .creaciones-intro{position:relative;z-index:2;max-width:900px;margin:0 auto 32px;text-align:center;}
 .inl-160{display:inline-flex;align-items:center;justify-content:center;gap:10px}
 .inl-161{display:grid;grid-template-columns:repeat(2,1fr);gap:3px;width:22px;height:22px;flex-shrink:0}
@@ -369,7 +384,7 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 .creacion-link{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;min-width:150px;min-height:44px;padding:0.7rem 1rem;border-radius:11px;text-decoration:none;color:var(--text-on-dark);font-weight:800;letter-spacing:0.02em;background:linear-gradient(90deg,var(--accent-coral),var(--accent-fuchsia));box-shadow:0 5px 14px rgba(var(--accent-coral-rgb),0.3);transition:transform 0.15s ease,filter 0.15s ease;}
 .creacion-link:hover{transform:translateY(-2px);filter:brightness(1.08);text-decoration:none;color:var(--text-on-dark);}
 .creacion-link:focus-visible{outline:2px solid var(--accent-cyan);outline-offset:2px;}
-@media (max-width:900px){.creaciones-section{padding:64px 20px;--creaciones-bg-rgb:13,11,86;}}
+@media (max-width:900px){.creaciones-section{padding:64px 20px;--creaciones-bg-rgb:var(--bg-dark-2-rgb);}}
 @media (max-width:640px){
   .creaciones-grid{grid-template-columns:1fr;gap:16px;}
   .creacion-link{width:100%;}
@@ -432,9 +447,9 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 /* ============================= MANIFIESTO ============================= */
 /* Foto de fondo sin recortar: se dimensiona solo por el alto de la seccion
    (width:auto, sin object-fit:cover), asi se ve completa y se angosta. */
-#manifiesto{padding:clamp(90px,9vw,130px) 64px;background:#00C6E8;color:var(--text-on-dark);position:relative;overflow:hidden;display:flex;align-items:center;min-height:clamp(420px,42vw,560px)}
+#manifiesto{padding:clamp(90px,9vw,130px) 64px;background:var(--accent-coral);color:var(--text-on-dark);position:relative;overflow:hidden;display:flex;align-items:center;min-height:clamp(420px,42vw,560px)}
 #manifiesto-photo{position:absolute;left:0;top:0;height:100%;width:auto;z-index:0;opacity:1;-webkit-mask-image:linear-gradient(to right,#000 0%,#000 72%,transparent 96%);mask-image:linear-gradient(to right,#000 0%,#000 72%,transparent 96%)}
-#manifiesto-overlay{position:absolute;inset:0;z-index:1;background:rgba(0,55,66,0.4);pointer-events:none;}
+#manifiesto-overlay{position:absolute;inset:0;z-index:1;background:rgba(0,0,0,0.35);pointer-events:none;}
 #manifiesto-photo-mobile{display:none}
 .manifiesto-inner{position:relative;z-index:2;max-width:1920px;width:100%;margin-inline:auto;display:flex}
 #manifiesto-spacer{flex:1}

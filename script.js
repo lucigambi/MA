@@ -20,6 +20,37 @@
   panel.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
 })();
 
+// Nav — dropdown "Acceder" (desktop): agrupa los 3 accesos en un trigger
+// compacto en vez de mostrarlos como 3 textos sueltos en la barra
+(() => {
+  const dropdown = document.querySelector('.nav-access-dropdown');
+  const toggle = document.getElementById('nav-access-toggle');
+  const menu = document.getElementById('nav-access-menu');
+  if (!dropdown || !toggle || !menu) return;
+
+  function closeDropdown() {
+    dropdown.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = !dropdown.classList.contains('is-open');
+    dropdown.classList.toggle('is-open', isOpen);
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!dropdown.contains(e.target)) closeDropdown();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeDropdown();
+  });
+
+  menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeDropdown));
+})();
+
 // Nav — header transparente sobre el hero, pasa a fondo solido + blur al scrollear
 (() => {
   const nav = document.querySelector('.nav');
@@ -50,6 +81,422 @@
   updateScrollPadding();
   // el logo/las tipografias pueden tardar un frame en asentar su alto final
   requestAnimationFrame(updateScrollPadding);
+})();
+
+// Stat counters (seccion Evidencia) — anima los numeros de 0 a su valor
+// final una vez que entran en pantalla. Portado tal cual de referencia/
+// entre-rios (mecanismo generico, funciona igual para cualquier .stat-counter
+// con data-target/data-decimals/data-prefix/data-suffix).
+(() => {
+  const counters = document.querySelectorAll('.stat-counter');
+  if (!counters.length) return;
+
+  function animateCounter(el) {
+    const target = parseFloat(el.dataset.target);
+    const decimals = parseInt(el.dataset.decimals || '0', 10);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const duration = 1400;
+    const start = performance.now();
+
+    function format(value) {
+      const fixed = value.toFixed(decimals);
+      const [intPart, decPart] = fixed.split('.');
+      const intFormatted = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      return prefix + (decPart ? intFormatted + ',' + decPart : intFormatted) + suffix;
+    }
+
+    function tick(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = format(target * eased);
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  counters.forEach((el) => observer.observe(el));
+})();
+
+// Programas — 6 folletos oficiales (mismo mecanismo de tabs que FlexClass/PACCC:
+// click en un tab renderiza el detalle), pero panel claro/blanco con el color
+// oficial de cada folleto (ya impreso, no se reinventa) en vez del panel oscuro
+// de PACCC. El color se aplica via --programa-color (custom property), asi el
+// CSS de titulo/subtitulo-badge/cajas destacadas/viñetas queda en una sola regla
+// generica en vez de 6 bloques de color duplicados.
+const PROGRAMAS_DATA = {
+  1: {
+    color: '#0075A4',
+    img: 'assets/img/programas/CertificacionIA.png',
+    alt: 'Certificación en Inteligencia Artificial',
+    tab: 'Certificación IA',
+    copete: 'Educación pública que abre oportunidades laborales reales',
+    titulo: 'Certificación laboral en Inteligencia Artificial',
+    subtitulo: '4° y 5° año · Nivel Secundario',
+    texto: `
+      <section class="programa-bloque">
+        <p class="programa-destacado">Mendoza se convierte en la primera provincia argentina en certificar habilidades laborales en Inteligencia Artificial desde la escuela secundaria, integrando educación, tecnología y empleo joven como política pública.</p>
+        <p>Este modelo transforma los últimos años del secundario en una plataforma de formación para la nueva economía, conectando el aula con el mundo laboral real y actual.</p>
+      </section>
+      <div class="programa-box">
+        <strong>De la escuela mendocina al mundo laboral.</strong><br>Certificación oficial con impacto concreto en el mundo del trabajo.
+      </div>
+      <section class="programa-bloque">
+        <h3>¿Qué logra esta política pública?</h3>
+        <p>Los estudiantes egresan con una certificación laboral oficial como <strong>Operadores Junior en Inteligencia Artificial</strong>, validando competencias concretas para trabajar, crear y producir con tecnología de forma crítica y responsable.</p>
+      </section>
+      <section class="programa-bloque">
+        <h3>Proyección laboral concreta</h3>
+        <p>La certificación habilita perfiles como:</p>
+        <ul>
+          <li>Asistente creativo</li>
+          <li>Community AI</li>
+          <li>Operador e-commerce</li>
+          <li>Tutor IA</li>
+          <li>Soporte digital</li>
+          <li>Data junior</li>
+        </ul>
+      </section>
+      <section class="programa-bloque">
+        <h3>Los estudiantes desarrollan habilidades para:</h3>
+        <ul>
+          <li><strong>Pensar críticamente</strong> frente a la tecnología</li>
+          <li><strong>Crear contenidos</strong> con criterio humano</li>
+          <li><strong>Diseñar y entrenar</strong> agentes digitales</li>
+          <li><strong>Resolver problemas</strong> complejos con IA</li>
+          <li><strong>Usar tecnología</strong> de forma ética, segura y productiva</li>
+        </ul>
+      </section>
+      <section class="programa-bloque">
+        <h3>Certificación con valor real</h3>
+        <ul>
+          <li>Portafolio digital de producciones</li>
+          <li>Validación mediante código QR</li>
+          <li>Trazabilidad y verificación con tecnología blockchain</li>
+        </ul>
+      </section>
+    `
+  },
+  2: {
+    color: '#ae4abd',
+    img: 'assets/img/programas/Interdisciplinario.png',
+    alt: 'Pensamiento interdisciplinario con IA',
+    tab: 'Interdisciplinario',
+    copete: 'La IA como herramienta transversal de aprendizaje',
+    titulo: 'Pensamiento interdisciplinario con Inteligencia Artificial',
+    subtitulo: '1°, 2° y 3° año · Nivel Secundario',
+    texto: `
+      <section class="programa-bloque">
+        <p class="programa-destacado">Mendoza impulsa un modelo educativo propio e innovador que integra <strong>Inteligencia Artificial</strong>, currícula oficial y neurociencia para fortalecer las competencias que hoy demanda el mundo.</p>
+        <p>Mendoza fortalece el pensamiento interdisciplinario y las competencias evaluadas internacionalmente, preparando a sus estudiantes para un mundo en transformación.</p>
+      </section>
+      <div class="programa-box">
+        <strong>MÁS DE 200 CONTENIDOS CURRICULARES</strong><br>de la provincia se organizan en rutas de aprendizaje que permiten a los estudiantes comprender, conectar saberes y resolver desafíos reales con apoyo de IA segura y guiada.
+      </div>
+      <section class="programa-bloque">
+        <h3>Un modelo pedagógico mendocino</h3>
+        <p>Los estudiantes trabajan con IA integrada al aula, guiada por docentes, siguiendo la <strong>Metodología PACCC™</strong>.</p>
+        <p><strong>CONVERSA · APRENDE · CREA · PERSONALIZA · COMPARTE</strong></p>
+      </section>
+      <section class="programa-bloque">
+        <h3>¿Qué cambia en el aula?</h3>
+        <ul>
+          <li><strong>Aprendizajes</strong> más profundos y significativos</li>
+          <li><strong>Ritmos personalizados</strong> para cada estudiante</li>
+          <li><strong>Retroalimentación constante</strong> y orientada a mejorar</li>
+          <li><strong>Producción activa</strong> de conocimiento, no consumo pasivo</li>
+        </ul>
+      </section>
+      <section class="programa-bloque">
+        <h3>El rol del docente y la tecnología</h3>
+        <ul>
+          <li>No reemplaza al docente</li>
+          <li>Potencia su capacidad de acompañar</li>
+          <li>Permite personalizar y profundizar el aprendizaje</li>
+        </ul>
+      </section>
+    `
+  },
+  3: {
+    color: '#F36B3D',
+    img: 'assets/img/programas/Refuerzo.png',
+    alt: 'Refuerzo de aprendizajes fundamentales',
+    tab: 'Refuerzo',
+    copete: 'Tecnología al servicio de la comprensión profunda',
+    titulo: 'Refuerzo de aprendizajes fundamentales',
+    subtitulo: 'Lengua y Matemática · Nivel Primario',
+    texto: `
+      <section class="programa-bloque">
+        <p>Mendoza impulsa un modelo educativo para la escuela primaria que integra pedagogía, tecnología y neurociencia, fortaleciendo los aprendizajes fundamentales desde el inicio de la trayectoria escolar.</p>
+      </section>
+      <div class="programa-box">Comprender antes que memorizar</div>
+      <section class="programa-bloque">
+        <p>Un enfoque centrado en <strong>comprender antes que memorizar</strong>, donde cada aprendizaje se construye en tres momentos:</p>
+        <ul>
+          <li>Partir de una experiencia concreta</li>
+          <li>Organizar el pensamiento de forma visual</li>
+          <li>Formalizar y aplicar el concepto</li>
+        </ul>
+      </section>
+      <section class="programa-bloque">
+        <h3>Aprender haciendo</h3>
+        <p>Los chicos:</p>
+        <ul>
+          <li>Exploran</li>
+          <li>Preguntan</li>
+          <li>Crean</li>
+          <li>Comprenden en profundidad</li>
+        </ul>
+      </section>
+      <section class="programa-bloque">
+        <p>La Inteligencia Artificial se integra de forma segura y pedagógica, siempre guiada por docentes y respetando los ritmos de cada estudiante.</p>
+      </section>
+      <section class="programa-bloque">
+        <h3>Aprender desde el comienzo</h3>
+        <p>Una <strong>política pública</strong> que fortalece comprensión, autonomía y desarrollo cognitivo desde la infancia.</p>
+      </section>
+    `
+  },
+  4: {
+    color: '#45A44D',
+    img: 'assets/img/programas/Pisaton.png',
+    alt: 'Rentrenamiento de competencias en el hogar',
+    tab: 'Pisatón',
+    copete: 'La escuela se extiende más allá del aula',
+    titulo: 'Rentrenamiento de competencias en el hogar',
+    subtitulo: 'Pisatón',
+    texto: `
+      <section class="programa-bloque">
+        <p>Una provincia que entiende que aprender <strong>no sucede solo en la escuela</strong>, sino en todo el entramado educativo y social.</p>
+      </section>
+      <div class="programa-box">Aprender más allá de la escuela</div>
+      <section class="programa-bloque">
+        <p>La <strong>PISATÓN</strong> propone experiencias de aprendizaje mediadas por <strong>Inteligencia Artificial segura</strong>, que conectan escuela y hogar para fortalecer habilidades fundamentales en contextos reales y cotidianos.</p>
+      </section>
+      <section class="programa-bloque">
+        <ul>
+          <li>Acompañar el aprendizaje desde el hogar</li>
+          <li>Reforzar competencias clave evaluadas a nivel internacional</li>
+          <li>Integrar tecnología, reflexión y participación familiar</li>
+          <li>Promover hábitos de aprendizaje autónomo y continuo</li>
+        </ul>
+      </section>
+      <section class="programa-bloque">
+        <p>Mendoza amplía su política educativa innovadora llevando el desarrollo de competencias clave más allá de la escuela, integrando a las familias como parte activa del ecosistema de aprendizaje.</p>
+      </section>
+    `
+  },
+  5: {
+    color: '#744cc6',
+    img: 'assets/img/programas/Convivencia.png',
+    alt: 'Prevención del bullying',
+    tab: 'Convivencia',
+    copete: 'Convivencia digital y ciudadanía responsable',
+    titulo: 'Prevención del bullying',
+    subtitulo: 'Convivencia escolar',
+    texto: `
+      <section class="programa-bloque">
+        <p class="programa-destacado">Mendoza impulsa una política pública innovadora de convivencia escolar que combina narrativa inmersiva, Inteligencia Artificial y pedagogía emocional.</p>
+        <p>El abordaje del bullying se realiza desde una mirada preventiva, reflexiva y transformadora, involucrando a estudiantes, docentes y familias.</p>
+      </section>
+      <div class="programa-box">
+        <strong>No es un enfoque punitivo.</strong><br>Es preventivo, sensible y escalable.
+      </div>
+      <section class="programa-bloque">
+        <h3>Experiencias guiadas con IA educativa</h3>
+        <ul>
+          <li>Comprender una misma situación desde múltiples perspectivas (víctima, agresor, testigo)</li>
+          <li>Reflexionar, escribir y dialogar con IA educativa</li>
+          <li>Tomar decisiones y pensar sobre las propias acciones</li>
+        </ul>
+      </section>
+      <section class="programa-bloque">
+        <h3>Un enfoque preventivo y medible</h3>
+        <ul>
+          <li>Detección temprana de riesgos</li>
+          <li>Análisis de patrones de convivencia</li>
+          <li>Intervenciones pedagógicas oportunas</li>
+        </ul>
+      </section>
+      <section class="programa-bloque">
+        <p>Mendoza transforma la convivencia escolar en una política pública basada en datos, empatía y acción educativa.</p>
+      </section>
+    `
+  },
+  6: {
+    color: '#bd974b',
+    img: 'assets/img/programas/Docentes.png',
+    alt: 'Entrenamiento docente en Inteligencia Artificial',
+    tab: 'Docentes',
+    copete: 'Formación pedagógica para el aula del presente',
+    titulo: 'Entrenamiento para docentes en Inteligencia Artificial',
+    subtitulo: 'Docentes · Nivel Secundario',
+    texto: `
+      <section class="programa-bloque">
+        <p class="programa-destacado">Acompañar a los docentes en la incorporación pedagógica, crítica y situada de la Inteligencia Artificial.</p>
+        <p>Integrándola como aliada del pensamiento, la planificación y el aprendizaje en el aula.</p>
+      </section>
+      <section class="programa-bloque">
+        <h3>Co-pensamiento con Inteligencia Artificial</h3>
+        <p>Se promueve un enfoque en el que el rol docente se fortalece como guía, mediador y diseñador de experiencias de aprendizaje. Al mismo tiempo, se habilita a los estudiantes a producir, reflexionar y consolidar sus aprendizajes a través de creaciones propias, favoreciendo una participación activa y consciente en entornos mediados por tecnología.</p>
+      </section>
+      <div class="programa-box">
+        <strong>Integrar Inteligencia Artificial a la enseñanza</strong><br>no es delegar el pensamiento, sino ampliarlo.
+      </div>
+      <section class="programa-bloque">
+        <p>Este recorrido acompaña el desarrollo de nuevas prácticas pedagógicas, brindando seguridad, criterio y confianza para enseñar en el contexto actual.</p>
+      </section>
+      <section class="programa-bloque">
+        <p>Como resultado, se potencia un aprendizaje más profundo, significativo y autónomo, con un uso responsable de la <strong>Inteligencia Artificial al servicio de la educación.</strong></p>
+      </section>
+    `
+  }
+};
+const PROGRAMA_ORDER = ['1', '2', '3', '4', '5', '6'];
+let activePrograma = '1';
+
+function renderPrograma(key) {
+  const p = PROGRAMAS_DATA[key];
+  const detalle = document.getElementById('programa-detalle');
+  if (!detalle || !p) return;
+  // Se setea en el wrapper (no en el panel) para que herede tambien a las
+  // flechas prev/next, que ahora son hermanas del panel, no hijas.
+  detalle.closest('.programa-detalle-wrap').style.setProperty('--programa-color', p.color);
+  document.getElementById('programa-img').src = p.img;
+  document.getElementById('programa-img').alt = p.alt;
+  document.getElementById('programa-media-title').textContent = p.tab;
+  document.getElementById('programa-copete').textContent = p.copete;
+  document.getElementById('programa-titulo').textContent = p.titulo;
+  document.getElementById('programa-subtitulo').textContent = p.subtitulo;
+  document.getElementById('programa-texto').innerHTML = p.texto;
+
+  // Alinear el titulo blanco (sobre la foto) con el titulo del panel
+  // blanco — la posicion de este ultimo varia segun cuanto texto tenga el
+  // copete de cada programa, asi que se mide en vez de dejarlo fijo.
+  const mediaTitle = document.getElementById('programa-media-title');
+  const titulo = document.getElementById('programa-titulo');
+  const content = titulo && titulo.closest('.programa-content');
+  if (mediaTitle && titulo && content) {
+    // +10: el borde de color de arriba de .programa-content (border-top)
+    // no cuenta en offsetTop (se mide desde el padding-box del padre).
+    const top = titulo.offsetTop + 10;
+    mediaTitle.style.top = `${top}px`;
+  }
+}
+
+function setActivePrograma(key) {
+  activePrograma = key;
+  document.querySelectorAll('.programa-tab').forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.programa === key);
+  });
+  renderPrograma(key);
+}
+
+document.querySelectorAll('.programa-tab').forEach((btn) => {
+  // --tab-color se asigna aca (no hardcodeado en el HTML) leyendo del mismo
+  // PROGRAMAS_DATA que alimenta el panel — una sola fuente, sin riesgo de
+  // que tab y panel queden con colores distintos si se cambia uno y no el
+  // otro (paso justamente lo que se corrigio con Pisaton/Certificacion IA).
+  const p = PROGRAMAS_DATA[btn.dataset.programa];
+  if (p) btn.style.setProperty('--tab-color', p.color);
+  btn.addEventListener('click', () => setActivePrograma(btn.dataset.programa));
+});
+
+const programaPrevBtn = document.getElementById('programa-prev');
+const programaNextBtn = document.getElementById('programa-next');
+if (programaPrevBtn && programaNextBtn) {
+  programaPrevBtn.addEventListener('click', () => {
+    const i = PROGRAMA_ORDER.indexOf(activePrograma);
+    setActivePrograma(PROGRAMA_ORDER[(i - 1 + PROGRAMA_ORDER.length) % PROGRAMA_ORDER.length]);
+  });
+  programaNextBtn.addEventListener('click', () => {
+    const i = PROGRAMA_ORDER.indexOf(activePrograma);
+    setActivePrograma(PROGRAMA_ORDER[(i + 1) % PROGRAMA_ORDER.length]);
+  });
+}
+
+if (document.getElementById('programa-detalle')) {
+  renderPrograma(activePrograma);
+
+  // Flechas prev/next a una altura fija (no la del panel actual, que varia
+  // segun cuanto texto tenga cada programa y las haria "saltar" al cambiar
+  // de pestaña) — se calcula el promedio de alto entre los 6 programas una
+  // sola vez al cargar, y se posicionan a la mitad de ese promedio.
+  const detalleEl = document.getElementById('programa-detalle');
+  const wrapEl = detalleEl.closest('.programa-detalle-wrap');
+  if (wrapEl) {
+    let total = 0;
+    PROGRAMA_ORDER.forEach((key) => {
+      renderPrograma(key);
+      total += detalleEl.offsetHeight;
+    });
+    const avgHeight = total / PROGRAMA_ORDER.length;
+    wrapEl.style.setProperty('--programa-nav-top', (avgHeight / 2).toFixed(0) + 'px');
+    renderPrograma(activePrograma); // vuelve a dejar el panel activo real
+  }
+}
+
+// Programas — acordeon mobile, generado desde la misma PROGRAMAS_DATA que
+// alimenta las tabs de desktop (una sola fuente de contenido). <details
+// name="programas-accordion"> es nativo: abre uno solo por vez sin JS extra.
+(() => {
+  const wrap = document.getElementById('programas-accordion');
+  if (!wrap) return;
+
+  PROGRAMA_ORDER.forEach((key) => {
+    const p = PROGRAMAS_DATA[key];
+    const item = document.createElement('details');
+    item.className = 'programa-accordion-item';
+    item.name = 'programas-accordion';
+    item.style.setProperty('--programa-color', p.color);
+
+    const summary = document.createElement('summary');
+    summary.className = 'programa-accordion-header';
+    summary.innerHTML =
+      `<span class="programa-accordion-num">${key.padStart(2, '0')}</span>` +
+      `<span class="programa-accordion-title">${p.tab}</span>` +
+      `<span class="programa-accordion-icon" aria-hidden="true"></span>`;
+
+    const body = document.createElement('div');
+    body.className = 'programa-accordion-body';
+    // Version recortada especifica para mobile (la de desktop es muy alta
+    // y se ve mal en el acordeon) — mismo nombre de archivo + "-mob".
+    const imgMobile = p.img.replace(/\.png$/, '-mob.png');
+    body.innerHTML =
+      `<img loading="lazy" decoding="async" src="${imgMobile}" alt="${p.alt}">` +
+      `<p class="programa-copete">${p.copete}</p>` +
+      `<h3 class="programa-titulo">${p.titulo}</h3>` +
+      `<p class="programa-subtitulo">${p.subtitulo}</p>` +
+      `<div class="programa-texto">${p.texto}</div>` +
+      `<button type="button" class="programa-accordion-close">Cerrar</button>`;
+
+    item.append(summary, body);
+    wrap.appendChild(item);
+  });
+
+  // Boton "Cerrar" al final del panel — asi no hay que scrollear hasta
+  // arriba para volver a plegar la card despues de leer el texto.
+  wrap.addEventListener('click', (e) => {
+    const btn = e.target.closest('.programa-accordion-close');
+    if (!btn) return;
+    const details = btn.closest('details');
+    if (!details) return;
+    details.open = false;
+    // Al cerrar un panel largo, el contenido se achica de golpe pero el
+    // scroll (en pixeles) queda donde estaba — visualmente "salta" a la
+    // seccion que haya quedado en esa posicion (ej. Creaciones). Volver al
+    // propio acordeon despues de cerrar evita ese salto.
+    details.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  });
 })();
 
 // FlexClass / PACCC — panel de detalle desktop
@@ -92,8 +539,6 @@ function renderDetail(key) {
   document.getElementById('paccc-detail-intro').textContent = s.intro;
   document.getElementById('paccc-detail-long').textContent = s.long;
   document.getElementById('paccc-detail-long').style.display = s.long ? 'block' : 'none';
-  const bot = document.getElementById('paccc-bot');
-  if (bot) bot.style.display = key === '3' ? 'block' : 'none';
   const creaList = document.getElementById('paccc-crea-list');
   if (creaList) creaList.style.display = key === '4' ? 'grid' : 'none';
 }
@@ -276,67 +721,57 @@ renderDetail(activeKey);
   });
 })();
 
-// PixelTexture — reusable decorative overlay of flickering pixel squares.
-// Renders `count` absolutely-positioned squares into `container`, sized/colored/timed
-// from the brand palette, biased toward the top-right corner (masked via CSS).
-function PixelTexture(container, count = 26) {
-  if (!container) return;
+// Deco texture (estrellas/equis parpadeando a los costados) — sin JS a
+// proposito: son <img> estaticos codeados directo en index.html (ver
+// .deco-shape en style.css). Generarlos en runtime con JS + posiciones al
+// azar en cada carga fue justamente lo que terminaba cortando la animacion
+// sola despues de unos segundos; codeados a mano, igual que la prueba que
+// confirmo que funciona, se sostienen sin problema.
 
-  const sizes = [6, 8, 12, 16, 24];
-  const accentColors = ['var(--accent-lime)', 'var(--accent-fuchsia)', 'var(--accent-cyan)', 'var(--accent-coral)'];
-  const baseColors = ['var(--accent-blue)', 'var(--accent-violet)'];
-
-  const squares = Array.from({ length: count }, () => {
-    const isAccent = Math.random() < 0.22;
-    const onLeft = Math.random() < 0.5;
-    return {
-      size: sizes[Math.floor(Math.random() * sizes.length)],
-      color: isAccent
-        ? accentColors[Math.floor(Math.random() * accentColors.length)]
-        : baseColors[Math.floor(Math.random() * baseColors.length)],
-      side: onLeft ? 'left' : 'right',
-      offset: (Math.random() * 16).toFixed(1) + '%',
-      top: (Math.random() * 96).toFixed(1) + '%',
-      opacityBase: isAccent ? 0.03 + Math.random() * 0.05 : 0.02 + Math.random() * 0.05,
-      opacityMax: isAccent ? 0.65 + Math.random() * 0.3 : 0.5 + Math.random() * 0.25,
-      duration: 1.4 + Math.random() * 2.2,
-      delay: Math.random() * 4,
-      blur: Math.random() < 0.35 ? (Math.random() < 0.5 ? 2 : 4) : 0
-    };
-  });
-
-  const frag = document.createDocumentFragment();
-  squares.forEach((sq) => {
-    const el = document.createElement('span');
-    el.className = 'pixel-sq';
-    // Tamano responsive: escala con el ancho de pantalla (referencia 1920px)
-    // en vez de quedar fijo en px, para que no se vean gigantes/grotescos en
-    // notebook o tablet. La densidad (cantidad visible) se ajusta aparte via CSS.
-    const responsiveSize = `clamp(3px, ${(sq.size / 19.2).toFixed(2)}vw, ${sq.size}px)`;
-    el.style.width = responsiveSize;
-    el.style.height = responsiveSize;
-    el.style.top = sq.top;
-    el.style[sq.side] = sq.offset;
-    el.style.background = sq.color;
-    if (sq.blur) el.style.filter = `blur(${sq.blur}px)`;
-    el.style.setProperty('--op-a', sq.opacityBase.toFixed(2));
-    el.style.setProperty('--op-b', sq.opacityMax.toFixed(2));
-    el.style.setProperty('--dur', sq.duration.toFixed(1) + 's');
-    el.style.setProperty('--delay', sq.delay.toFixed(1) + 's');
-    frag.appendChild(el);
-  });
-  container.appendChild(frag);
-}
-
-// En mobile no se generan los cuadraditos decorativos — menos nodos/animaciones en pantallas chicas.
+// Creaciones — desktop: el grid estatico se reordena en 2 filas horizontales
+// con loop infinito (mismo mecanismo que las columnas verticales de Entre
+// Rios en referencia/, rotado a horizontal). Se REUBICAN los mismos nodos
+// .creacion-card que ya estaban en el HTML (no se reescribe su contenido —
+// el diseño de la card queda igual), se reparten alternados entre las 2
+// filas y se clonan (aria-hidden, fuera del tab order) para el loop sin
+// salto visual. En mobile no se toca nada, sigue el carrusel swipeable
+// que ya existia.
 if (window.innerWidth > 900) {
-  PixelTexture(document.getElementById('hero-pixel-texture'), 44);
-  PixelTexture(document.getElementById('squares-layer'), 68);
-  PixelTexture(document.getElementById('paccc-pixel-texture'), 34);
-  PixelTexture(document.getElementById('creaciones-pixel-texture'), 34);
-  PixelTexture(document.getElementById('security-pixel-texture'), 34);
-  PixelTexture(document.getElementById('reconocimientos-pixel-texture'), 30);
-  PixelTexture(document.getElementById('contacto-pixel-texture'), 34);
+  (() => {
+    const grid = document.getElementById('creaciones-grid');
+    if (!grid) return;
+    const cards = Array.from(grid.querySelectorAll('.creacion-card'));
+    if (!cards.length) return;
+
+    const rowA = cards.filter((_, i) => i % 2 === 0);
+    const rowB = cards.filter((_, i) => i % 2 === 1);
+
+    function buildRow(rowCards, direction) {
+      const row = document.createElement('div');
+      row.className = `creaciones-row creaciones-row--${direction}`;
+      const track = document.createElement('div');
+      track.className = 'creaciones-row-track';
+      rowCards.forEach((card) => track.appendChild(card));
+      rowCards.forEach((card) => {
+        const clone = card.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        clone.querySelectorAll('a,button').forEach((el) => { el.tabIndex = -1; });
+        track.appendChild(clone);
+      });
+      row.appendChild(track);
+      return row;
+    }
+
+    const wrap = document.createElement('div');
+    wrap.className = 'creaciones-rows';
+    wrap.id = 'creaciones-grid';
+    wrap.setAttribute('role', 'list');
+    wrap.setAttribute('aria-label', 'Galería de creaciones curriculares con IA');
+    wrap.appendChild(buildRow(rowA, 'left'));
+    wrap.appendChild(buildRow(rowB, 'right'));
+
+    grid.replaceWith(wrap);
+  })();
 }
 
 // Hero video source — el atributo media="" en <source> de <video> (a
@@ -350,8 +785,8 @@ if (window.innerWidth > 900) {
 (() => {
   const video = document.getElementById('hero-video');
   if (!video) return;
-  const MOBILE_SRC = 'assets/videos/cuadrado.mp4';
-  const DESKTOP_SRC = 'assets/videos/hero-video-2.mp4';
+  const MOBILE_SRC = 'assets/videos/Mendoza-Vertical.mp4';
+  const DESKTOP_SRC = 'assets/videos/Intro-Mendoza-Hori.mp4';
   let isMobileSrc = null;
 
   function syncHeroVideoSource() {
@@ -392,11 +827,27 @@ if (window.innerWidth > 900) {
     const containerEl = window.innerWidth <= 900 ? videoWrap : heroSection;
     const containerRect = containerEl.getBoundingClientRect();
     const videoRect = video.getBoundingClientRect();
-    const gapPx = Math.max(0, containerRect.bottom - videoRect.bottom);
-    const blendPx = Math.min(BLEND_PX, videoRect.height * 0.25);
+    // Si el video todavia no cargo metadata, getBoundingClientRect da 0 de
+    // alto — con eso el calculo de abajo queda mal armado (blend a partir
+    // de un video "invisible") y el fade termina viendose como una linea
+    // dura en vez de un degrade, porque nunca se vuelve a recalcular bien
+    // despues. Sin altura real todavia, no tocar el fade y esperar al
+    // proximo intento (loadedmetadata/canplay/reintentos de abajo).
+    if (videoRect.height < 2) return;
 
-    const totalHeight = gapPx + blendPx;
-    const blendPct = (blendPx / totalHeight) * 100;
+    const gapPx = Math.max(0, containerRect.bottom - videoRect.bottom);
+    const blendPx = Math.min(BLEND_PX, videoRect.height * 0.25); // fundido video -> bg-dark-2
+    // Ancho MINIMO en pixeles reservado para el segundo tramo del degrade
+    // (bg-dark-2 -> bg-dark-1, el color de la seccion siguiente). Un tope
+    // en PORCENTAJE (probado antes) no alcanza: con un video bajo (mobile,
+    // max-height fijo) el gap da ~0 y el total queda tan chico que ese
+    // porcentaje se traduce en unos pocos pixeles reales — invisible,
+    // se seguia viendo como corte duro. Reservando un ancho fijo en px en
+    // vez de un %, la transicion siempre tiene lugar real para notarse.
+    const sectionBlendPx = 40;
+
+    const totalHeight = gapPx + blendPx + sectionBlendPx;
+    const blendPct = totalHeight > 0 ? (blendPx / totalHeight) * 100 : 0;
 
     fadeEl.style.height = totalHeight + 'px';
     fadeEl.style.background =
@@ -404,8 +855,11 @@ if (window.innerWidth > 900) {
   }
 
   video.addEventListener('loadedmetadata', updateFade);
+  video.addEventListener('canplay', updateFade);
   window.addEventListener('resize', updateFade);
   updateFade();
-  // safety net in case loadedmetadata already fired before this ran
-  setTimeout(updateFade, 300);
+  // Reintentos escalonados por si el video tarda en reportar su tamaño
+  // real (con el guard de arriba, los intentos tempranos no rompen nada,
+  // solo no hacen efecto hasta que haya altura real que medir).
+  [100, 300, 800, 1500].forEach((ms) => setTimeout(updateFade, ms));
 })();

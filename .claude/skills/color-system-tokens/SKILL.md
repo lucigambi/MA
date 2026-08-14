@@ -115,6 +115,7 @@ Con esta arquitectura, dark mode es redefinir SOLO la capa semántica dentro de 
 - Al arrancar un sitio nuevo: solo tocar `--brand-hue`, `--brand-saturation`, `--neutral-hue` de la capa 1. Todo lo demás se recalcula solo.
 - Chequear contraste de `--text-*` sobre `--bg-*` con las reglas WCAG de la skill `responsive-typography-standards` antes de cerrar la paleta — la fórmula HSL da progresión pareja pero no garantiza el ratio exacto, siempre verificar los pares que se usan en texto real.
 - Si el brief pide colores de marca ya fijos (no HSL libre), convertir ese hex a HSL, tomar su hue/saturación como base de la capa 1, y generar el resto de la escala igual.
+- Nunca un color hardcodeado en un atributo `style=""` del HTML (ej. `style="--tab-color:#f1845e"` o `style="background:#..."`), aunque sea vía custom property. Si el valor es fijo, va en una clase del CSS. Si es dinámico por instancia (ej. un color distinto por tarjeta/tab generado desde datos), lo asigna JS en runtime leyendo del MISMO objeto de datos que ya alimenta el resto del componente — nunca tipeado dos veces a mano en el HTML y en el JS/CSS por separado, porque ahí es donde se desincroniza (un lugar se corrige y el otro no).
 
 ## Checklist
 
@@ -122,4 +123,5 @@ Con esta arquitectura, dark mode es redefinir SOLO la capa semántica dentro de 
 - [ ] Ningún hex suelto en componentes — todo vía semánticos
 - [ ] Escala de grises con el mismo hue que la marca (no gris frío genérico)
 - [ ] Contraste texto/fondo verificado en los pares reales que se usan
+- [ ] Cero `style=""` con colores hardcodeados en el HTML — ni fijos ni por instancia (esos ultimos los asigna JS en runtime desde una unica fuente de datos)
 - [ ] Dark mode (si aplica) resuelto solo redefiniendo capa 2, cero cambios en componentes

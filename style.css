@@ -428,7 +428,7 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
   #hero-bottom-fade{display:block!important;position:absolute!important;inset:0!important;left:0!important;right:0!important;bottom:0!important;top:0!important;height:auto!important;background:linear-gradient(to bottom,rgba(var(--bg-dark-2-rgb),0) 60%,var(--bg-dark-2) 100%)!important;}
   #hero-content{padding-block:14px!important;width:92%!important;margin-top:14px!important;}
   #hero-headline{font-size:clamp(30px,9vw,40px)!important;line-height:1.12!important;white-space:normal!important;width:auto!important;max-width:100%!important;position:static!important;left:auto!important;transform:none!important;margin:0 auto!important;}
-  #hero-segline{margin-top:8px!important;}
+  #hero-segline{width:auto!important;max-width:100%!important;margin-top:8px!important;}
   #hero-segline > div{width:48px!important;height:3px!important;}
   .inl-20{font-size:clamp(12.6px,11.17px + 0.398vw,16.1px)!important;margin-top:8px!important;}
   #hero-cta-wrap{margin-top:10px!important;}
@@ -444,11 +444,6 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 .inl-61{font-family:'Barlow Condensed',sans-serif;font-size:var(--step-caption);font-weight:650;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-on-dark-90)}
 #paccc-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:var(--step-h2);line-height:1.02;letter-spacing:-0.025em;color:var(--text-on-dark);margin-top:18px}
 .inl-62{display:flex;justify-content:center;width:220px;height:4px;margin:10px auto 0}
-.inl-63{flex:1;background:var(--accent-violet)}
-.inl-64{flex:1;background:var(--accent-fuchsia)}
-.inl-65{flex:1;background:var(--accent-cyan)}
-.inl-66{flex:1;background:var(--accent-coral)}
-.inl-67{flex:1;background:var(--accent-lime)}
 .inl-68{font-family:'Nunito',sans-serif;font-size:clamp(22px,1.4vw,30px);font-weight:700;line-height:1.2;margin-top:26px}
 .inl-69{color:var(--accent-lime)}
 .inl-70{color:var(--text-on-dark)}
@@ -728,17 +723,16 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 }
 
 /* ============================= CREACIONES ============================= */
-.creaciones-section{--creaciones-bg-rgb:var(--accent-cyan-rgb);position:relative;padding:clamp(72px,6vw,112px) 64px;background:rgb(var(--creaciones-bg-rgb));overflow:hidden;}
+.creaciones-section{--creaciones-bg-rgb:var(--accent-cyan-rgb);position:relative;z-index:2;padding:clamp(72px,6vw,112px) 64px;background:rgb(var(--creaciones-bg-rgb));overflow:hidden;}
+/* Mismo oscurecido que Pisaton sobre su turquesa (overlay negro al 35%,
+   ver #pisaton-overlay) — el turquesa de marca solo (sin esto) se ve mas
+   claro/plano que en Pisaton, que tiene esa capa encima. */
+.creaciones-section::before{content:'';position:absolute;inset:0;z-index:1;background:rgba(0,0,0,0.35);pointer-events:none;}
 .creaciones-intro{position:relative;z-index:2;max-width:900px;margin:0 auto 32px;text-align:center;}
 .inl-160{display:inline-flex;align-items:center;justify-content:center;gap:0px}
 .inl-166{font-family:'Barlow Condensed',sans-serif;font-size:var(--step-caption);font-weight:650;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-on-dark-90)}
 #creaciones-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:var(--step-h2);line-height:1.02;letter-spacing:-0.025em;color:var(--text-on-dark);margin-top:18px}
 .inl-168{display:flex;justify-content:center;width:220px;height:4px;margin:10px auto 0}
-.inl-169{flex:1;background:var(--accent-violet)}
-.inl-170{flex:1;background:var(--accent-fuchsia)}
-.inl-171{flex:1;background:var(--accent-cyan)}
-.inl-172{flex:1;background:var(--accent-coral)}
-.inl-173{flex:1;background:var(--accent-lime)}
 #creaciones-desc{font-family:'Nunito',sans-serif;font-size:var(--step-body);line-height:1.55;font-weight:400;color:var(--text-on-dark-78);max-width:780px;margin:20px auto 0}
 @media (max-width:900px){#creaciones-desc{font-size:clamp(15.3px,13.58px + 0.477vw,19.5px)}}
 
@@ -913,11 +907,6 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 .inl-303{font-family:'Barlow Condensed',sans-serif;font-size:var(--step-caption);font-weight:650;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-on-dark-90)}
 #reconocimientos-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:var(--step-h2);line-height:1.02;letter-spacing:-0.02em;color:var(--text-on-dark);margin-top:18px}
 .inl-305{display:flex;justify-content:center;width:220px;height:4px;margin:10px auto 0}
-.inl-306{flex:1;background:var(--accent-violet)}
-.inl-307{flex:1;background:var(--accent-fuchsia)}
-.inl-308{flex:1;background:var(--accent-cyan)}
-.inl-309{flex:1;background:var(--accent-coral)}
-.inl-310{flex:1;background:var(--accent-lime)}
 .inl-311{font-family:'Nunito',sans-serif;font-size:clamp(16px,1.15vw,20px);line-height:1.55;font-weight:400;color:var(--text-on-dark-secondary);max-width:720px;margin:20px auto 0}
 
 .reconocimientos-inner{position:relative;z-index:2;max-width:1600px;margin-inline:auto;padding-inline:clamp(40px,5vw,72px);}
@@ -952,7 +941,7 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
   .reconocimientos-featured,.reconocimientos-secondary{display:none;}
   .reconocimientos-mobile-rail{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:14px;margin-top:36px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px;}
   .reconocimientos-mobile-rail::-webkit-scrollbar{display:none;}
-  .reconocimientos-mobile-rail .award-card{flex:0 0 84vw;max-width:84vw;scroll-snap-align:center;}
+  .reconocimientos-mobile-rail .award-card{flex:0 0 70vw;max-width:70vw;scroll-snap-align:center;}
   .award-card{padding:20px 14px;min-height:210px;gap:14px;}
   .award-logo-stage,.award-logo-stage.is-small,.award-logo-stage.is-large{height:68px;}
   .award-logo-stage img,.award-logo-stage.is-small img,.award-logo-stage.is-large img{max-height:68px;}

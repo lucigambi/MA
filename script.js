@@ -133,9 +133,19 @@
 // de PACCC. El color se aplica via --programa-color (custom property), asi el
 // CSS de titulo/subtitulo-badge/cajas destacadas/viñetas queda en una sola regla
 // generica en vez de 6 bloques de color duplicados.
+// Los 3 que coinciden con un acento de marca (Certificación IA/Refuerzo/
+// Pisatón) leen el color en runtime de la misma variable CSS que el resto
+// del sitio (:root en style.css), asi cambiar el tono ahi los actualiza
+// tambien aca. Interdisciplinario/Convivencia/Docentes tienen su propio
+// color oficial de folleto impreso, no derivan de marca a proposito.
+const BRAND = getComputedStyle(document.documentElement);
+const COLOR_TURQUESA = BRAND.getPropertyValue('--color-turquesa').trim();
+const COLOR_NARANJA = BRAND.getPropertyValue('--color-naranja').trim();
+const COLOR_VERDE = BRAND.getPropertyValue('--color-verde').trim();
+
 const PROGRAMAS_DATA = {
   1: {
-    color: '#0075A4',
+    color: COLOR_TURQUESA,
     img: 'assets/img/programas/CertificacionIA.png',
     alt: 'Certificación en Inteligencia Artificial',
     tab: 'Certificación IA',
@@ -227,7 +237,7 @@ const PROGRAMAS_DATA = {
     `
   },
   3: {
-    color: '#F36B3D',
+    color: COLOR_NARANJA,
     img: 'assets/img/programas/Refuerzo.png',
     alt: 'Refuerzo de aprendizajes fundamentales',
     tab: 'Refuerzo',
@@ -267,7 +277,7 @@ const PROGRAMAS_DATA = {
     `
   },
   4: {
-    color: '#45A44D',
+    color: COLOR_VERDE,
     img: 'assets/img/programas/Pisaton.png',
     alt: 'Rentrenamiento de competencias en el hogar',
     tab: 'Pisatón',
@@ -805,27 +815,25 @@ if (window.innerWidth > 900) {
   window.addEventListener('resize', syncHeroVideoSource, { passive: true });
 })();
 
-// Hero bottom fade. Desktop: el video (panoramico) va siempre a
+// Hero bottom fade (desktop). El video (panoramico) va siempre a
 // width:100%/height:auto anclado arriba dentro de un hero a 100svh (nunca se
 // recorta), lo que deja un hueco debajo del video que ya se ve del color
 // correcto (fondo propio de #hero-section); esto mide ese hueco real entre
 // el hero y el video y reubica/redimensiona el degrade para que la costura
-// no se note. Mobile (<=900px, ver CSS): el hero pasa a flujo normal (video
-// + contenido en secuencia, sin hueco de por medio), asi que ahi el degrade
-// solo hace un blend corto contra el propio borde inferior del video, no
-// contra el hero-section entero.
+// no se note. En mobile (<=900px) el degrade lo resuelve el CSS solo
+// (ver style.css, #hero-bottom-fade con !important) — no calcular aca.
 (() => {
   const heroSection = document.getElementById('hero-section');
-  const videoWrap = document.getElementById('hero-video-wrap');
   const video = document.getElementById('hero-video');
   const fadeEl = document.getElementById('hero-bottom-fade');
-  if (!heroSection || !videoWrap || !video || !fadeEl) return;
+  if (!heroSection || !video || !fadeEl) return;
 
-  const BLEND_PX = 200; // how far the fade reaches up into the video for a soft transition (capped below on short videos, e.g. the mobile square clip, so it doesn't eat most of the frame)
+  const BLEND_PX = 200; // how far the fade reaches up into the video for a soft transition
 
   function updateFade() {
-    const containerEl = window.innerWidth <= 900 ? videoWrap : heroSection;
-    const containerRect = containerEl.getBoundingClientRect();
+    if (window.innerWidth <= 900) return;
+
+    const containerRect = heroSection.getBoundingClientRect();
     const videoRect = video.getBoundingClientRect();
     // Si el video todavia no cargo metadata, getBoundingClientRect da 0 de
     // alto — con eso el calculo de abajo queda mal armado (blend a partir

@@ -10,69 +10,78 @@
    ========================================================================= */
 :root{
   /* ---- Capa 1: primitivos de marca (fijos) ----
-     Paleta propia de Mendoza Aumentada: fondo #260055, acentos turquesa
-     #0075A4 / naranja #F36B3D / verde #45A44D (los 3 tonos reales de PACCC,
-     ver mas abajo). Los roles que en el sitio hermano usaban 6 acentos
-     distintos (lima/cian/azul/fucsia/coral/violeta) se consolidan en estos
-     3: verde reemplaza al lima (CTA/positivo), turquesa reemplaza a
-     cian/azul/violeta (interactivo/foco/decorativo), naranja reemplaza a
-     fucsia/coral (decorativo/segundo acento) — cada alias apunta al MISMO
-     primitivo, nunca a un hex propio, para que no haya dos tonos de
-     "naranja" o "turquesa" distintos sueltos por el sitio. Como todo el
-     sitio lee de la capa semantica de abajo, alcanza con tocar esto para
-     re-tematizar todo. Excepcion: los botones de acceso (--access-*, mas
-     abajo) y PACCC Personaliza/Aprende (--paccc-p/--paccc-a) tienen sus
-     propios valores a proposito, no derivan de aca. */
+     LOS 4 COLORES REALES DEL SITIO — cambiar el hex ACA para recolorear
+     todo lo que use ese tono en cualquier parte (PACCC, links, barras,
+     seleccion de texto, Y el color principal de los botones de acceso).
+     Todo lo demas de esta capa (cyan/blue/fuchsia/coral/lime/violet, nombres
+     historicos que sigue usando medio sitio, --paccc-p, --access-*-top) es
+     un alias que apunta a uno de estos 4 con var(), nunca repite su propio
+     hex — asi no hay dos tonos de "naranja" o "turquesa" distintos sueltos.
+     Unica excepcion real: --paccc-a (magenta "Aprende"), exclusivo de PACCC.
+     Los stops OSCUROS del degrade de los accesos (--access-*-bottom) tambien
+     quedan aparte a proposito: son un tono mas oscuro elegido a mano, no
+     derivado por formula (color-mix() daba un resultado grisaceo/turbio). */
+  --color-turquesa:#0075A4;--color-turquesa-rgb:0,117,164;
+  --color-naranja:#F36B3D;--color-naranja-rgb:243,107,61;
+  --color-verde:#45A44D;--color-verde-rgb:69,164,77;
+  --color-violeta:#7C55B3;--color-violeta-rgb:124,85,179;
+
   --color-purple-900:#260055;--color-purple-900-rgb:38,0,85;
   --color-purple-800:#3B0683;--color-purple-800-rgb:59,6,131;
   --color-offwhite:#F5F7FB;
   --color-white:#FFFFFF;--color-white-rgb:255,255,255;
-  /* 3 tonos reales de acento en todo el sitio (turquesa/naranja/verde,
-     tomados de PACCC — ver mas abajo). violet/blue/cyan/fuchsia/coral son
-     alias que appuntan al MISMO primitivo cada uno (turquesa o naranja),
-     no colores propios — asi cualquier componente que use cualquiera de
-     estos nombres semanticos siempre pinta el mismo tono, sin excepcion. */
-  --color-lime:#45A44D;--color-lime-rgb:69,164,77;
-  --color-cyan:#0075A4;--color-cyan-rgb:0,117,164;
-  --color-blue:#0075A4;--color-blue-rgb:0,117,164;
-  --color-fuchsia:#F36B3D;--color-fuchsia-rgb:243,107,61;
-  --color-coral:#F36B3D;--color-coral-rgb:243,107,61;
-  --color-violet:#0075A4;--color-violet-rgb:0,117,164;
+  /* Alias de nombre historico (heredados del sitio hermano, que usaba 6
+     acentos distintos) — TODOS apuntan a uno de los 4 de arriba, ninguno
+     tiene hex propio. --color-violet (ingles) sigue pintando TURQUESA por
+     compatibilidad con el nombre viejo — no confundir con --color-violeta
+     (espanol, la real, arriba), son dos cosas distintas a proposito. */
+  --color-lime:var(--color-verde);--color-lime-rgb:var(--color-verde-rgb);
+  --color-cyan:var(--color-turquesa);--color-cyan-rgb:var(--color-turquesa-rgb);
+  --color-blue:var(--color-turquesa);--color-blue-rgb:var(--color-turquesa-rgb);
+  --color-fuchsia:var(--color-naranja);
+  --color-coral:var(--color-naranja);--color-coral-rgb:var(--color-naranja-rgb);
+  --color-violet:var(--color-turquesa);--color-violet-rgb:var(--color-turquesa-rgb);
   --color-ink:#111735;
   --color-ink-secondary:#536078;
 
   /* Degrade de los botones de acceso — unico lugar del sitio con volumen
-     (junto a los tabs). Arriba: el naranja/verde oficial, igual que en
-     cualquier otro lugar del sitio. Abajo: valores puntuales del usuario
-     (no derivados de una formula), reemplazan el intento con color-mix()
-     que daba un resultado grisaceo/turbio. El degrade completo (ver
-     .access-btn--*) termina en transparent, no en un solido, a pedido. */
-  --access-orange-top:#F36B3D;
+     (junto a los tabs). Arriba: el color principal, derivado de los 4 de
+     arriba (si se cambia el naranja/verde de marca, el CTA lo sigue).
+     Abajo: valor mas oscuro elegido a mano, ver nota de la capa 1. El
+     degrade completo (ver .access-btn--*) termina en transparent, no en un
+     solido, a pedido. */
+  --access-orange-top:var(--color-naranja);
   --access-orange-bottom:#d03b1f;
-  --access-green-top:#45A44D;
+  --access-green-top:var(--color-verde);
   --access-green-bottom:#266942;
+
+  /* Colores de SECCION — fondos que son propios de una sola seccion (no un
+     acento compartido, no derivan de los 4 de arriba), agrupados aca para
+     no tener que buscarlos sueltos en medio del CSS. Si una seccion nueva
+     necesita un color de fondo unico, el token va aca, no hardcodeado en su
+     propia regla mas abajo. */
+  --section-manifiesto:#3F1E69;
 
   /* ---- Capa 2: semánticos (usar SIEMPRE estos en componentes) ---- */
   --bg-dark-1:var(--color-purple-900);--bg-dark-1-rgb:var(--color-purple-900-rgb);
   --bg-dark-2:var(--color-purple-800);--bg-dark-2-rgb:var(--color-purple-800-rgb);
   --bg-light-1:var(--color-offwhite);
-  --bg-white:var(--color-white);--bg-white-rgb:var(--color-white-rgb);
+  --bg-white:var(--color-white);
 
   --accent-lime:var(--color-lime);--accent-lime-rgb:var(--color-lime-rgb);
   --accent-cyan:var(--color-cyan);--accent-cyan-rgb:var(--color-cyan-rgb);
   --accent-blue:var(--color-blue);--accent-blue-rgb:var(--color-blue-rgb);
-  --accent-fuchsia:var(--color-fuchsia);--accent-fuchsia-rgb:var(--color-fuchsia-rgb);
+  --accent-fuchsia:var(--color-fuchsia);
   --accent-coral:var(--color-coral);--accent-coral-rgb:var(--color-coral-rgb);
   --accent-violet:var(--color-violet);--accent-violet-rgb:var(--color-violet-rgb);
 
-  /* Metodo FlexClass (PACCC) — Personaliza (violeta) y Aprende (magenta)
-     son exclusivos de esta seccion, no forman parte de los 3 acentos del
-     resto del sitio. Conversa/Crea/Comparte SI referencian los primitivos
-     de arriba (turquesa/naranja/verde) — son la fuente original de esos 3
-     tonos, asi que quedan como el mismo valor por definicion, no una
-     coincidencia a mantener a mano. Antes Comparte tenia el lima de Entre
-     Rios (#9BDD5A) suelto, ya corregido a que sea el mismo verde de marca. */
-  --paccc-p:#7C55B3;--paccc-p-rgb:124,85,179;
+  /* Metodo FlexClass (PACCC) — Personaliza usa el violeta real de marca
+     (--color-violeta, capa 1); Aprende (magenta) es la UNICA excepcion
+     exclusiva de PACCC, no deriva de los 4 primitivos. Conversa/Crea/
+     Comparte referencian los mismos 3 primitivos turquesa/naranja/verde
+     que el resto del sitio (antes Comparte tenia el lima de Entre Rios
+     #9BDD5A suelto, ya corregido a que sea el mismo verde de marca). */
+  --paccc-p:var(--color-violeta);--paccc-p-rgb:var(--color-violeta-rgb);
   --paccc-a:#E63AA4;--paccc-a-rgb:230,58,164;
   --paccc-c1:var(--color-cyan);--paccc-c1-rgb:var(--color-cyan-rgb);
   --paccc-c2:var(--color-coral);--paccc-c2-rgb:var(--color-coral-rgb);
@@ -88,7 +97,6 @@
   --text-on-dark-90:rgba(var(--color-white-rgb),0.92);
   --text-on-dark-78:rgba(var(--color-white-rgb),0.78);
   --text-on-dark-70:rgba(var(--color-white-rgb),0.68);
-  --text-on-dark-60:rgba(var(--color-white-rgb),0.6);
 
   --border-on-light:#DDE4F0;
   --border-on-dark:rgba(255,255,255,0.14);
@@ -103,11 +111,6 @@
   --step-h2:clamp(44px,2.7vw,58px);            /* títulos de sección (desktop) */
   --step-h2-mobile:clamp(28px,9vw,36px);       /* títulos de sección (mobile) */
   --step-hero:clamp(46px,3.6vw,64px);          /* headline del hero — mas grande que --step-h2 (max 58px) a proposito, pero sin pasarse; a 1920px de ancho antes tocaba el techo de 72px y se sentia gigante */
-
-  --space-s:clamp(1.13rem,1.07rem + 0.23vw,1.25rem);
-  --space-m:clamp(1.69rem,1.61rem + 0.34vw,1.88rem);
-  --space-l:clamp(2.25rem,2.15rem + 0.45vw,2.5rem);
-  --space-xl:clamp(3.38rem,3.22rem + 0.68vw,3.75rem);
 }
 
 /* Compensa el header fijo al saltar a un ancla del nav: sin esto, el navegador
@@ -399,7 +402,7 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 .inl-20{max-width:640px;margin:12px auto 0;font-size:clamp(13.5px,11.95px + 0.432vw,17.3px);font-weight:400;line-height:1.4;color:var(--text-on-dark-78);text-align:center}
 #hero-cta-wrap{display:flex;justify-content:center;margin-top:14px}
 .hero-institutional-lockup{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:12px;flex-wrap:wrap}
-.hero-institutional-lockup img.logos-mendoza{height:55px;width:auto;object-fit:contain}
+.hero-institutional-lockup img.logos-mendoza{width:auto;height:auto;max-width:100%;object-fit:contain}
 
 @media (max-width:900px){
   #hero-section{display:block!important;min-height:0!important;}
@@ -428,7 +431,7 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
   .inl-20{font-size:clamp(12.6px,11.17px + 0.398vw,16.1px)!important;margin-top:8px!important;}
   #hero-cta-wrap{margin-top:10px!important;}
   .hero-institutional-lockup{margin-top:10px!important;}
-  .hero-institutional-lockup img.logos-mendoza{height:34px!important;}
+  .hero-institutional-lockup img.logos-mendoza{width:auto!important;height:auto!important;max-width:100%!important;}
 }
 
 /* ============================= FLEXCLASS / PACCC ============================= */
@@ -436,11 +439,6 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 .inl-53{position:relative;z-index:2;max-width:1920px;margin-inline:auto}
 .inl-54{text-align:center;max-width:900px;margin:0 auto clamp(38px,3vw,56px)}
 .inl-55{display:inline-flex;align-items:center;justify-content:center;gap:0px}
-.inl-56{display:grid;grid-template-columns:repeat(2,1fr);gap:3px;width:22px;height:22px;flex-shrink:0}
-.inl-57{background:var(--accent-lime);border-radius:2px}
-.inl-58{background:var(--accent-cyan);border-radius:2px}
-.inl-59{background:var(--accent-blue);border-radius:2px}
-.inl-60{background:var(--accent-fuchsia);border-radius:2px}
 .inl-61{font-family:'Barlow Condensed',sans-serif;font-size:var(--step-caption);font-weight:650;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-on-dark-90)}
 #paccc-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:var(--step-h2);line-height:1.02;letter-spacing:-0.025em;color:var(--text-on-dark);margin-top:18px}
 .inl-62{display:flex;justify-content:center;width:220px;height:4px;margin:10px auto 0}
@@ -470,7 +468,7 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 .nav-arrow-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:44px;height:44px;border-radius:50%;background:var(--accent-violet);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(0,0,0,0.35);transition:filter 0.2s;}
 .nav-arrow-btn:hover{filter:brightness(1.15);}
 
-#paccc-detail{position:relative;z-index:2;border:1px solid var(--border-on-dark);border-top:none;border-radius:0 0 20px 20px;background:#260055;max-width:1920px;margin-inline:auto}
+#paccc-detail{position:relative;z-index:2;border:1px solid var(--border-on-dark);border-top:none;border-radius:0 0 20px 20px;background:var(--bg-dark-1);max-width:1920px;margin-inline:auto}
 #paccc-prev{left:-17px;top:50%;z-index:5}
 .inl-79{width:14px;height:14px;object-fit:contain;transform:rotate(180deg)}
 #paccc-next{right:-17px;left:auto;top:50%;z-index:5}
@@ -581,7 +579,7 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 .evidencia-card-note{font-family:'Nunito',sans-serif;font-size:clamp(12px,0.7vw,13px);line-height:1.4;color:var(--text-on-light-secondary);opacity:0.75;margin-top:10px;padding-top:10px;border-top:1px solid var(--border-on-light)}
 
 #evidencia-callout{display:flex;align-items:center;gap:14px;padding:clamp(18px,2.2vw,26px) clamp(24px,3vw,40px);background:var(--bg-dark-2)}
-#evidencia-callout-icon{flex-shrink:0}
+#evidencia-callout-icon{flex-shrink:0;fill:var(--accent-lime)}
 #evidencia-callout span{font-family:'Nunito',sans-serif;text-transform:uppercase;font-weight:600;font-size:clamp(18px,1.3vw,24px);line-height:1.35;color:rgba(255,255,255,0.92)}
 #evidencia-callout .evidencia-callout-highlight{color:var(--accent-lime);font-weight:800}
 
@@ -731,11 +729,6 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 .creaciones-section{--creaciones-bg-rgb:var(--bg-dark-1-rgb);position:relative;padding:clamp(72px,6vw,112px) 64px;background:rgb(var(--creaciones-bg-rgb));overflow:hidden;}
 .creaciones-intro{position:relative;z-index:2;max-width:900px;margin:0 auto 32px;text-align:center;}
 .inl-160{display:inline-flex;align-items:center;justify-content:center;gap:0px}
-.inl-161{display:grid;grid-template-columns:repeat(2,1fr);gap:3px;width:22px;height:22px;flex-shrink:0}
-.inl-162{background:var(--accent-lime);border-radius:2px}
-.inl-163{background:var(--accent-cyan);border-radius:2px}
-.inl-164{background:var(--accent-blue);border-radius:2px}
-.inl-165{background:var(--accent-fuchsia);border-radius:2px}
 .inl-166{font-family:'Barlow Condensed',sans-serif;font-size:var(--step-caption);font-weight:650;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-on-dark-90)}
 #creaciones-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:var(--step-h2);line-height:1.02;letter-spacing:-0.025em;color:var(--text-on-dark);margin-top:18px}
 .inl-168{display:flex;justify-content:center;width:220px;height:4px;margin:10px auto 0}
@@ -845,7 +838,7 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 /* ============================= MANIFIESTO ============================= */
 /* Foto de fondo sin recortar: se dimensiona solo por el alto de la seccion
    (width:auto, sin object-fit:cover), asi se ve completa y se angosta. */
-#manifiesto{padding:clamp(90px,9vw,130px) 64px;background:#4E1867;color:var(--text-on-dark);position:relative;z-index:2;overflow:hidden;display:flex;align-items:center;min-height:clamp(420px,42vw,560px)}
+#manifiesto{padding:clamp(90px,9vw,130px) 64px;background:var(--section-manifiesto);color:var(--text-on-dark);position:relative;z-index:2;overflow:hidden;display:flex;align-items:center;min-height:clamp(420px,42vw,560px)}
 #manifiesto-photo{position:absolute;left:0;top:0;height:100%;width:auto;z-index:0;opacity:1;-webkit-mask-image:linear-gradient(to right,#000 0%,#000 72%,transparent 96%);mask-image:linear-gradient(to right,#000 0%,#000 72%,transparent 96%)}
 #manifiesto-overlay{position:absolute;inset:0;z-index:1;background:rgba(0,0,0,0.35);pointer-events:none;}
 #manifiesto-photo-mobile{display:none}
@@ -915,11 +908,6 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 /* ============================= RECONOCIMIENTOS ============================= */
 #reconocimientos{position:relative;overflow:hidden;padding:clamp(72px,6vw,112px) 0;background:var(--bg-dark-2);border-top:1px solid var(--border-on-dark);border-bottom:1px solid var(--border-on-dark)}
 .inl-297{display:inline-flex;align-items:center;justify-content:center;gap:0px}
-.inl-298{display:grid;grid-template-columns:repeat(2,1fr);gap:3px;width:22px;height:22px;flex-shrink:0}
-.inl-299{background:var(--accent-lime);border-radius:2px}
-.inl-300{background:var(--accent-cyan);border-radius:2px}
-.inl-301{background:var(--accent-blue);border-radius:2px}
-.inl-302{background:var(--accent-fuchsia);border-radius:2px}
 .inl-303{font-family:'Barlow Condensed',sans-serif;font-size:var(--step-caption);font-weight:650;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-on-dark-90)}
 #reconocimientos-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:var(--step-h2);line-height:1.02;letter-spacing:-0.02em;color:var(--text-on-dark);margin-top:18px}
 .inl-305{display:flex;justify-content:center;width:220px;height:4px;margin:10px auto 0}
@@ -1013,11 +1001,6 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 
 .contacto-info{max-width:650px;}
 .contacto-eyebrow{display:inline-flex;align-items:center;gap:0px;}
-
-.inl-312{background:var(--accent-lime);border-radius:2px}
-.inl-313{background:var(--accent-cyan);border-radius:2px}
-.inl-314{background:var(--accent-blue);border-radius:2px}
-.inl-315{background:var(--accent-fuchsia);border-radius:2px}
 .contacto-eyebrow span{font-family:'Barlow Condensed',sans-serif;font-size:var(--step-caption);font-weight:650;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.92);}
 
 .contacto-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(44px,2.7vw,58px);line-height:1.02;letter-spacing:-0.02em;color:var(--text-on-dark);margin-top:20px;max-width:650px;}
@@ -1104,7 +1087,7 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 .footer-logo-flexflix{height:26px;width:auto;object-fit:contain;display:block;}
 .footer-brand-text{font-size:clamp(14.4px,12.76px + 0.455vw,18.4px);line-height:1.55;color:var(--text-on-dark-secondary);max-width:430px;margin-bottom:20px;}
 .footer-support-logos{display:flex;flex-wrap:wrap;align-items:center;gap:24px;margin-bottom:24px;}
-.footer-support-logos img.logos-mendoza{height:42px;width:auto;object-fit:contain;display:block;}
+.footer-support-logos img.logos-mendoza{width:auto;height:auto;max-width:100%;object-fit:contain;display:block;}
 
 .footer-social{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
 .footer-social a{display:flex;align-items:center;justify-content:center;width:44px;height:44px;transition:transform 0.22s ease,opacity 0.22s ease;}
@@ -1150,7 +1133,7 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
   .footer-logo-flexflix{height:22px;}
   .footer-brand-text{font-size:clamp(14.4px,12.76px + 0.455vw,18.4px);line-height:1.5;max-width:100%;margin-bottom:18px;}
   .footer-support-logos{gap:18px;margin-bottom:22px;}
-  .footer-support-logos img.logos-mendoza{height:34px;}
+  .footer-support-logos img.logos-mendoza{width:auto;height:auto;max-width:100%;}
   .footer-col-contact{grid-column:1/-1;order:2;margin-top:38px;}
   .footer-col-nav{order:3;margin-top:34px;}
   .footer-col-legal{order:4;margin-top:34px;}
@@ -1161,11 +1144,6 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
   .footer-privacy-note{justify-content:flex-start;}
 }
 
-/* ============================= UTILIDADES COMPARTIDAS ============================= */
-.sq-lime{background:var(--accent-lime);border-radius:2px}
-.sq-cyan{background:var(--accent-cyan);border-radius:2px}
-.sq-blue{background:var(--accent-blue);border-radius:2px}
-.sq-fuchsia{background:var(--accent-fuchsia);border-radius:2px}
 /* 4 colores distintos, sin repetir ninguno (turquesa/verde/naranja son los
    3 acentos de marca; violeta es el propio de PACCC "Personaliza", el
    unico uso de ese tono fuera de PACCC). Barritas de 4 segmentos en vez

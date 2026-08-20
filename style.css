@@ -371,6 +371,7 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
   /* Logo de Mendoza mas chico en mobile — junto al de FlexFlix y el
      hamburguesa quedaba todo muy apretado. Solo este, no el de FlexFlix. */
   .inl-3{height:clamp(26px,6vw,34px);}
+  .nav-logo-lottie{height:clamp(48px,12vw,64px);}
   /* Corrido ~20px mas a la derecha, pegado al borde — el padding del .nav
      (20px) lo dejaba con mucho aire respecto al margen real. */
   .nav-burger{margin-right:-20px;}
@@ -380,7 +381,8 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 .inl-2{display:flex;align-items:center;gap:16px}
 .inl-3{height:clamp(40px,2.4vw,52px);width:auto;object-fit:contain}
 .inl-4{width:1px;height:26px;background:var(--border-on-dark)}
-.inl-5{height:clamp(22px,1.3vw,28px);width:auto;object-fit:contain}
+.nav-logo-lottie{height:clamp(52px,3.5vw,64px);width:auto;aspect-ratio:3000/1200;background:transparent}
+.nav-logo-lottie svg{display:block}
 
 /* ============================= HERO ============================= */
 /* Hero — la altura es la estandar de cada resolucion (100svh, no depende del
@@ -402,7 +404,7 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 .inl-20{max-width:640px;margin:12px auto 0;font-size:clamp(13.5px,11.95px + 0.432vw,17.3px);font-weight:400;line-height:1.4;color:var(--text-on-dark-78);text-align:center}
 #hero-cta-wrap{display:flex;justify-content:center;margin-top:14px}
 .hero-institutional-lockup{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:12px;flex-wrap:wrap}
-.hero-institutional-lockup img.logos-mendoza{width:auto;height:auto;max-width:100%;object-fit:contain}
+.hero-institutional-lockup img.logos-mendoza{width:415px;height:auto;max-width:100%;object-fit:contain}
 
 @media (max-width:900px){
   #hero-section{display:block!important;min-height:0!important;}
@@ -431,7 +433,7 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
   .inl-20{font-size:clamp(12.6px,11.17px + 0.398vw,16.1px)!important;margin-top:8px!important;}
   #hero-cta-wrap{margin-top:10px!important;}
   .hero-institutional-lockup{margin-top:10px!important;}
-  .hero-institutional-lockup img.logos-mendoza{width:auto!important;height:auto!important;max-width:100%!important;}
+  .hero-institutional-lockup img.logos-mendoza{width:415px!important;height:auto!important;max-width:100%!important;}
 }
 
 /* ============================= FLEXCLASS / PACCC ============================= */
@@ -726,7 +728,7 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 }
 
 /* ============================= CREACIONES ============================= */
-.creaciones-section{--creaciones-bg-rgb:var(--bg-dark-1-rgb);position:relative;padding:clamp(72px,6vw,112px) 64px;background:rgb(var(--creaciones-bg-rgb));overflow:hidden;}
+.creaciones-section{--creaciones-bg-rgb:var(--accent-cyan-rgb);position:relative;padding:clamp(72px,6vw,112px) 64px;background:rgb(var(--creaciones-bg-rgb));overflow:hidden;}
 .creaciones-intro{position:relative;z-index:2;max-width:900px;margin:0 auto 32px;text-align:center;}
 .inl-160{display:inline-flex;align-items:center;justify-content:center;gap:0px}
 .inl-166{font-family:'Barlow Condensed',sans-serif;font-size:var(--step-caption);font-weight:650;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-on-dark-90)}
@@ -764,8 +766,8 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 .creaciones-row--left .creaciones-row-track{animation-name:creacionesLeft;animation-timing-function:linear;animation-duration:60s!important;animation-iteration-count:infinite!important;}
 .creaciones-row--right .creaciones-row-track{animation-name:creacionesRight;animation-timing-function:linear;animation-duration:60s!important;animation-iteration-count:infinite!important;}
 .creaciones-rows:hover .creaciones-row-track,.creaciones-rows:focus-within .creaciones-row-track{animation-play-state:paused;}
-.creacion-card{display:flex;flex-direction:column;border:1px solid rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;background:var(--bg-dark-2);box-shadow:0 10px 26px rgba(var(--accent-violet-rgb),0.18);transition:transform 280ms ease,border-color 280ms ease,box-shadow 280ms ease;}
-.creacion-card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,0.22);box-shadow:0 14px 32px rgba(var(--accent-violet-rgb),0.28);}
+.creacion-card{display:flex;flex-direction:column;border-radius:16px;overflow:hidden;background:var(--bg-dark-2);box-shadow:0 10px 26px rgba(var(--accent-violet-rgb),0.18);transition:transform 280ms ease,box-shadow 280ms ease;}
+.creacion-card:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(var(--accent-violet-rgb),0.28);}
 .creacion-thumb{position:relative;width:100%;aspect-ratio:16/10;background:var(--bg-dark-1);overflow:hidden;}
 .creacion-thumb img{display:block;width:100%;height:100%;object-fit:cover;}
 .creacion-number{position:absolute;left:12px;top:12px;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(var(--bg-dark-1-rgb),0.85);border:2px solid rgba(255,255,255,0.7);font-family:'Space Grotesk',sans-serif;font-size:clamp(11.7px,10.35px + 0.375vw,15px);font-weight:800;color:var(--text-on-dark);}
@@ -775,10 +777,10 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 .creacion-meta span+span::before{content:'•';color:rgba(255,255,255,0.5);padding-right:7px;}
 .creacion-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(18px,1.4vw,21px);line-height:1.2;color:var(--text-on-dark);margin:8px 0 6px;}
 .creacion-topic{margin:0 0 16px;color:var(--text-on-dark-secondary);font-size:clamp(12.6px,11.17px + 0.398vw,16.1px);line-height:1.5;}
-.creacion-link{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;min-width:150px;min-height:44px;padding:0.7rem 1rem;border-radius:11px;text-decoration:none;color:var(--text-on-dark);font-weight:800;letter-spacing:0.02em;background:linear-gradient(90deg,var(--accent-coral),var(--accent-fuchsia));box-shadow:0 5px 14px rgba(var(--accent-coral-rgb),0.3);transition:transform 0.15s ease,filter 0.15s ease;}
+.creacion-link{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;min-width:150px;min-height:44px;padding:0.7rem 1rem;border-radius:11px;text-decoration:none;color:var(--text-on-dark);font-weight:800;letter-spacing:0.02em;background:linear-gradient(180deg,var(--access-orange-top),var(--access-orange-bottom));box-shadow:0 5px 14px rgba(var(--accent-coral-rgb),0.3);transition:transform 0.15s ease,filter 0.15s ease;}
 .creacion-link:hover{transform:translateY(-2px);filter:brightness(1.08);text-decoration:none;color:var(--text-on-dark);}
 .creacion-link:focus-visible{outline:2px solid var(--accent-cyan);outline-offset:2px;}
-@media (max-width:900px){.creaciones-section{padding:64px 20px;--creaciones-bg-rgb:var(--bg-dark-2-rgb);}}
+@media (max-width:900px){.creaciones-section{padding:64px 20px;--creaciones-bg-rgb:var(--accent-cyan-rgb);}}
 @media (max-width:640px){
   /* Rail horizontal con scroll-snap, mismo patron que Reconocimientos/PACCC
      — margin negativo + padding para que sangre a todo el ancho pero cada
@@ -1084,10 +1086,11 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 .footer-logos{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
 .footer-logo-er{height:46px;width:auto;object-fit:contain;display:block;}
 .footer-logo-divider{width:1px;height:30px;background:var(--border-on-dark);flex-shrink:0;}
-.footer-logo-flexflix{height:26px;width:auto;object-fit:contain;display:block;}
+.footer-logo-lottie{height:clamp(52px,3.5vw,64px);width:auto;aspect-ratio:3000/1200;background:transparent;}
+.footer-logo-lottie svg{display:block;}
 .footer-brand-text{font-size:clamp(14.4px,12.76px + 0.455vw,18.4px);line-height:1.55;color:var(--text-on-dark-secondary);max-width:430px;margin-bottom:20px;}
 .footer-support-logos{display:flex;flex-wrap:wrap;align-items:center;gap:24px;margin-bottom:24px;}
-.footer-support-logos img.logos-mendoza{width:auto;height:auto;max-width:100%;object-fit:contain;display:block;}
+.footer-support-logos img.logos-mendoza{width:415px;height:auto;max-width:100%;object-fit:contain;display:block;}
 
 .footer-social{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
 .footer-social a{display:flex;align-items:center;justify-content:center;width:44px;height:44px;transition:transform 0.22s ease,opacity 0.22s ease;}
@@ -1130,10 +1133,10 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
   .footer-logos{margin-bottom:18px;}
   .footer-logo-er{height:38px;}
   .footer-logo-divider{height:26px;}
-  .footer-logo-flexflix{height:22px;}
+  .footer-logo-lottie{height:clamp(48px,12vw,64px);}
   .footer-brand-text{font-size:clamp(14.4px,12.76px + 0.455vw,18.4px);line-height:1.5;max-width:100%;margin-bottom:18px;}
   .footer-support-logos{gap:18px;margin-bottom:22px;}
-  .footer-support-logos img.logos-mendoza{width:auto;height:auto;max-width:100%;}
+  .footer-support-logos img.logos-mendoza{width:415px;height:auto;max-width:100%;}
   .footer-col-contact{grid-column:1/-1;order:2;margin-top:38px;}
   .footer-col-nav{order:3;margin-top:34px;}
   .footer-col-legal{order:4;margin-top:34px;}

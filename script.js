@@ -20,6 +20,30 @@
   panel.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
 })();
 
+// Nav y footer — logo animado (Lottie, SVG renderer, fondo transparente)
+// Mismo tratamiento que sanjuan_potencia: el logo propio del sitio queda
+// como <img> estatico, el de FlexFlix pasa a Lottie.
+(() => {
+  if (typeof lottie === 'undefined') return;
+
+  ['nav-logo-lottie', 'footer-logo-lottie'].forEach((id) => {
+    const container = document.getElementById(id);
+    if (!container) return;
+
+    lottie.loadAnimation({
+      container,
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: 'assets/img/lottie/flexflix-logo.json',
+      assetsPath: 'assets/img/lottie/images/',
+      rendererSettings: {
+        preserveAspectRatio: 'xMidYMid meet',
+      },
+    });
+  });
+})();
+
 // Nav — dropdown "Acceder" (desktop): agrupa los 3 accesos en un trigger
 // compacto en vez de mostrarlos como 3 textos sueltos en la barra
 (() => {

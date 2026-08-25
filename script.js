@@ -222,7 +222,7 @@ const PROGRAMAS_DATA = {
   },
   2: {
     color: '#ae4abd',
-    img: 'assets/img/programas/Interdisciplinario.png',
+    img: 'assets/img/programas/Interdisciplinario.jpg',
     alt: 'Pensamiento interdisciplinario con IA',
     tab: 'Interdisciplinario',
     copete: 'La IA como herramienta transversal de aprendizaje',
@@ -262,7 +262,7 @@ const PROGRAMAS_DATA = {
   },
   3: {
     color: COLOR_NARANJA,
-    img: 'assets/img/programas/Refuerzo.png',
+    img: 'assets/img/programas/Refuerzo.jpg',
     alt: 'Refuerzo de aprendizajes fundamentales',
     tab: 'Refuerzo',
     copete: 'Tecnología al servicio de la comprensión profunda',
@@ -302,7 +302,7 @@ const PROGRAMAS_DATA = {
   },
   4: {
     color: COLOR_VERDE,
-    img: 'assets/img/programas/Pisaton.png',
+    img: 'assets/img/programas/Pisaton.jpg',
     alt: 'Rentrenamiento de competencias en el hogar',
     tab: 'Pisatón',
     copete: 'La escuela se extiende más allá del aula',
@@ -331,7 +331,7 @@ const PROGRAMAS_DATA = {
   },
   5: {
     color: '#744cc6',
-    img: 'assets/img/programas/Convivencia.png',
+    img: 'assets/img/programas/Convivencia.jpg',
     alt: 'Prevención del bullying',
     tab: 'Convivencia',
     copete: 'Convivencia digital y ciudadanía responsable',
@@ -368,7 +368,7 @@ const PROGRAMAS_DATA = {
   },
   6: {
     color: '#bd974b',
-    img: 'assets/img/programas/Docentes.png',
+    img: 'assets/img/programas/Docentes.jpg',
     alt: 'Entrenamiento docente en Inteligencia Artificial',
     tab: 'Docentes',
     copete: 'Formación pedagógica para el aula del presente',
@@ -504,7 +504,7 @@ if (document.getElementById('programa-detalle')) {
     body.className = 'programa-accordion-body';
     // Version recortada especifica para mobile (la de desktop es muy alta
     // y se ve mal en el acordeon) — mismo nombre de archivo + "-mob".
-    const imgMobile = p.img.replace(/\.png$/, '-mob.png');
+    const imgMobile = p.img.replace(/\.(png|jpg)$/, '-mob.$1');
     body.innerHTML =
       `<img loading="lazy" decoding="async" src="${imgMobile}" alt="${p.alt}">` +
       `<p class="programa-copete">${p.copete}</p>` +
@@ -694,11 +694,11 @@ renderDetail(activeKey);
     { id: 'youtube', institution: 'YOUTUBE', name: 'Botones de oro', description: 'Entregados por YouTube a los canales Aula365 y Educatina.', src: 'assets/img/premios/premios__youtube.png', alt: 'YouTube', featured: true },
     { id: 'holoniq', institution: 'HOLONIQ', name: 'Top 200', description: 'Selección global de 200 empresas de tecnología educativa.', src: 'assets/img/premios/premios__holon.png', alt: 'HolonIQ', featured: true },
     { id: 'guinness', institution: 'GUINNESS WORLD RECORDS', name: 'Récord mundial', description: 'Al cómic colaborativo con la mayor cantidad de autores del mundo.', src: 'assets/img/premios/premios__Guinness.png', alt: 'Guinness World Records', featured: true },
-    { id: 'tato', institution: 'CAPIT', name: 'Premio Tato', description: 'Mejor programa infantil, por la serie Los Creadores (2017).', src: 'assets/img/premios/tato.jpg', alt: 'Premio Tato', featured: true, logoSize: 'small' },
+    { id: 'tato', institution: 'CAPIT', name: 'Premio Tato', description: 'Mejor programa infantil, por la serie Los Creadores (2017).', src: 'assets/img/premios/tato.webp', alt: 'Premio Tato', featured: true, logoSize: 'small' },
     { id: 'parents', institution: "PARENTS' CHOICE FOUNDATION", name: "Parents' Choice Awards", description: 'Sello de calidad otorgado a productos educativos para chicos y familias.', src: 'assets/img/premios/premios__parents.png', alt: "Parents' Choice", featured: false },
     { id: 'sadosky', institution: 'CESSI', name: 'Sadosky de Oro', description: 'A la trayectoria empresarial y a la mejor solución de innovación tecnológica aplicada a la educación (2015).', src: 'assets/img/premios/premios__Sadosky.png', alt: 'Premios Sadosky', featured: false },
     { id: 'wsa', institution: 'WORLD SUMMIT AWARDS', name: 'Innovación educativa', description: 'Otorgado por la ONU al Programa de Alfabetización Digital (2005).', src: 'assets/img/premios/premios__wsa.png', alt: 'World Summit Award', featured: false, logoSize: 'large' },
-    { id: 'martinfierro', institution: 'APTRA', name: 'Premio Martín Fierro', description: 'Mejor programa infantil por la serie transmedia Los Creadores (2016).', src: 'assets/img/premios/martin-fierro.png', alt: 'Premio Martín Fierro', featured: false },
+    { id: 'martinfierro', institution: 'APTRA', name: 'Premio Martín Fierro', description: 'Mejor programa infantil por la serie transmedia Los Creadores (2016).', src: 'assets/img/premios/martin-fierro.jpg', alt: 'Premio Martín Fierro', featured: false },
   ];
 
   const featuredEl = document.getElementById('reconocimientos-featured');

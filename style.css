@@ -25,8 +25,8 @@
      Los stops OSCUROS del degrade de los accesos (--access-*-bottom) tambien
      quedan aparte a proposito: son un tono mas oscuro elegido a mano, no
      derivado por formula (color-mix() daba un resultado grisaceo/turbio). */
-  --color-turquesa: #0075a4;
-  --color-turquesa-rgb: 0, 117, 164;
+  --color-turquesa: #00b0ce;
+  --color-turquesa-rgb: 0, 176, 206;
   --color-naranja: #f36b3d;
   --color-naranja-rgb: 243, 107, 61;
   --color-verde: #45a44d;
@@ -80,8 +80,9 @@
   /* Turquesa de marca + overlay negro 35% ya resuelto en un solo valor
      (no un overlay separado encima) — asi el degrade de los bordes del
      carrusel de Creaciones, que lee este mismo RGB para fundir a
-     transparente, coincide siempre con el fondo real, sin costura. */
-  --section-creaciones-rgb: 0, 76, 107;
+     transparente, coincide siempre con el fondo real, sin costura.
+     Tambien usado en #pisaton (misma excepcion de turquesa oscuro). */
+  --section-creaciones-rgb: 0, 114, 134;
 
   /* ---- Capa 2: semánticos (usar SIEMPRE estos en componentes) ---- */
   --bg-dark-1: var(--color-purple-900);
@@ -1612,7 +1613,7 @@ img {
     height: auto !important;
     background: linear-gradient(
       to bottom,
-      rgba(var(--bg-dark-2-rgb), 0) 10%,
+      rgba(var(--bg-dark-2-rgb), 0) 40%,
       var(--bg-dark-2) 100%
     ) !important;
   }
@@ -1622,8 +1623,10 @@ img {
     margin-top: 14px !important;
   }
   #hero-headline {
-    font-size: clamp(26px, 8vw, 34px) !important;
-    line-height: 1.12 !important;
+    font-family: "Barlow Condensed", sans-serif !important;
+    font-weight: 500 !important;
+    font-size: clamp(30px, 9.5vw, 40px) !important;
+    line-height: 1.1 !important;
     white-space: normal !important;
     width: auto !important;
     max-width: 100% !important;
@@ -1982,6 +1985,15 @@ img {
 
 .paccc-mobile-only {
   display: none;
+}
+/* Titulos de seccion (h2) en mobile: Barlow Condensed + peso mas liviano en
+   vez de Space Grotesk 700 — entra mas texto por linea y se ve mas
+   prolijo en pantallas angostas (mismo tratamiento que el h1 del hero). */
+@media (max-width: 900px) {
+  h2 {
+    font-family: "Barlow Condensed", sans-serif !important;
+    font-weight: 500 !important;
+  }
 }
 @media (max-width: 900px) {
   .paccc-segments,
@@ -3652,7 +3664,7 @@ img {
    fondo claro en mobile (queda oscuro siempre, a pedido). */
 #pisaton {
   padding: clamp(90px, 9vw, 130px) 64px;
-  background: var(--accent-cyan);
+  background: rgb(var(--section-creaciones-rgb));
   color: var(--text-on-dark);
   position: relative;
   z-index: 2;
@@ -3685,12 +3697,11 @@ img {
   );
   mask-image: linear-gradient(to right, #000 0%, #000 45%, transparent 100%);
 }
+/* Sin overlay negro propio: el fondo de #pisaton ya es el turquesa oscuro
+   pre-mezclado (--section-creaciones-rgb, misma excepcion que Creaciones),
+   asi que un overlay aca encima volveria a oscurecerlo de mas. */
 #pisaton-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: rgba(0, 0, 0, 0.35);
-  pointer-events: none;
+  display: none;
 }
 #pisaton-photo-mobile {
   display: none;

@@ -62,6 +62,31 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    <!-- Precarga del logo animado (Lottie) del nav/footer — siempre visible
+         arriba de todo, asi que sus assets se piden desde el arranque en vez
+         de recien cuando termina de ejecutar script.js (que hoy dispara un
+         fetch del JSON, y de ahi otros 7 fetches de imagenes, todo en serie
+         despues de haber esperado el parseo del HTML — se sentia lento). Con
+         esto los pedidos arrancan en paralelo con el CSS/fuentes, y para
+         cuando el script los necesita ya estan en cache. -->
+    <link
+      rel="preload"
+      as="script"
+      href="assets/vendor/lottie.min.js"
+    />
+    <link
+      rel="preload"
+      as="fetch"
+      href="assets/img/lottie/flexflix-logo.json"
+      crossorigin
+    />
+    <link rel="preload" as="image" href="assets/img/lottie/images/img_0.png" />
+    <link rel="preload" as="image" href="assets/img/lottie/images/img_1.png" />
+    <link rel="preload" as="image" href="assets/img/lottie/images/img_2.png" />
+    <link rel="preload" as="image" href="assets/img/lottie/images/img_3.png" />
+    <link rel="preload" as="image" href="assets/img/lottie/images/img_4.png" />
+    <link rel="preload" as="image" href="assets/img/lottie/images/img_5.png" />
+    <link rel="preload" as="image" href="assets/img/lottie/images/img_6.png" />
   </head>
   <body>
 

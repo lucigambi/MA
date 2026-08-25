@@ -10,3 +10,7 @@ Mejores_creaciones_IA_Mendoza_Aumentada.html
 Thumbs.db
 
 .vercel
+
+# Herramientas de compresion de media (ffmpeg-static/sharp), no forman parte
+# del sitio en si - ver .claude/skills/media-compression
+node_modules/

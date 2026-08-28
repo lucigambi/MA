@@ -339,24 +339,69 @@
                 <img
                   loading="lazy"
                   decoding="async"
-                  src="assets/img/icon-01.png"
+                  src="assets/img/icon-011.png"
                   alt=""
                   class="evidencia-card-icon"
                 />
                 <div class="evidencia-card-divider evidencia-card-divider--naranja"></div>
                 <div
                   class="stat-counter evidencia-card-number evidencia-card-number--naranja"
-                  data-target="100"
+                  data-target="250"
                   data-decimals="0"
+                  data-prefix="+"
                 ></div>
                 <div class="evidencia-card-divider"></div>
                 <div class="evidencia-card-text">
                   <h3 class="evidencia-card-title">
-                    Escuelas secundarias
+                    Instituciones educativas
                   </h3>
                   <div class="evidencia-card-desc">
                     De gestión estatal, en toda la provincia.
                   </div>
+                </div>
+              </div>
+              <div class="evidencia-card">
+                <img
+                  loading="lazy"
+                  decoding="async"
+                  src="assets/img/icon-06.png"
+                  alt=""
+                  class="evidencia-card-icon"
+                />
+                <div class="evidencia-card-divider evidencia-card-divider--violeta"></div>
+                <div
+                  class="stat-counter evidencia-card-number evidencia-card-number--violeta"
+                  data-target="3000"
+                  data-decimals="0"
+                  data-prefix="+"
+                ></div>
+                <div class="evidencia-card-divider"></div>
+                <div class="evidencia-card-text">
+                  <h3 class="evidencia-card-title">
+                    Docentes participantes
+                  </h3>
+                </div>
+              </div>
+              <div class="evidencia-card">
+                <img
+                  loading="lazy"
+                  decoding="async"
+                  src="assets/img/icon-0111.png"
+                  alt=""
+                  class="evidencia-card-icon"
+                />
+                <div class="evidencia-card-divider evidencia-card-divider--violeta"></div>
+                <div
+                  class="stat-counter evidencia-card-number evidencia-card-number--violeta"
+                  data-target="60000"
+                  data-decimals="0"
+                  data-prefix="+"
+                ></div>
+                <div class="evidencia-card-divider"></div>
+                <div class="evidencia-card-text">
+                  <h3 class="evidencia-card-title">
+                    Estudiantes alcanzados
+                  </h3>
                 </div>
               </div>
               <div class="evidencia-card">
@@ -370,6 +415,28 @@
                 <div class="evidencia-card-divider evidencia-card-divider--turquesa"></div>
                 <div
                   class="stat-counter evidencia-card-number evidencia-card-number--turquesa"
+                  data-target="900000"
+                  data-decimals="0"
+                  data-prefix="+"
+                ></div>
+                <div class="evidencia-card-divider"></div>
+                <div class="evidencia-card-text">
+                  <h3 class="evidencia-card-title">
+                    Creaciones curriculares con IA
+                  </h3>
+                </div>
+              </div>
+              <div class="evidencia-card">
+                <img
+                  loading="lazy"
+                  decoding="async"
+                  src="assets/img/icon-03.png"
+                  alt=""
+                  class="evidencia-card-icon"
+                />
+                <div class="evidencia-card-divider evidencia-card-divider--verde"></div>
+                <div
+                  class="stat-counter evidencia-card-number evidencia-card-number--verde"
                   data-target="0.87"
                   data-decimals="2"
                 ></div>
@@ -385,30 +452,6 @@
                     Medición interna sobre una muestra conjunta de Mendoza y
                     Entre Ríos (n=414). No revisada por pares ni desagregada
                     por jurisdicción.
-                  </div>
-                </div>
-              </div>
-              <div class="evidencia-card">
-                <img
-                  loading="lazy"
-                  decoding="async"
-                  src="assets/img/icon-03.png"
-                  alt=""
-                  class="evidencia-card-icon"
-                />
-                <div class="evidencia-card-divider evidencia-card-divider--verde"></div>
-                <div
-                  class="stat-counter evidencia-card-number evidencia-card-number--verde"
-                  data-target="643"
-                  data-decimals="0"
-                ></div>
-                <div class="evidencia-card-divider"></div>
-                <div class="evidencia-card-text">
-                  <h3 class="evidencia-card-title">
-                    Creaciones publicadas
-                  </h3>
-                  <div class="evidencia-card-desc">
-                    Producidas por estudiantes sobre temas del programa.
                   </div>
                 </div>
               </div>
@@ -460,47 +503,607 @@
         </div>
         <div id="programas-content">
           <div class="programas-tabs">
-            <button type="button" class="programa-tab active" data-programa="1">
+            <button type="button" class="programa-tab active" data-programa="1" style="--tab-color:var(--color-turquesa)">
               <span class="programa-tab-label">Certificación IA</span>
             </button>
-            <button type="button" class="programa-tab" data-programa="2">
+            <button type="button" class="programa-tab" data-programa="2" style="--tab-color:#ae4abd">
               <span class="programa-tab-label">Interdisciplinario</span>
             </button>
-            <button type="button" class="programa-tab" data-programa="3">
+            <button type="button" class="programa-tab" data-programa="3" style="--tab-color:var(--color-naranja)">
               <span class="programa-tab-label">Refuerzo</span>
             </button>
-            <button type="button" class="programa-tab" data-programa="4">
+            <button type="button" class="programa-tab" data-programa="4" style="--tab-color:var(--color-verde)">
               <span class="programa-tab-label">Pisatón</span>
             </button>
-            <button type="button" class="programa-tab" data-programa="5">
+            <button type="button" class="programa-tab" data-programa="5" style="--tab-color:#744cc6">
               <span class="programa-tab-label">Convivencia</span>
             </button>
-            <button type="button" class="programa-tab" data-programa="6">
+            <button type="button" class="programa-tab" data-programa="6" style="--tab-color:#bd974b">
               <span class="programa-tab-label">Docentes</span>
             </button>
           </div>
-          <div class="programa-detalle-wrap">
-            <button type="button" id="programa-prev" class="programa-nav-btn programa-nav-btn--prev" aria-label="Programa anterior">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            </button>
-            <button type="button" id="programa-next" class="programa-nav-btn programa-nav-btn--next" aria-label="Programa siguiente">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </button>
-          <div class="programa-detalle" id="programa-detalle">
-            <div class="programa-media">
-              <img id="programa-img" loading="lazy" decoding="async" src="" alt="" />
-              <div class="programa-media-scrim"></div>
-              <h3 class="programa-media-title" id="programa-media-title"></h3>
+          <div class="programa-esquema is-active" id="programa-esquema-1" data-programa="1" style="--programa-color:var(--color-turquesa)">
+            <div class="pe-lead">
+              <div class="pe-badge"><span class="pe-badge-star">★</span>Programa</div>
+              <div class="pe-small">Educación pública que abre oportunidades laborales reales</div>
+              <h3 class="pe-h1">Certificación laboral en Inteligencia Artificial</h3>
+              <span class="pe-level">4° y 5° año Nivel Secundario</span>
+              <i class="pe-rule"></i>
+              <h4 class="pe-h2">De la escuela mendocina al mundo laboral.</h4>
+              <p class="pe-desc">
+                Los estudiantes egresan como Operadores Junior en Inteligencia
+                Artificial, con competencias para trabajar, crear y producir
+                con tecnología de forma crítica y responsable.
+              </p>
             </div>
-            <div class="programa-content">
-              <p class="programa-copete" id="programa-copete"></p>
-              <h3 class="programa-titulo" id="programa-titulo"></h3>
-              <p class="programa-subtitulo" id="programa-subtitulo"></p>
-              <div class="programa-texto" id="programa-texto"></div>
+            <div class="pe-flower">
+              <div class="pe-core"><img src="assets/img/infografias/infografia-ia/medallon-principal.png" alt="" loading="lazy" decoding="async" /></div>
+              <div class="pe-petal pe-petal-a">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-ia/icono-crear-violeta.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Crear</b>
+                <p>Contenidos con criterio humano</p>
+              </div>
+              <div class="pe-petal pe-petal-b">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-ia/icono-resolver-verde.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Resolver</b>
+                <p>Problemas complejos<br />con IA</p>
+              </div>
+              <div class="pe-petal pe-petal-c">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-ia/icono-disenar-naranja.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Diseñar</b>
+                <p>Agentes digitales que aceleren procesos</p>
+              </div>
+              <div class="pe-petal pe-petal-d">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-ia/icono-pensar-turquesa.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Pensar</b>
+                <p>Críticamente frente a la tecnología</p>
+              </div>
             </div>
+            <aside class="pe-diff">
+              <h3 class="pe-diff-title"><span class="pe-badge-star">★</span>¿Qué lo hace diferente?</h3>
+              <div class="pe-diff-item">
+                <div class="pe-diff-icon">
+                  <div class="pe-diff-icon-circle">
+                    <img src="assets/img/icon-briefcase.svg" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <span class="pe-diff-icon-num">1</span>
+                </div>
+                <div class="pe-diff-text">
+                  <b>Proyección laboral</b>
+                  <p>Asistente creativo, Community AI, e-commerce, Tutor IA, soporte digital y Data junior.</p>
+                </div>
+              </div>
+              <div class="pe-diff-item">
+                <div class="pe-diff-icon">
+                  <div class="pe-diff-icon-circle">
+                    <img src="assets/img/icon-shield-check.svg" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <span class="pe-diff-icon-num">2</span>
+                </div>
+                <div class="pe-diff-text">
+                  <b>Valor real</b>
+                  <p>Portafolio digital de producciones y validación mediante código QR.</p>
+                </div>
+              </div>
+              <div class="pe-diff-item">
+                <div class="pe-diff-icon">
+                  <div class="pe-diff-icon-circle">
+                    <img src="assets/img/icon-shield-check.svg" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <span class="pe-diff-icon-num">3</span>
+                </div>
+                <div class="pe-diff-text">
+                  <b>Trazabilidad</b>
+                  <p>Verificación de la certificación con tecnología blockchain.</p>
+                </div>
+              </div>
+              <strong class="pe-diff-quote">
+                <span class="pe-diff-quote-star">★</span>
+                Educación, tecnología y empleo joven como política pública.
+              </strong>
+            </aside>
+            <footer class="pe-outcomes">
+              <b><span class="pe-outcomes-star">★</span>Lo que logramos</b>
+              <span><img src="assets/img/icon-briefcase.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Competencias laborales</span>
+              <span><img src="assets/img/icon-shield-check.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Uso ético y seguro</span>
+              <span><img src="assets/img/icon-cpu.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Producción con IA</span>
+              <span><img src="assets/img/icon-shield-check.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Certificación verificable</span>
+            </footer>
           </div>
+
+          <div class="programa-esquema" id="programa-esquema-2" data-programa="2" style="--programa-color:#ae4abd">
+            <div class="pe-lead">
+              <div class="pe-badge"><span class="pe-badge-star">★</span>Programa</div>
+              <div class="pe-small">La IA como herramienta transversal de aprendizaje</div>
+              <h3 class="pe-h1">Pensamiento interdisciplinario con Inteligencia Artificial</h3>
+              <span class="pe-level">1°, 2° y 3° año Nivel Secundario</span>
+              <i class="pe-rule"></i>
+              <h4 class="pe-h2">Conectar saberes para resolver desafíos reales.</h4>
+              <p class="pe-desc">
+                Más de 200 contenidos curriculares se organizan en rutas de
+                aprendizaje para comprender, conectar saberes y resolver
+                desafíos reales con IA segura y guiada.
+              </p>
+            </div>
+            <div class="pe-flower">
+              <div class="pe-core"><img src="assets/img/infografias/infografia-interdisciplinaria/medallon-central-ab48ba.png" alt="" loading="lazy" decoding="async" /></div>
+              <div class="pe-petal pe-petal-a">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-interdisciplinaria/icono-matematica-violeta-sintetico.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Matemática</b>
+                <p>Pensar con lógica y modelar situaciones</p>
+              </div>
+              <div class="pe-petal pe-petal-b">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-interdisciplinaria/icono-ciencias-verde-sintetico.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Ciencias</b>
+                <p>Explorar, indagar y entender el mundo</p>
+              </div>
+              <div class="pe-petal pe-petal-c">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-interdisciplinaria/icono-sociedad-naranja-sintetico.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Sociedad</b>
+                <p>Actuar con compromiso ético y ciudadano</p>
+              </div>
+              <div class="pe-petal pe-petal-d">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-interdisciplinaria/icono-lengua-ab48ba-sintetico.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Lengua</b>
+                <p>Comunicar, argumentar y comprender miradas</p>
+              </div>
+            </div>
+            <aside class="pe-diff">
+              <h3 class="pe-diff-title"><span class="pe-badge-star">★</span>¿Qué lo hace diferente?</h3>
+              <div class="pe-diff-item">
+                <div class="pe-diff-icon">
+                  <div class="pe-diff-icon-circle">
+                    <img src="assets/img/icon-puzzle.svg" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <span class="pe-diff-icon-num">1</span>
+                </div>
+                <div class="pe-diff-text">
+                  <b>Interdisciplinario</b>
+                  <p>Integra conocimientos de distintas áreas para comprender problemas complejos.</p>
+                </div>
+              </div>
+              <div class="pe-diff-item">
+                <div class="pe-diff-icon">
+                  <div class="pe-diff-icon-circle">
+                    <img src="assets/img/icon-compass.svg" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <span class="pe-diff-icon-num">2</span>
+                </div>
+                <div class="pe-diff-text">
+                  <b>Rutas de aprendizaje</b>
+                  <p>Conectan más de 200 contenidos curriculares con desafíos reales.</p>
+                </div>
+              </div>
+              <div class="pe-diff-item">
+                <div class="pe-diff-icon">
+                  <div class="pe-diff-icon-circle">
+                    <img src="assets/img/icon-cpu.svg" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <span class="pe-diff-icon-num">3</span>
+                </div>
+                <div class="pe-diff-text">
+                  <b>Metodología PACCC™</b>
+                  <p>IA integrada al aula, segura y guiada por docentes.</p>
+                </div>
+              </div>
+              <strong class="pe-diff-quote">
+                <span class="pe-diff-quote-star">★</span>
+                La tecnología no reemplaza al docente: potencia su capacidad de acompañar.
+              </strong>
+            </aside>
+            <footer class="pe-outcomes">
+              <b><span class="pe-outcomes-star">★</span>Lo que logramos</b>
+              <span><img src="assets/img/icon-book.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Aprendizaje profundo</span>
+              <span><img src="assets/img/icon-repeat.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Ritmos personalizados</span>
+              <span><img src="assets/img/icon-chat.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Retroalimentación constante</span>
+              <span><img src="assets/img/icon-pencil.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Producción activa</span>
+            </footer>
           </div>
-          <div class="programas-accordion" id="programas-accordion"></div>
+
+          <div class="programa-esquema" id="programa-esquema-3" data-programa="3" style="--programa-color:var(--color-naranja)">
+            <div class="pe-lead">
+              <div class="pe-badge"><span class="pe-badge-star">★</span>Programa</div>
+              <div class="pe-small">Tecnología al servicio de la comprensión profunda</div>
+              <h3 class="pe-h1">Refuerzo de aprendizajes fundamentales</h3>
+              <span class="pe-level">Lengua y Matemática Nivel Primario</span>
+              <i class="pe-rule"></i>
+              <h4 class="pe-h2">Comprender antes que memorizar.</h4>
+              <p class="pe-desc">
+                Un modelo para la escuela primaria que integra pedagogía,
+                tecnología y neurociencia para fortalecer los aprendizajes
+                fundamentales desde el inicio.
+              </p>
+            </div>
+            <div class="pe-flower">
+              <div class="pe-core"><img src="assets/img/infografias/infografia-refuerzo-aprendizajes/medallon-central-coral.png" alt="" loading="lazy" decoding="async" /></div>
+              <div class="pe-petal pe-petal-a">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-refuerzo-aprendizajes/icono-explorar-violeta.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Explorar</b>
+                <p>Curiosidad como punto de partida</p>
+              </div>
+              <div class="pe-petal pe-petal-b">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-refuerzo-aprendizajes/icono-crear-verde.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Crear</b>
+                <p>Producciones propias con sentido</p>
+              </div>
+              <div class="pe-petal pe-petal-c">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-refuerzo-aprendizajes/icono-comprender-coral.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Comprender</b>
+                <p>En profundidad antes de formalizar</p>
+              </div>
+              <div class="pe-petal pe-petal-d">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-refuerzo-aprendizajes/icono-preguntar-coral.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Preguntar</b>
+                <p>Dudas que guían el aprendizaje</p>
+              </div>
+            </div>
+            <aside class="pe-diff">
+              <h3 class="pe-diff-title"><span class="pe-badge-star">★</span>¿Qué lo hace diferente?</h3>
+              <div class="pe-diff-item">
+                <div class="pe-diff-icon">
+                  <div class="pe-diff-icon-circle">
+                    <img src="assets/img/icon-compass.svg" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <span class="pe-diff-icon-num">1</span>
+                </div>
+                <div class="pe-diff-text">
+                  <b>Explorar y preguntar</b>
+                  <p>Los chicos participan activamente en la construcción del aprendizaje.</p>
+                </div>
+              </div>
+              <div class="pe-diff-item">
+                <div class="pe-diff-icon">
+                  <div class="pe-diff-icon-circle">
+                    <img src="assets/img/icon-pencil.svg" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <span class="pe-diff-icon-num">2</span>
+                </div>
+                <div class="pe-diff-text">
+                  <b>Crear y comprender</b>
+                  <p>Cada concepto se comprende en profundidad antes de formalizarse.</p>
+                </div>
+              </div>
+              <div class="pe-diff-item">
+                <div class="pe-diff-icon">
+                  <div class="pe-diff-icon-circle">
+                    <img src="assets/img/icon-shield-check.svg" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <span class="pe-diff-icon-num">3</span>
+                </div>
+                <div class="pe-diff-text">
+                  <b>IA segura y guiada</b>
+                  <p>Uso pedagógico con docentes y respeto por el ritmo de cada estudiante.</p>
+                </div>
+              </div>
+              <strong class="pe-diff-quote">
+                <span class="pe-diff-quote-star">★</span>
+                Fortalecer el aprendizaje desde el comienzo de la trayectoria escolar.
+              </strong>
+            </aside>
+            <footer class="pe-outcomes">
+              <b><span class="pe-outcomes-star">★</span>Lo que logramos</b>
+              <span><img src="assets/img/icon-lightbulb.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Comprensión</span>
+              <span><img src="assets/img/icon-graduate.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Autonomía</span>
+              <span><img src="assets/img/icon-lightbulb.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Desarrollo cognitivo</span>
+              <span><img src="assets/img/icon-book.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Aprendizaje activo</span>
+            </footer>
+          </div>
+
+          <div class="programa-esquema" id="programa-esquema-4" data-programa="4" style="--programa-color:var(--color-verde)">
+            <div class="pe-lead">
+              <div class="pe-badge"><span class="pe-badge-star">★</span>Programa</div>
+              <div class="pe-small">La escuela se extiende más allá del aula</div>
+              <h3 class="pe-h1">Rentrenamiento de competencias en el hogar</h3>
+              <span class="pe-level">Entrenamiento de competencias en el hogar</span>
+              <i class="pe-rule"></i>
+              <h4 class="pe-h2">Aprender más allá de la escuela.</h4>
+              <p class="pe-desc">
+                Experiencias con IA segura que conectan escuela y hogar para
+                fortalecer habilidades fundamentales en contextos reales y
+                cotidianos.
+              </p>
+            </div>
+            <div class="pe-flower">
+              <div class="pe-core"><img src="assets/img/infografias/infografia-pisaton/medallon-central-competencia-verde-corregido.png" alt="" loading="lazy" decoding="async" /></div>
+              <div class="pe-petal pe-petal-a">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-pisaton/icono-escuela-violeta.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Escuela</b>
+                <p>Propone experiencias y desafíos</p>
+              </div>
+              <div class="pe-petal pe-petal-b">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-pisaton/icono-hogar-verde.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Hogar</b>
+                <p>Acompaña el aprendizaje</p>
+              </div>
+              <div class="pe-petal pe-petal-c">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-pisaton/icono-familia-coral.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Familia</b>
+                <p>Participa del ecosistema</p>
+              </div>
+              <div class="pe-petal pe-petal-d">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-pisaton/icono-estudiante-verde.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Estudiante</b>
+                <p>Entrena competencias clave</p>
+              </div>
+            </div>
+            <aside class="pe-diff">
+              <h3 class="pe-diff-title"><span class="pe-badge-star">★</span>¿Qué lo hace diferente?</h3>
+              <div class="pe-diff-item">
+                <div class="pe-diff-icon">
+                  <div class="pe-diff-icon-circle">
+                    <img src="assets/img/icon-target.svg" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <span class="pe-diff-icon-num">1</span>
+                </div>
+                <div class="pe-diff-text">
+                  <b>Competencias clave</b>
+                  <p>Refuerza habilidades evaluadas a nivel internacional.</p>
+                </div>
+              </div>
+              <div class="pe-diff-item">
+                <div class="pe-diff-icon">
+                  <div class="pe-diff-icon-circle">
+                    <img src="assets/img/icon-globe.svg" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <span class="pe-diff-icon-num">2</span>
+                </div>
+                <div class="pe-diff-text">
+                  <b>Contextos reales</b>
+                  <p>Integra tecnología, reflexión y situaciones cotidianas.</p>
+                </div>
+              </div>
+              <div class="pe-diff-item">
+                <div class="pe-diff-icon">
+                  <div class="pe-diff-icon-circle">
+                    <img src="assets/img/icon-family.svg" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <span class="pe-diff-icon-num">3</span>
+                </div>
+                <div class="pe-diff-text">
+                  <b>Participación familiar</b>
+                  <p>Las familias forman parte activa del ecosistema de aprendizaje.</p>
+                </div>
+              </div>
+              <strong class="pe-diff-quote">
+                <span class="pe-diff-quote-star">★</span>
+                Aprender sucede en todo el entramado educativo y social.
+              </strong>
+            </aside>
+            <footer class="pe-outcomes">
+              <b><span class="pe-outcomes-star">★</span>Lo que logramos</b>
+              <span><img src="assets/img/icon-graduate.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Aprendizaje autónomo</span>
+              <span><img src="assets/img/icon-repeat.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Práctica continua</span>
+              <span><img src="assets/img/icon-family.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Participación familiar</span>
+              <span><img src="assets/img/icon-school.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Escuela extendida</span>
+            </footer>
+          </div>
+
+          <div class="programa-esquema" id="programa-esquema-5" data-programa="5" style="--programa-color:#744cc6">
+            <div class="pe-lead">
+              <div class="pe-badge"><span class="pe-badge-star">★</span>Programa</div>
+              <div class="pe-small">Convivencia digital y ciudadanía responsable</div>
+              <h3 class="pe-h1">Prevención del bullying</h3>
+              <span class="pe-level">Convivencia escolar</span>
+              <i class="pe-rule"></i>
+              <h4 class="pe-h2">Comprender, reflexionar y actuar.</h4>
+              <p class="pe-desc">
+                Una política pública innovadora de convivencia escolar que
+                combina narrativa inmersiva, Inteligencia Artificial y
+                pedagogía emocional desde una mirada preventiva y
+                transformadora.
+              </p>
+            </div>
+            <div class="pe-flower">
+              <div class="pe-core"><img src="assets/img/infografias/infografia-prevencion-bullying/medallon-central-violeta-corregido.png" alt="" loading="lazy" decoding="async" /></div>
+              <div class="pe-petal pe-petal-a">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-prevencion-bullying/victima-violeta-objeto-unico.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Víctima</b>
+                <p>Comprender su experiencia</p>
+              </div>
+              <div class="pe-petal pe-petal-b">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-prevencion-bullying/testigo-verde-objeto-unico.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Testigo</b>
+                <p>Reconocer su capacidad de actuar</p>
+              </div>
+              <div class="pe-petal pe-petal-c">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-prevencion-bullying/reflexionar-coral-objeto-unico.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Reflexionar</b>
+                <p>Diálogo guiado con IA educativa</p>
+              </div>
+              <div class="pe-petal pe-petal-d">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-prevencion-bullying/agresor-turquesa-objeto-unico.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Agresor</b>
+                <p>Reflexionar sobre sus acciones</p>
+              </div>
+            </div>
+            <aside class="pe-diff">
+              <h3 class="pe-diff-title"><span class="pe-badge-star">★</span>¿Qué lo hace diferente?</h3>
+              <div class="pe-diff-item">
+                <div class="pe-diff-icon">
+                  <div class="pe-diff-icon-circle">
+                    <img src="assets/img/icon-chat.svg" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <span class="pe-diff-icon-num">1</span>
+                </div>
+                <div class="pe-diff-text">
+                  <b>Experiencias guiadas</b>
+                  <p>Reflexionar, escribir y dialogar con IA educativa.</p>
+                </div>
+              </div>
+              <div class="pe-diff-item">
+                <div class="pe-diff-icon">
+                  <div class="pe-diff-icon-circle">
+                    <img src="assets/img/icon-target.svg" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <span class="pe-diff-icon-num">2</span>
+                </div>
+                <div class="pe-diff-text">
+                  <b>Decisiones</b>
+                  <p>Pensar sobre las propias acciones y sus consecuencias.</p>
+                </div>
+              </div>
+              <div class="pe-diff-item">
+                <div class="pe-diff-icon">
+                  <div class="pe-diff-icon-circle">
+                    <img src="assets/img/icon-shield-check.svg" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <span class="pe-diff-icon-num">3</span>
+                </div>
+                <div class="pe-diff-text">
+                  <b>Prevención medible</b>
+                  <p>Detección temprana, análisis de patrones e intervención oportuna.</p>
+                </div>
+              </div>
+              <strong class="pe-diff-quote">
+                <span class="pe-diff-quote-star">★</span>
+                Una política pública basada en datos, empatía y acción educativa.
+              </strong>
+            </aside>
+            <footer class="pe-outcomes">
+              <b><span class="pe-outcomes-star">★</span>Lo que logramos</b>
+              <span><img src="assets/img/icon-family.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Empatía</span>
+              <span><img src="assets/img/icon-target.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Detección temprana</span>
+              <span><img src="assets/img/icon-chat.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Diálogo reflexivo</span>
+              <span><img src="assets/img/icon-globe.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Acción educativa</span>
+            </footer>
+          </div>
+
+          <div class="programa-esquema" id="programa-esquema-6" data-programa="6" style="--programa-color:#bd974b">
+            <div class="pe-lead">
+              <div class="pe-badge"><span class="pe-badge-star">★</span>Programa</div>
+              <div class="pe-small">Formación pedagógica para el aula del presente</div>
+              <h3 class="pe-h1">Entrenamiento para docentes en Inteligencia Artificial</h3>
+              <span class="pe-level">Docentes Nivel Secundario</span>
+              <i class="pe-rule"></i>
+              <h4 class="pe-h2">Integrar IA no es delegar el pensamiento, sino ampliarlo.</h4>
+              <p class="pe-desc">
+                Un recorrido para incorporar IA de forma pedagógica, crítica
+                y situada, como aliada de la planificación, el pensamiento y
+                el aprendizaje.
+              </p>
+            </div>
+            <div class="pe-flower">
+              <div class="pe-core"><img src="assets/img/infografias/infografia-docentes-ia/medallon-central-docentes-dorado.png" alt="" loading="lazy" decoding="async" /></div>
+              <div class="pe-petal pe-petal-a">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-docentes-ia/icono-guia-violeta.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Guía</b>
+                <p>Liderar y acompañar la experiencia</p>
+              </div>
+              <div class="pe-petal pe-petal-b">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-docentes-ia/icono-diseno-verde.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Diseño</b>
+                <p>Crear experiencias de aprendizaje</p>
+              </div>
+              <div class="pe-petal pe-petal-c">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-docentes-ia/icono-producir-coral.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Producir</b>
+                <p>Estudiantes que crean y consolidan</p>
+              </div>
+              <div class="pe-petal pe-petal-d">
+                <div class="pe-petal-icon-ring">
+                  <img src="assets/img/infografias/infografia-docentes-ia/icono-mediacion-dorado.png" alt="" class="pe-petal-icon" loading="lazy" decoding="async" />
+                </div>
+                <b>Mediación</b>
+                <p>Fortalecer la reflexión</p>
+              </div>
+            </div>
+            <aside class="pe-diff">
+              <h3 class="pe-diff-title"><span class="pe-badge-star">★</span>¿Qué lo hace diferente?</h3>
+              <div class="pe-diff-item">
+                <div class="pe-diff-icon">
+                  <div class="pe-diff-icon-circle">
+                    <img src="assets/img/icon-pencil.svg" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <span class="pe-diff-icon-num">1</span>
+                </div>
+                <div class="pe-diff-text">
+                  <b>Nuevas prácticas</b>
+                  <p>Planificación y enseñanza mediadas por tecnología.</p>
+                </div>
+              </div>
+              <div class="pe-diff-item">
+                <div class="pe-diff-icon">
+                  <div class="pe-diff-icon-circle">
+                    <img src="assets/img/icon-repeat.svg" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <span class="pe-diff-icon-num">2</span>
+                </div>
+                <div class="pe-diff-text">
+                  <b>Participación activa</b>
+                  <p>Estudiantes que producen, reflexionan y consolidan aprendizajes.</p>
+                </div>
+              </div>
+              <div class="pe-diff-item">
+                <div class="pe-diff-icon">
+                  <div class="pe-diff-icon-circle">
+                    <img src="assets/img/icon-shield-check.svg" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <span class="pe-diff-icon-num">3</span>
+                </div>
+                <div class="pe-diff-text">
+                  <b>Seguridad y criterio</b>
+                  <p>Confianza para enseñar con IA en el contexto actual.</p>
+                </div>
+              </div>
+              <strong class="pe-diff-quote">
+                <span class="pe-diff-quote-star">★</span>
+                La IA al servicio de la educación y del rol docente.
+              </strong>
+            </aside>
+            <footer class="pe-outcomes">
+              <b><span class="pe-outcomes-star">★</span>Lo que logramos</b>
+              <span><img src="assets/img/icon-shield-check.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Criterio pedagógico</span>
+              <span><img src="assets/img/icon-shield-check.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Uso responsable</span>
+              <span><img src="assets/img/icon-book.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Aprendizaje profundo</span>
+              <span><img src="assets/img/icon-graduate.svg" alt="" class="pe-outcomes-icon" loading="lazy" decoding="async" />Mayor autonomía</span>
+            </footer>
+          </div>
         </div>
       </div>
     </div>
@@ -528,215 +1131,33 @@
       </div>
 
       <div
-        class="creaciones-grid"
-        id="creaciones-grid"
+        class="creaciones-columns"
+        id="creaciones-columns"
         role="list"
         aria-label="Galería de creaciones curriculares con IA"
-      >
-        <article class="creacion-card">
-          <div class="creacion-thumb">
-            <img loading="lazy" decoding="async" src="assets/img/creaciones/01.jpg" alt="Vista previa de El arte de preguntar a la IA">
-            <span class="creacion-number">01</span>
-          </div>
-          <div class="creacion-body">
-            <div class="creacion-meta"><span>Alfabetización en IA</span><span class="creacion-platform">Gamma</span></div>
-            <h3 class="creacion-title">El arte de preguntar a la IA</h3>
-            <p class="creacion-topic"><strong>Tema:</strong> El arte de preguntar a la IA.</p>
-            <a class="creacion-link" href="https://gamma.app/docs/El-Arte-de-Preguntar-a-la-IA-2phlvhkgeqcl9nh?mode=doc" target="_blank" rel="noopener noreferrer">Ver creación</a>
-          </div>
-        </article>
-        <article class="creacion-card">
-          <div class="creacion-thumb">
-            <img loading="lazy" decoding="async" src="assets/img/creaciones/02.jpg" alt="Vista previa de Lionel y la Inteligencia Artificial">
-            <span class="creacion-number">02</span>
-          </div>
-          <div class="creacion-body">
-            <div class="creacion-meta"><span>Alfabetización en IA</span><span class="creacion-platform">Storywizard</span></div>
-            <h3 class="creacion-title">Lionel y la Inteligencia Artificial</h3>
-            <p class="creacion-topic"><strong>Tema:</strong> Co-pensar con IA desde una perspectiva ética.</p>
-            <a class="creacion-link" href="https://www.storywizard.ai/s/a2d70f826b8644e9#a" target="_blank" rel="noopener noreferrer">Ver creación</a>
-          </div>
-        </article>
-        <article class="creacion-card">
-          <div class="creacion-thumb">
-            <img loading="lazy" decoding="async" src="assets/img/creaciones/03.jpg" alt="Vista previa de Semáforo Mental">
-            <span class="creacion-number">03</span>
-          </div>
-          <div class="creacion-body">
-            <div class="creacion-meta"><span>Alfabetización en IA</span><span class="creacion-platform">Suno</span></div>
-            <h3 class="creacion-title">Semáforo Mental</h3>
-            <p class="creacion-topic"><strong>Tema:</strong> Intención, contexto y límites en el uso de la IA.</p>
-            <a class="creacion-link" href="https://suno.com/song/51354c7e-8b0e-4c44-b384-f456b3c1c442" target="_blank" rel="noopener noreferrer">Ver creación</a>
-          </div>
-        </article>
-        <article class="creacion-card">
-          <div class="creacion-thumb">
-            <img loading="lazy" decoding="async" src="assets/img/creaciones/04.jpg" alt="Vista previa de Cómo seleccionar herramientas de IA">
-            <span class="creacion-number">04</span>
-          </div>
-          <div class="creacion-body">
-            <div class="creacion-meta"><span>Alfabetización en IA</span><span class="creacion-platform">Gemini</span></div>
-            <h3 class="creacion-title">Cómo seleccionar herramientas de IA</h3>
-            <p class="creacion-topic"><strong>Tema:</strong> Uso consciente e intencional de la IA.</p>
-            <a class="creacion-link" href="https://gemini.google.com/share/a1461dc2b14c?skid=f2a28292-9f42-4898-aed8-950c7e80e407" target="_blank" rel="noopener noreferrer">Ver creación</a>
-          </div>
-        </article>
-        <article class="creacion-card">
-          <div class="creacion-thumb">
-            <img loading="lazy" decoding="async" src="assets/img/creaciones/05.jpg" alt="Vista previa de Co-pensar con IA">
-            <span class="creacion-number">05</span>
-          </div>
-          <div class="creacion-body">
-            <div class="creacion-meta"><span>Alfabetización en IA</span><span class="creacion-platform">HeyGen</span></div>
-            <h3 class="creacion-title">Co-pensar con IA</h3>
-            <p class="creacion-topic"><strong>Tema:</strong> Colaboración ética con IA, pensamiento crítico y autonomía.</p>
-            <a class="creacion-link" href="https://app.heygen.com/videos/v-deo-de-avatar-28b33574346e4ead9cf0a27ca7d3d93a" target="_blank" rel="noopener noreferrer">Ver creación</a>
-          </div>
-        </article>
-        <article class="creacion-card">
-          <div class="creacion-thumb">
-            <img loading="lazy" decoding="async" src="assets/img/creaciones/06.jpg" alt="Vista previa de Operador IA: transformación tecnológica y social">
-            <span class="creacion-number">06</span>
-          </div>
-          <div class="creacion-body">
-            <div class="creacion-meta"><span>Alfabetización en IA</span><span class="creacion-platform">Ideogram</span></div>
-            <h3 class="creacion-title">Operador IA: transformación tecnológica y social</h3>
-            <p class="creacion-topic"><strong>Tema:</strong> Introducción a Operador IA.</p>
-            <a class="creacion-link" href="https://ideogram.ai/g/pMrHFcm8QiiUNkd5NOblMA/3" target="_blank" rel="noopener noreferrer">Ver creación</a>
-          </div>
-        </article>
-        <article class="creacion-card">
-          <div class="creacion-thumb">
-            <img loading="lazy" decoding="async" src="assets/img/creaciones/07.jpg" alt="Vista previa de Funciones Afín">
-            <span class="creacion-number">07</span>
-          </div>
-          <div class="creacion-body">
-            <div class="creacion-meta"><span>Matemática</span><span class="creacion-platform">Suno</span></div>
-            <h3 class="creacion-title">Funciones Afín</h3>
-            <p class="creacion-topic"><strong>Tema:</strong> Función afín.</p>
-            <a class="creacion-link" href="https://suno.com/s/rGxHRqvdkyAWB9ZX" target="_blank" rel="noopener noreferrer">Ver creación</a>
-          </div>
-        </article>
-        <article class="creacion-card">
-          <div class="creacion-thumb">
-            <img loading="lazy" decoding="async" src="assets/img/creaciones/08.jpg" alt="Vista previa de Números Enteros">
-            <span class="creacion-number">08</span>
-          </div>
-          <div class="creacion-body">
-            <div class="creacion-meta"><span>Matemática</span><span class="creacion-platform">Suno</span></div>
-            <h3 class="creacion-title">Números Enteros</h3>
-            <p class="creacion-topic"><strong>Tema:</strong> Números enteros.</p>
-            <a class="creacion-link" href="https://suno.com/s/RNtqs16mNJqdEcPr" target="_blank" rel="noopener noreferrer">Ver creación</a>
-          </div>
-        </article>
-        <article class="creacion-card">
-          <div class="creacion-thumb">
-            <img loading="lazy" decoding="async" src="assets/img/creaciones/09.jpg" alt="Vista previa de Teoría de conjuntos">
-            <span class="creacion-number">09</span>
-          </div>
-          <div class="creacion-body">
-            <div class="creacion-meta"><span>Matemática</span><span class="creacion-platform">Video compartido en Drive</span></div>
-            <h3 class="creacion-title">Teoría de conjuntos</h3>
-            <p class="creacion-topic"><strong>Tema:</strong> Diferencia entre conjuntos.</p>
-            <a class="creacion-link" href="https://drive.google.com/file/d/1aq3yx52_MXLWfrk_mPXSqjgFLBaAvpgf/view?usp=sharing" target="_blank" rel="noopener noreferrer">Ver creación</a>
-          </div>
-        </article>
-        <article class="creacion-card">
-          <div class="creacion-thumb">
-            <img loading="lazy" decoding="async" src="assets/img/creaciones/10.jpg" alt="Vista previa de Números enteros: operación combinada">
-            <span class="creacion-number">10</span>
-          </div>
-          <div class="creacion-body">
-            <div class="creacion-meta"><span>Matemática</span><span class="creacion-platform">Video compartido en Drive</span></div>
-            <h3 class="creacion-title">Números enteros: operación combinada</h3>
-            <p class="creacion-topic"><strong>Tema:</strong> Operaciones combinadas con números enteros.</p>
-            <a class="creacion-link" href="https://drive.google.com/file/d/14dawiWzliiPPb9Vr0mozla7GKDtG_JQq/view?usp=sharing" target="_blank" rel="noopener noreferrer">Ver creación</a>
-          </div>
-        </article>
-        <article class="creacion-card">
-          <div class="creacion-thumb">
-            <img loading="lazy" decoding="async" src="assets/img/creaciones/11.jpg" alt="Vista previa de Conquista de América">
-            <span class="creacion-number">11</span>
-          </div>
-          <div class="creacion-body">
-            <div class="creacion-meta"><span>Historia</span><span class="creacion-platform">Mapify</span></div>
-            <h3 class="creacion-title">Conquista de América</h3>
-            <p class="creacion-topic"><strong>Tema:</strong> Conquista de América.</p>
-            <a class="creacion-link" href="https://mapify.so/es/share-link/WZixil7R9v" target="_blank" rel="noopener noreferrer">Ver creación</a>
-          </div>
-        </article>
-        <article class="creacion-card">
-          <div class="creacion-thumb">
-            <img loading="lazy" decoding="async" src="assets/img/creaciones/12.jpg" alt="Vista previa de La teoría de Lamarck y Darwin">
-            <span class="creacion-number">12</span>
-          </div>
-          <div class="creacion-body">
-            <div class="creacion-meta"><span>Ciencias Naturales</span><span class="creacion-platform">History Timelines</span></div>
-            <h3 class="creacion-title">La teoría de Lamarck y Darwin</h3>
-            <p class="creacion-topic"><strong>Tema:</strong> Teorías de Lamarck y Darwin.</p>
-            <a class="creacion-link" href="https://historytimelines.co/timeline/la-teoria-de-lamarck-y-darwin" target="_blank" rel="noopener noreferrer">Ver creación</a>
-          </div>
-        </article>
-        <article class="creacion-card">
-          <div class="creacion-thumb">
-            <img loading="lazy" decoding="async" src="assets/img/creaciones/13.jpg" alt="Vista previa de Recursos naturales en América y Argentina">
-            <span class="creacion-number">13</span>
-          </div>
-          <div class="creacion-body">
-            <div class="creacion-meta"><span>Geografía</span><span class="creacion-platform">Gamma</span></div>
-            <h3 class="creacion-title">Recursos naturales en América y Argentina</h3>
-            <p class="creacion-topic"><strong>Tema:</strong> Recursos naturales.</p>
-            <a class="creacion-link" href="https://gamma.app/docs/Recursos-Naturales-en-America-y-Argentina-lgkq4dvnwlksr0q?mode=doc" target="_blank" rel="noopener noreferrer">Ver creación</a>
-          </div>
-        </article>
-        <article class="creacion-card">
-          <div class="creacion-thumb">
-            <img loading="lazy" decoding="async" src="assets/img/creaciones/14.jpg" alt="Vista previa de Inicio de la Segunda Guerra Mundial y los regímenes totalitarios">
-            <span class="creacion-number">14</span>
-          </div>
-          <div class="creacion-body">
-            <div class="creacion-meta"><span>Historia</span><span class="creacion-platform">Renderforest</span></div>
-            <h3 class="creacion-title">Inicio de la Segunda Guerra Mundial y los regímenes totalitarios</h3>
-            <p class="creacion-topic"><strong>Tema:</strong> Totalitarismos en Europa y Segunda Guerra Mundial.</p>
-            <a class="creacion-link" href="https://www.renderforest.com/es/watch-117842166?quality=0" target="_blank" rel="noopener noreferrer">Ver creación</a>
-          </div>
-        </article>
-        <article class="creacion-card">
-          <div class="creacion-thumb">
-            <img loading="lazy" decoding="async" src="assets/img/creaciones/15.jpg" alt="Vista previa de Estructura y tipos de textos expositivos">
-            <span class="creacion-number">15</span>
-          </div>
-          <div class="creacion-body">
-            <div class="creacion-meta"><span>Lengua</span><span class="creacion-platform">Renderforest</span></div>
-            <h3 class="creacion-title">Estructura y tipos de textos expositivos</h3>
-            <p class="creacion-topic"><strong>Tema:</strong> Textos expositivos.</p>
-            <a class="creacion-link" href="https://www.renderforest.com/es/watch-116446498?quality=0" target="_blank" rel="noopener noreferrer">Ver creación</a>
-          </div>
-        </article>
-        <article class="creacion-card">
-          <div class="creacion-thumb">
-            <img loading="lazy" decoding="async" src="assets/img/creaciones/16.jpg" alt="Vista previa de Línea del tiempo sobre la problemática ambiental">
-            <span class="creacion-number">16</span>
-          </div>
-          <div class="creacion-body">
-            <div class="creacion-meta"><span>Geografía y Ambiente</span><span class="creacion-platform">Preceden</span></div>
-            <h3 class="creacion-title">Línea del tiempo sobre la problemática ambiental</h3>
-            <p class="creacion-topic"><strong>Tema:</strong> Problemática ambiental en Argentina y el mundo.</p>
-            <a class="creacion-link" href="https://www.preceden.com/timelines/1382319-l-nea-del-tiempo-sobre-la-problem-tica-ambiental-en-argentina-y-el-mundo/7811e370a040e76d" target="_blank" rel="noopener noreferrer">Ver creación</a>
-          </div>
-        </article>
-        <article class="creacion-card">
-          <div class="creacion-thumb">
-            <img loading="lazy" decoding="async" src="assets/img/creaciones/17.jpg" alt="Vista previa de Humanismo y Renacimiento: una guía de estudio">
-            <span class="creacion-number">17</span>
-          </div>
-          <div class="creacion-body">
-            <div class="creacion-meta"><span>Historia y Cultura</span><span class="creacion-platform">Algor Education</span></div>
-            <h3 class="creacion-title">Humanismo y Renacimiento: una guía de estudio</h3>
-            <p class="creacion-topic"><strong>Tema:</strong> Humanismo.</p>
-            <a class="creacion-link" href="https://cards.algoreducation.com/app/set/6a22d2502d9b8d5822c05de9/6a22d2442fa41e8f8eed96a3" target="_blank" rel="noopener noreferrer">Ver creación</a>
-          </div>
-        </article>
+      ></div>
+    </div>
+
+    <!-- Lightbox de la galería de Creaciones -->
+    <div
+      class="creaciones-lightbox"
+      id="creaciones-lightbox"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Visor de creación curricular"
+    >
+      <div class="creaciones-lightbox-overlay" data-creaciones-dismiss></div>
+      <button type="button" class="creaciones-lightbox-close" data-creaciones-dismiss aria-label="Cerrar">&times;</button>
+      <button type="button" class="creaciones-lightbox-prev" aria-label="Anterior">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <button type="button" class="creaciones-lightbox-next" aria-label="Siguiente">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+      <div class="creaciones-lightbox-content">
+        <img loading="lazy" decoding="async" id="creaciones-lightbox-img" src="" alt="" />
+        <div id="creaciones-lightbox-caption" class="creaciones-lightbox-caption"></div>
       </div>
     </div>
 

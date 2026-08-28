@@ -1,44 +1,46 @@
 // Nav — hamburger menu (mobile)
 (() => {
-  const burger = document.getElementById('nav-burger');
-  const panel = document.getElementById('nav-mobile-panel');
+  const burger = document.getElementById("nav-burger");
+  const panel = document.getElementById("nav-mobile-panel");
   if (!burger || !panel) return;
 
   function closeMenu() {
-    panel.classList.remove('is-open');
-    burger.classList.remove('is-open');
-    burger.setAttribute('aria-expanded', 'false');
+    panel.classList.remove("is-open");
+    burger.classList.remove("is-open");
+    burger.setAttribute("aria-expanded", "false");
   }
 
-  burger.addEventListener('click', () => {
-    const isOpen = !panel.classList.contains('is-open');
-    panel.classList.toggle('is-open', isOpen);
-    burger.classList.toggle('is-open', isOpen);
-    burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  burger.addEventListener("click", () => {
+    const isOpen = !panel.classList.contains("is-open");
+    panel.classList.toggle("is-open", isOpen);
+    burger.classList.toggle("is-open", isOpen);
+    burger.setAttribute("aria-expanded", isOpen ? "true" : "false");
   });
 
-  panel.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
+  panel
+    .querySelectorAll("a")
+    .forEach((a) => a.addEventListener("click", closeMenu));
 })();
 
 // Nav y footer — logo animado (Lottie, SVG renderer, fondo transparente)
 // Mismo tratamiento que sanjuan_potencia: el logo propio del sitio queda
 // como <img> estatico, el de FlexFlix pasa a Lottie.
 (() => {
-  if (typeof lottie === 'undefined') return;
+  if (typeof lottie === "undefined") return;
 
-  ['nav-logo-lottie', 'footer-logo-lottie'].forEach((id) => {
+  ["nav-logo-lottie", "footer-logo-lottie"].forEach((id) => {
     const container = document.getElementById(id);
     if (!container) return;
 
     lottie.loadAnimation({
       container,
-      renderer: 'svg',
+      renderer: "svg",
       loop: true,
       autoplay: true,
-      path: 'assets/img/lottie/flexflix-logo.json',
-      assetsPath: 'assets/img/lottie/images/',
+      path: "assets/img/lottie/flexflix-logo.json",
+      assetsPath: "assets/img/lottie/images/",
       rendererSettings: {
-        preserveAspectRatio: 'xMidYMid meet',
+        preserveAspectRatio: "xMidYMid meet",
       },
     });
   });
@@ -47,44 +49,46 @@
 // Nav — dropdown "Acceder" (desktop): agrupa los 3 accesos en un trigger
 // compacto en vez de mostrarlos como 3 textos sueltos en la barra
 (() => {
-  const dropdown = document.querySelector('.nav-access-dropdown');
-  const toggle = document.getElementById('nav-access-toggle');
-  const menu = document.getElementById('nav-access-menu');
+  const dropdown = document.querySelector(".nav-access-dropdown");
+  const toggle = document.getElementById("nav-access-toggle");
+  const menu = document.getElementById("nav-access-menu");
   if (!dropdown || !toggle || !menu) return;
 
   function closeDropdown() {
-    dropdown.classList.remove('is-open');
-    toggle.setAttribute('aria-expanded', 'false');
+    dropdown.classList.remove("is-open");
+    toggle.setAttribute("aria-expanded", "false");
   }
 
-  toggle.addEventListener('click', (e) => {
+  toggle.addEventListener("click", (e) => {
     e.stopPropagation();
-    const isOpen = !dropdown.classList.contains('is-open');
-    dropdown.classList.toggle('is-open', isOpen);
-    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    const isOpen = !dropdown.classList.contains("is-open");
+    dropdown.classList.toggle("is-open", isOpen);
+    toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
   });
 
-  document.addEventListener('click', (e) => {
+  document.addEventListener("click", (e) => {
     if (!dropdown.contains(e.target)) closeDropdown();
   });
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeDropdown();
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeDropdown();
   });
 
-  menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeDropdown));
+  menu
+    .querySelectorAll("a")
+    .forEach((a) => a.addEventListener("click", closeDropdown));
 })();
 
 // Nav — header transparente sobre el hero, pasa a fondo solido + blur al scrollear
 (() => {
-  const nav = document.querySelector('.nav');
+  const nav = document.querySelector(".nav");
   if (!nav) return;
 
   function updateNavScroll() {
-    nav.classList.toggle('is-scrolled', window.scrollY > 12);
+    nav.classList.toggle("is-scrolled", window.scrollY > 12);
   }
 
-  window.addEventListener('scroll', updateNavScroll, { passive: true });
+  window.addEventListener("scroll", updateNavScroll, { passive: true });
   updateNavScroll();
 })();
 
@@ -93,15 +97,18 @@
 // debajo del header, sin depender de un valor fijo adivinado por CSS que se
 // desalinea entre resoluciones (logo/nav cambian de alto con el viewport).
 (() => {
-  const nav = document.querySelector('.nav');
+  const nav = document.querySelector(".nav");
   if (!nav) return;
 
   function updateScrollPadding() {
-    document.documentElement.style.scrollPaddingTop = nav.offsetHeight + 'px';
-    document.documentElement.style.setProperty('--nav-h', nav.offsetHeight + 'px');
+    document.documentElement.style.scrollPaddingTop = nav.offsetHeight + "px";
+    document.documentElement.style.setProperty(
+      "--nav-h",
+      nav.offsetHeight + "px",
+    );
   }
 
-  window.addEventListener('resize', updateScrollPadding, { passive: true });
+  window.addEventListener("resize", updateScrollPadding, { passive: true });
   updateScrollPadding();
   // el logo/las tipografias pueden tardar un frame en asentar su alto final
   requestAnimationFrame(updateScrollPadding);
@@ -112,22 +119,26 @@
 // entre-rios (mecanismo generico, funciona igual para cualquier .stat-counter
 // con data-target/data-decimals/data-prefix/data-suffix).
 (() => {
-  const counters = document.querySelectorAll('.stat-counter');
+  const counters = document.querySelectorAll(".stat-counter");
   if (!counters.length) return;
 
   function animateCounter(el) {
     const target = parseFloat(el.dataset.target);
-    const decimals = parseInt(el.dataset.decimals || '0', 10);
-    const prefix = el.dataset.prefix || '';
-    const suffix = el.dataset.suffix || '';
+    const decimals = parseInt(el.dataset.decimals || "0", 10);
+    const prefix = el.dataset.prefix || "";
+    const suffix = el.dataset.suffix || "";
     const duration = 1400;
     const start = performance.now();
 
     function format(value) {
       const fixed = value.toFixed(decimals);
-      const [intPart, decPart] = fixed.split('.');
-      const intFormatted = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-      return prefix + (decPart ? intFormatted + ',' + decPart : intFormatted) + suffix;
+      const [intPart, decPart] = fixed.split(".");
+      const intFormatted = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return (
+        prefix +
+        (decPart ? intFormatted + "," + decPart : intFormatted) +
+        suffix
+      );
     }
 
     function tick(now) {
@@ -139,460 +150,130 @@
     requestAnimationFrame(tick);
   }
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        animateCounter(entry.target);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.4 });
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.4 },
+  );
 
   counters.forEach((el) => observer.observe(el));
 })();
 
-// Programas — 6 folletos oficiales (mismo mecanismo de tabs que FlexClass/PACCC:
-// click en un tab renderiza el detalle), pero panel claro/blanco con el color
-// oficial de cada folleto (ya impreso, no se reinventa) en vez del panel oscuro
-// de PACCC. El color se aplica via --programa-color (custom property), asi el
-// CSS de titulo/subtitulo-badge/cajas destacadas/viñetas queda en una sola regla
-// generica en vez de 6 bloques de color duplicados.
-// Los 3 que coinciden con un acento de marca (Certificación IA/Refuerzo/
-// Pisatón) leen el color en runtime de la misma variable CSS que el resto
-// del sitio (:root en style.css), asi cambiar el tono ahi los actualiza
-// tambien aca. Interdisciplinario/Convivencia/Docentes tienen su propio
-// color oficial de folleto impreso, no derivan de marca a proposito.
-const BRAND = getComputedStyle(document.documentElement);
-const COLOR_TURQUESA = BRAND.getPropertyValue('--color-turquesa').trim();
-const COLOR_NARANJA = BRAND.getPropertyValue('--color-naranja').trim();
-const COLOR_VERDE = BRAND.getPropertyValue('--color-verde').trim();
-
-const PROGRAMAS_DATA = {
-  1: {
-    color: COLOR_TURQUESA,
-    img: 'assets/img/programas/CertificacionIA.png',
-    alt: 'Certificación en Inteligencia Artificial',
-    tab: 'Certificación IA',
-    copete: 'Educación pública que abre oportunidades laborales reales',
-    titulo: 'Certificación laboral en Inteligencia Artificial',
-    subtitulo: '4° y 5° año · Nivel Secundario',
-    texto: `
-      <section class="programa-bloque">
-        <p class="programa-destacado">Mendoza se convierte en la primera provincia argentina en certificar habilidades laborales en Inteligencia Artificial desde la escuela secundaria, integrando educación, tecnología y empleo joven como política pública.</p>
-        <p>Este modelo transforma los últimos años del secundario en una plataforma de formación para la nueva economía, conectando el aula con el mundo laboral real y actual.</p>
-      </section>
-      <div class="programa-box">
-        <strong>De la escuela mendocina al mundo laboral.</strong><br>Certificación oficial con impacto concreto en el mundo del trabajo.
-      </div>
-      <section class="programa-bloque">
-        <h3>¿Qué logra esta política pública?</h3>
-        <p>Los estudiantes egresan con una certificación laboral oficial como <strong>Operadores Junior en Inteligencia Artificial</strong>, validando competencias concretas para trabajar, crear y producir con tecnología de forma crítica y responsable.</p>
-      </section>
-      <section class="programa-bloque">
-        <h3>Proyección laboral concreta</h3>
-        <p>La certificación habilita perfiles como:</p>
-        <ul>
-          <li>Asistente creativo</li>
-          <li>Community AI</li>
-          <li>Operador e-commerce</li>
-          <li>Tutor IA</li>
-          <li>Soporte digital</li>
-          <li>Data junior</li>
-        </ul>
-      </section>
-      <section class="programa-bloque">
-        <h3>Los estudiantes desarrollan habilidades para:</h3>
-        <ul>
-          <li><strong>Pensar críticamente</strong> frente a la tecnología</li>
-          <li><strong>Crear contenidos</strong> con criterio humano</li>
-          <li><strong>Diseñar y entrenar</strong> agentes digitales</li>
-          <li><strong>Resolver problemas</strong> complejos con IA</li>
-          <li><strong>Usar tecnología</strong> de forma ética, segura y productiva</li>
-        </ul>
-      </section>
-      <section class="programa-bloque">
-        <h3>Certificación con valor real</h3>
-        <ul>
-          <li>Portafolio digital de producciones</li>
-          <li>Validación mediante código QR</li>
-          <li>Trazabilidad y verificación con tecnología blockchain</li>
-        </ul>
-      </section>
-    `
-  },
-  2: {
-    color: '#ae4abd',
-    img: 'assets/img/programas/Interdisciplinario.jpg',
-    alt: 'Pensamiento interdisciplinario con IA',
-    tab: 'Interdisciplinario',
-    copete: 'La IA como herramienta transversal de aprendizaje',
-    titulo: 'Pensamiento interdisciplinario con Inteligencia Artificial',
-    subtitulo: '1°, 2° y 3° año · Nivel Secundario',
-    texto: `
-      <section class="programa-bloque">
-        <p class="programa-destacado">Mendoza impulsa un modelo educativo propio e innovador que integra <strong>Inteligencia Artificial</strong>, currícula oficial y neurociencia para fortalecer las competencias que hoy demanda el mundo.</p>
-        <p>Mendoza fortalece el pensamiento interdisciplinario y las competencias evaluadas internacionalmente, preparando a sus estudiantes para un mundo en transformación.</p>
-      </section>
-      <div class="programa-box">
-        <strong>MÁS DE 200 CONTENIDOS CURRICULARES</strong><br>de la provincia se organizan en rutas de aprendizaje que permiten a los estudiantes comprender, conectar saberes y resolver desafíos reales con apoyo de IA segura y guiada.
-      </div>
-      <section class="programa-bloque">
-        <h3>Un modelo pedagógico mendocino</h3>
-        <p>Los estudiantes trabajan con IA integrada al aula, guiada por docentes, siguiendo la <strong>Metodología PACCC™</strong>.</p>
-        <p><strong>CONVERSA · APRENDE · CREA · PERSONALIZA · COMPARTE</strong></p>
-      </section>
-      <section class="programa-bloque">
-        <h3>¿Qué cambia en el aula?</h3>
-        <ul>
-          <li><strong>Aprendizajes</strong> más profundos y significativos</li>
-          <li><strong>Ritmos personalizados</strong> para cada estudiante</li>
-          <li><strong>Retroalimentación constante</strong> y orientada a mejorar</li>
-          <li><strong>Producción activa</strong> de conocimiento, no consumo pasivo</li>
-        </ul>
-      </section>
-      <section class="programa-bloque">
-        <h3>El rol del docente y la tecnología</h3>
-        <ul>
-          <li>No reemplaza al docente</li>
-          <li>Potencia su capacidad de acompañar</li>
-          <li>Permite personalizar y profundizar el aprendizaje</li>
-        </ul>
-      </section>
-    `
-  },
-  3: {
-    color: COLOR_NARANJA,
-    img: 'assets/img/programas/Refuerzo.jpg',
-    alt: 'Refuerzo de aprendizajes fundamentales',
-    tab: 'Refuerzo',
-    copete: 'Tecnología al servicio de la comprensión profunda',
-    titulo: 'Refuerzo de aprendizajes fundamentales',
-    subtitulo: 'Lengua y Matemática · Nivel Primario',
-    texto: `
-      <section class="programa-bloque">
-        <p>Mendoza impulsa un modelo educativo para la escuela primaria que integra pedagogía, tecnología y neurociencia, fortaleciendo los aprendizajes fundamentales desde el inicio de la trayectoria escolar.</p>
-      </section>
-      <div class="programa-box">Comprender antes que memorizar</div>
-      <section class="programa-bloque">
-        <p>Un enfoque centrado en <strong>comprender antes que memorizar</strong>, donde cada aprendizaje se construye en tres momentos:</p>
-        <ul>
-          <li>Partir de una experiencia concreta</li>
-          <li>Organizar el pensamiento de forma visual</li>
-          <li>Formalizar y aplicar el concepto</li>
-        </ul>
-      </section>
-      <section class="programa-bloque">
-        <h3>Aprender haciendo</h3>
-        <p>Los chicos:</p>
-        <ul>
-          <li>Exploran</li>
-          <li>Preguntan</li>
-          <li>Crean</li>
-          <li>Comprenden en profundidad</li>
-        </ul>
-      </section>
-      <section class="programa-bloque">
-        <p>La Inteligencia Artificial se integra de forma segura y pedagógica, siempre guiada por docentes y respetando los ritmos de cada estudiante.</p>
-      </section>
-      <section class="programa-bloque">
-        <h3>Aprender desde el comienzo</h3>
-        <p>Una <strong>política pública</strong> que fortalece comprensión, autonomía y desarrollo cognitivo desde la infancia.</p>
-      </section>
-    `
-  },
-  4: {
-    color: COLOR_VERDE,
-    img: 'assets/img/programas/Pisaton.jpg',
-    alt: 'Rentrenamiento de competencias en el hogar',
-    tab: 'Pisatón',
-    copete: 'La escuela se extiende más allá del aula',
-    titulo: 'Rentrenamiento de competencias en el hogar',
-    subtitulo: 'Pisatón',
-    texto: `
-      <section class="programa-bloque">
-        <p>Una provincia que entiende que aprender <strong>no sucede solo en la escuela</strong>, sino en todo el entramado educativo y social.</p>
-      </section>
-      <div class="programa-box">Aprender más allá de la escuela</div>
-      <section class="programa-bloque">
-        <p>La <strong>PISATÓN</strong> propone experiencias de aprendizaje mediadas por <strong>Inteligencia Artificial segura</strong>, que conectan escuela y hogar para fortalecer habilidades fundamentales en contextos reales y cotidianos.</p>
-      </section>
-      <section class="programa-bloque">
-        <ul>
-          <li>Acompañar el aprendizaje desde el hogar</li>
-          <li>Reforzar competencias clave evaluadas a nivel internacional</li>
-          <li>Integrar tecnología, reflexión y participación familiar</li>
-          <li>Promover hábitos de aprendizaje autónomo y continuo</li>
-        </ul>
-      </section>
-      <section class="programa-bloque">
-        <p>Mendoza amplía su política educativa innovadora llevando el desarrollo de competencias clave más allá de la escuela, integrando a las familias como parte activa del ecosistema de aprendizaje.</p>
-      </section>
-    `
-  },
-  5: {
-    color: '#744cc6',
-    img: 'assets/img/programas/Convivencia.jpg',
-    alt: 'Prevención del bullying',
-    tab: 'Convivencia',
-    copete: 'Convivencia digital y ciudadanía responsable',
-    titulo: 'Prevención del bullying',
-    subtitulo: 'Convivencia escolar',
-    texto: `
-      <section class="programa-bloque">
-        <p class="programa-destacado">Mendoza impulsa una política pública innovadora de convivencia escolar que combina narrativa inmersiva, Inteligencia Artificial y pedagogía emocional.</p>
-        <p>El abordaje del bullying se realiza desde una mirada preventiva, reflexiva y transformadora, involucrando a estudiantes, docentes y familias.</p>
-      </section>
-      <div class="programa-box">
-        <strong>No es un enfoque punitivo.</strong><br>Es preventivo, sensible y escalable.
-      </div>
-      <section class="programa-bloque">
-        <h3>Experiencias guiadas con IA educativa</h3>
-        <ul>
-          <li>Comprender una misma situación desde múltiples perspectivas (víctima, agresor, testigo)</li>
-          <li>Reflexionar, escribir y dialogar con IA educativa</li>
-          <li>Tomar decisiones y pensar sobre las propias acciones</li>
-        </ul>
-      </section>
-      <section class="programa-bloque">
-        <h3>Un enfoque preventivo y medible</h3>
-        <ul>
-          <li>Detección temprana de riesgos</li>
-          <li>Análisis de patrones de convivencia</li>
-          <li>Intervenciones pedagógicas oportunas</li>
-        </ul>
-      </section>
-      <section class="programa-bloque">
-        <p>Mendoza transforma la convivencia escolar en una política pública basada en datos, empatía y acción educativa.</p>
-      </section>
-    `
-  },
-  6: {
-    color: '#bd974b',
-    img: 'assets/img/programas/Docentes.jpg',
-    alt: 'Entrenamiento docente en Inteligencia Artificial',
-    tab: 'Docentes',
-    copete: 'Formación pedagógica para el aula del presente',
-    titulo: 'Entrenamiento para docentes en Inteligencia Artificial',
-    subtitulo: 'Docentes · Nivel Secundario',
-    texto: `
-      <section class="programa-bloque">
-        <p class="programa-destacado">Acompañar a los docentes en la incorporación pedagógica, crítica y situada de la Inteligencia Artificial.</p>
-        <p>Integrándola como aliada del pensamiento, la planificación y el aprendizaje en el aula.</p>
-      </section>
-      <section class="programa-bloque">
-        <h3>Co-pensamiento con Inteligencia Artificial</h3>
-        <p>Se promueve un enfoque en el que el rol docente se fortalece como guía, mediador y diseñador de experiencias de aprendizaje. Al mismo tiempo, se habilita a los estudiantes a producir, reflexionar y consolidar sus aprendizajes a través de creaciones propias, favoreciendo una participación activa y consciente en entornos mediados por tecnología.</p>
-      </section>
-      <div class="programa-box">
-        <strong>Integrar Inteligencia Artificial a la enseñanza</strong><br>no es delegar el pensamiento, sino ampliarlo.
-      </div>
-      <section class="programa-bloque">
-        <p>Este recorrido acompaña el desarrollo de nuevas prácticas pedagógicas, brindando seguridad, criterio y confianza para enseñar en el contexto actual.</p>
-      </section>
-      <section class="programa-bloque">
-        <p>Como resultado, se potencia un aprendizaje más profundo, significativo y autónomo, con un uso responsable de la <strong>Inteligencia Artificial al servicio de la educación.</strong></p>
-      </section>
-    `
-  }
-};
-const PROGRAMA_ORDER = ['1', '2', '3', '4', '5', '6'];
-let activePrograma = '1';
-
-function renderPrograma(key) {
-  const p = PROGRAMAS_DATA[key];
-  const detalle = document.getElementById('programa-detalle');
-  if (!detalle || !p) return;
-  // Se setea en el wrapper (no en el panel) para que herede tambien a las
-  // flechas prev/next, que ahora son hermanas del panel, no hijas.
-  detalle.closest('.programa-detalle-wrap').style.setProperty('--programa-color', p.color);
-  document.getElementById('programa-img').src = p.img;
-  document.getElementById('programa-img').alt = p.alt;
-  document.getElementById('programa-media-title').textContent = p.tab;
-  document.getElementById('programa-copete').textContent = p.copete;
-  document.getElementById('programa-titulo').textContent = p.titulo;
-  document.getElementById('programa-subtitulo').textContent = p.subtitulo;
-  document.getElementById('programa-texto').innerHTML = p.texto;
-
-  // Alinear el titulo blanco (sobre la foto) con el titulo del panel
-  // blanco — la posicion de este ultimo varia segun cuanto texto tenga el
-  // copete de cada programa, asi que se mide en vez de dejarlo fijo.
-  const mediaTitle = document.getElementById('programa-media-title');
-  const titulo = document.getElementById('programa-titulo');
-  const content = titulo && titulo.closest('.programa-content');
-  if (mediaTitle && titulo && content) {
-    // +10: el borde de color de arriba de .programa-content (border-top)
-    // no cuenta en offsetTop (se mide desde el padding-box del padre).
-    const top = titulo.offsetTop + 10;
-    mediaTitle.style.top = `${top}px`;
-  }
-}
-
-function setActivePrograma(key) {
-  activePrograma = key;
-  document.querySelectorAll('.programa-tab').forEach((btn) => {
-    btn.classList.toggle('active', btn.dataset.programa === key);
-  });
-  renderPrograma(key);
-}
-
-document.querySelectorAll('.programa-tab').forEach((btn) => {
-  // --tab-color se asigna aca (no hardcodeado en el HTML) leyendo del mismo
-  // PROGRAMAS_DATA que alimenta el panel — una sola fuente, sin riesgo de
-  // que tab y panel queden con colores distintos si se cambia uno y no el
-  // otro (paso justamente lo que se corrigio con Pisaton/Certificacion IA).
-  const p = PROGRAMAS_DATA[btn.dataset.programa];
-  if (p) btn.style.setProperty('--tab-color', p.color);
-  btn.addEventListener('click', () => setActivePrograma(btn.dataset.programa));
-});
-
-const programaPrevBtn = document.getElementById('programa-prev');
-const programaNextBtn = document.getElementById('programa-next');
-if (programaPrevBtn && programaNextBtn) {
-  programaPrevBtn.addEventListener('click', () => {
-    const i = PROGRAMA_ORDER.indexOf(activePrograma);
-    setActivePrograma(PROGRAMA_ORDER[(i - 1 + PROGRAMA_ORDER.length) % PROGRAMA_ORDER.length]);
-  });
-  programaNextBtn.addEventListener('click', () => {
-    const i = PROGRAMA_ORDER.indexOf(activePrograma);
-    setActivePrograma(PROGRAMA_ORDER[(i + 1) % PROGRAMA_ORDER.length]);
-  });
-}
-
-if (document.getElementById('programa-detalle')) {
-  renderPrograma(activePrograma);
-
-  // Flechas prev/next a una altura fija (no la del panel actual, que varia
-  // segun cuanto texto tenga cada programa y las haria "saltar" al cambiar
-  // de pestaña) — se calcula el promedio de alto entre los 6 programas una
-  // sola vez al cargar, y se posicionan a la mitad de ese promedio.
-  const detalleEl = document.getElementById('programa-detalle');
-  const wrapEl = detalleEl.closest('.programa-detalle-wrap');
-  if (wrapEl) {
-    let total = 0;
-    PROGRAMA_ORDER.forEach((key) => {
-      renderPrograma(key);
-      total += detalleEl.offsetHeight;
-    });
-    const avgHeight = total / PROGRAMA_ORDER.length;
-    wrapEl.style.setProperty('--programa-nav-top', (avgHeight / 2).toFixed(0) + 'px');
-    renderPrograma(activePrograma); // vuelve a dejar el panel activo real
-  }
-}
-
-// Programas — acordeon mobile, generado desde la misma PROGRAMAS_DATA que
-// alimenta las tabs de desktop (una sola fuente de contenido). <details
-// name="programas-accordion"> es nativo: abre uno solo por vez sin JS extra.
+// Programas — los 6 paneles ya estan armados en el HTML (uno por programa)
+// y comparten la misma celda de grid en CSS (.programa-esquema), asi que el
+// alto de la fila lo define el panel mas alto de los 6 y no salta al
+// cambiar de tab. Cambiar de tab es solo alternar la clase is-active
+// (visibility, no display:none — eso sacaria al panel del calculo de alto).
 (() => {
-  const wrap = document.getElementById('programas-accordion');
-  if (!wrap) return;
+  const tabs = document.querySelectorAll(".programa-tab");
+  if (!tabs.length) return;
 
-  PROGRAMA_ORDER.forEach((key) => {
-    const p = PROGRAMAS_DATA[key];
-    const item = document.createElement('details');
-    item.className = 'programa-accordion-item';
-    item.name = 'programas-accordion';
-    item.style.setProperty('--programa-color', p.color);
-
-    const summary = document.createElement('summary');
-    summary.className = 'programa-accordion-header';
-    summary.innerHTML =
-      `<span class="programa-accordion-num">${key.padStart(2, '0')}</span>` +
-      `<span class="programa-accordion-title">${p.tab}</span>` +
-      `<span class="programa-accordion-icon" aria-hidden="true"></span>`;
-
-    const body = document.createElement('div');
-    body.className = 'programa-accordion-body';
-    // Version recortada especifica para mobile (la de desktop es muy alta
-    // y se ve mal en el acordeon) — mismo nombre de archivo + "-mob".
-    const imgMobile = p.img.replace(/\.(png|jpg)$/, '-mob.$1');
-    body.innerHTML =
-      `<img loading="lazy" decoding="async" src="${imgMobile}" alt="${p.alt}">` +
-      `<p class="programa-copete">${p.copete}</p>` +
-      `<h3 class="programa-titulo">${p.titulo}</h3>` +
-      `<p class="programa-subtitulo">${p.subtitulo}</p>` +
-      `<div class="programa-texto">${p.texto}</div>` +
-      `<button type="button" class="programa-accordion-close">Cerrar</button>`;
-
-    item.append(summary, body);
-    wrap.appendChild(item);
-  });
-
-  // Boton "Cerrar" al final del panel — asi no hay que scrollear hasta
-  // arriba para volver a plegar la card despues de leer el texto.
-  wrap.addEventListener('click', (e) => {
-    const btn = e.target.closest('.programa-accordion-close');
-    if (!btn) return;
-    const details = btn.closest('details');
-    if (!details) return;
-    details.open = false;
-    // Al cerrar un panel largo, el contenido se achica de golpe pero el
-    // scroll (en pixeles) queda donde estaba — visualmente "salta" a la
-    // seccion que haya quedado en esa posicion (ej. Creaciones). Volver al
-    // propio acordeon despues de cerrar evita ese salto.
-    details.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  tabs.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const key = btn.dataset.programa;
+      tabs.forEach((t) => t.classList.toggle("active", t === btn));
+      document.querySelectorAll(".programa-esquema").forEach((panel) => {
+        panel.classList.toggle("is-active", panel.dataset.programa === key);
+      });
+    });
   });
 })();
 
 // FlexClass / PACCC — panel de detalle desktop
 const STEP_DATA = {
-  1: { title: 'Personaliza', color: 'var(--paccc-p)', tabLabel: 'P', badge: '01',
-    intro: 'Adaptá FlexClass para tu aula.',
-    long: 'Elige las preguntas del reservorio curricular, suma las suyas, decide con qué herramienta de IA van a trabajar sus estudiantes y ajusta los tiempos. Acá se orquesta la experiencia cognitiva para este grupo, en este contexto, en este momento.',
-    imgSrc: 'assets/img/Paccc-01-Personaliza.jpg' },
-  2: { title: 'Aprende', color: 'var(--paccc-a)', tabLabel: 'A', badge: '02',
-    intro: 'Contenido adaptado a Mendoza',
-    long: 'El tema se lo cuenta un personaje en primera persona, con la historia y la identidad de la provincia como base del curso, y sobre eso el estudiante conversa y crea después.',
-    imgSrc: 'assets/img/Paccc-02-Aprende.jpg' },
-  3: { title: 'Conversa', color: 'var(--paccc-c1)', tabLabel: 'C', badge: '03',
-    intro: 'Preguntas antes que respuestas',
-    long: 'FlexFlixGPT es el chat de la plataforma: una IA que solo habla del tema de la clase y está hecha para repreguntar. El estudiante dialoga con ella a partir de preguntas curadas y agrupadas por intención: repaso, exploración, preguntas esenciales. La IA no cierra el tema, lo abre.',
-    imgSrc: 'assets/img/Paccc-03-Conversa.jpg' },
-  4: { title: 'Crea', color: 'var(--paccc-c2)', tabLabel: 'C', badge: '04',
-    intro: 'De consumir a producir',
-    long: 'Cada tema trae una IA y una consigna concreta: un video, una canción, una infografía. La clase da los pasos y el tutorial de la IA; el resultado es la pieza del estudiante.',
-    imgSrc: 'assets/img/Paccc-04-Crea.jpg' },
-  5: { title: 'Comparte', color: 'var(--paccc-c3)', tabLabel: 'C', badge: '05',
-    intro: 'El trabajo creado sube a la hoja de entrega del curso.',
-    long: 'El docente lo revisa y devuelve una retroalimentación puntual sobre la producción real del estudiante, cerrando el ciclo pedagógico.',
-    imgSrc: 'assets/img/Paccc-05-Comparte.jpg' }
+  1: {
+    title: "Personaliza",
+    color: "var(--paccc-p)",
+    tabLabel: "P",
+    badge: "01",
+    intro: "Adaptá FlexClass para tu aula.",
+    long: "Elige las preguntas del reservorio curricular, suma las suyas, decide con qué herramienta de IA van a trabajar sus estudiantes y ajusta los tiempos. Acá se orquesta la experiencia cognitiva para este grupo, en este contexto, en este momento.",
+    imgSrc: "assets/img/Paccc-01-Personaliza.jpg",
+  },
+  2: {
+    title: "Aprende",
+    color: "var(--paccc-a)",
+    tabLabel: "A",
+    badge: "02",
+    intro: "Contenido adaptado a Mendoza",
+    long: "El tema se lo cuenta un personaje en primera persona, con la historia y la identidad de la provincia como base del curso, y sobre eso el estudiante conversa y crea después.",
+    imgSrc: "assets/img/Paccc-02-Aprende.jpg",
+  },
+  3: {
+    title: "Conversa",
+    color: "var(--paccc-c1)",
+    tabLabel: "C",
+    badge: "03",
+    intro: "Preguntas antes que respuestas",
+    long: "FlexFlixGPT es el chat de la plataforma: una IA que solo habla del tema de la clase y está hecha para repreguntar. El estudiante dialoga con ella a partir de preguntas curadas y agrupadas por intención: repaso, exploración, preguntas esenciales. La IA no cierra el tema, lo abre.",
+    imgSrc: "assets/img/Paccc-03-Conversa.jpg",
+  },
+  4: {
+    title: "Crea",
+    color: "var(--paccc-c2)",
+    tabLabel: "C",
+    badge: "04",
+    intro: "De consumir a producir",
+    long: "Cada tema trae una IA y una consigna concreta: un video, una canción, una infografía. La clase da los pasos y el tutorial de la IA; el resultado es la pieza del estudiante.",
+    imgSrc: "assets/img/Paccc-04-Crea.jpg",
+  },
+  5: {
+    title: "Comparte",
+    color: "var(--paccc-c3)",
+    tabLabel: "C",
+    badge: "05",
+    intro: "El trabajo creado sube a la hoja de entrega del curso.",
+    long: "El docente lo revisa y devuelve una retroalimentación puntual sobre la producción real del estudiante, cerrando el ciclo pedagógico.",
+    imgSrc: "assets/img/Paccc-05-Comparte.jpg",
+  },
 };
-const STEP_ORDER = ['1', '2', '3', '4', '5'];
-let activeKey = '1';
+const STEP_ORDER = ["1", "2", "3", "4", "5"];
+let activeKey = "1";
 
 function renderDetail(key) {
   const s = STEP_DATA[key];
-  const panel = document.getElementById('paccc-detail');
+  const panel = document.getElementById("paccc-detail");
   panel.style.borderColor = s.color;
-  document.querySelectorAll('.nav-arrow-btn').forEach(b => b.style.background = s.color);
-  document.getElementById('paccc-detail-img').src = s.imgSrc;
-  const badge = document.getElementById('paccc-detail-badge');
-  badge.textContent = s.badge || '';
+  document
+    .querySelectorAll(".nav-arrow-btn")
+    .forEach((b) => (b.style.background = s.color));
+  document.getElementById("paccc-detail-img").src = s.imgSrc;
+  const badge = document.getElementById("paccc-detail-badge");
+  badge.textContent = s.badge || "";
   badge.style.color = s.color;
-  document.getElementById('paccc-detail-title').textContent = s.title;
-  document.getElementById('paccc-detail-title').style.color = s.color;
-  document.getElementById('paccc-detail-intro').textContent = s.intro;
-  document.getElementById('paccc-detail-long').textContent = s.long;
-  document.getElementById('paccc-detail-long').style.display = s.long ? 'block' : 'none';
-  const creaList = document.getElementById('paccc-crea-list');
-  if (creaList) creaList.style.display = key === '4' ? 'grid' : 'none';
+  document.getElementById("paccc-detail-title").textContent = s.title;
+  document.getElementById("paccc-detail-title").style.color = s.color;
+  document.getElementById("paccc-detail-intro").textContent = s.intro;
+  document.getElementById("paccc-detail-long").textContent = s.long;
+  document.getElementById("paccc-detail-long").style.display = s.long
+    ? "block"
+    : "none";
+  const creaList = document.getElementById("paccc-crea-list");
+  if (creaList) creaList.style.display = key === "4" ? "grid" : "none";
 }
 
 function setActive(key) {
   activeKey = key;
-  document.querySelectorAll('.paccc-seg').forEach(c => {
-    c.classList.toggle('active', c.dataset.key === key);
+  document.querySelectorAll(".paccc-seg").forEach((c) => {
+    c.classList.toggle("active", c.dataset.key === key);
   });
   renderDetail(key);
 }
 
-document.querySelectorAll('.paccc-seg').forEach(seg => {
-  seg.addEventListener('click', () => setActive(seg.dataset.key));
+document.querySelectorAll(".paccc-seg").forEach((seg) => {
+  seg.addEventListener("click", () => setActive(seg.dataset.key));
 });
-document.getElementById('paccc-prev').addEventListener('click', () => {
+document.getElementById("paccc-prev").addEventListener("click", () => {
   const i = STEP_ORDER.indexOf(activeKey);
   setActive(STEP_ORDER[(i - 1 + STEP_ORDER.length) % STEP_ORDER.length]);
 });
-document.getElementById('paccc-next').addEventListener('click', () => {
+document.getElementById("paccc-next").addEventListener("click", () => {
   const i = STEP_ORDER.indexOf(activeKey);
   setActive(STEP_ORDER[(i + 1) % STEP_ORDER.length]);
 });
@@ -603,63 +284,63 @@ renderDetail(activeKey);
 // PACCC mobile — one vertical card per stage (image, texto), scroll horizontal con snap.
 // Mismo STEP_DATA que el desktop: sin duplicar contenido a mano.
 (() => {
-  const track = document.getElementById('paccc-mobile-carousel');
-  const dotsWrap = document.getElementById('paccc-mobile-dots');
+  const track = document.getElementById("paccc-mobile-carousel");
+  const dotsWrap = document.getElementById("paccc-mobile-dots");
   if (!track || !dotsWrap) return;
 
   const creaIcons = [
-    { src: 'assets/img/icon-08.png', label: 'Videos' },
-    { src: 'assets/img/icon-09.png', label: 'Mapas mentales' },
-    { src: 'assets/img/icon-10.png', label: 'Historias' },
-    { src: 'assets/img/icon-11.png', label: 'Canciones' },
-    { src: 'assets/img/icon-12.png', label: 'Líneas de tiempo' },
-    { src: 'assets/img/icon-13.png', label: 'Presentaciones' },
-    { src: 'assets/img/icon-14.png', label: 'Infografías' },
+    { src: "assets/img/icon-08.png", label: "Videos" },
+    { src: "assets/img/icon-09.png", label: "Mapas mentales" },
+    { src: "assets/img/icon-10.png", label: "Historias" },
+    { src: "assets/img/icon-11.png", label: "Canciones" },
+    { src: "assets/img/icon-12.png", label: "Líneas de tiempo" },
+    { src: "assets/img/icon-13.png", label: "Presentaciones" },
+    { src: "assets/img/icon-14.png", label: "Infografías" },
   ];
 
   STEP_ORDER.forEach((key) => {
     const s = STEP_DATA[key];
 
-    const card = document.createElement('div');
-    card.className = 'paccc-mobile-card';
-    card.style.setProperty('--card-color', s.color);
+    const card = document.createElement("div");
+    card.className = "paccc-mobile-card";
+    card.style.setProperty("--card-color", s.color);
 
-    const photo = document.createElement('div');
-    photo.className = 'paccc-mobile-card-photo';
+    const photo = document.createElement("div");
+    photo.className = "paccc-mobile-card-photo";
     photo.innerHTML = `<img src="${s.imgSrc}" alt="" loading="lazy" decoding="async">`;
 
-    const body = document.createElement('div');
-    body.className = 'paccc-mobile-card-body';
+    const body = document.createElement("div");
+    body.className = "paccc-mobile-card-body";
 
-    const letter = document.createElement('div');
-    letter.className = 'paccc-mobile-card-letter';
-    letter.textContent = s.tabLabel || '';
-    letter.setAttribute('aria-hidden', 'true');
+    const letter = document.createElement("div");
+    letter.className = "paccc-mobile-card-letter";
+    letter.textContent = s.tabLabel || "";
+    letter.setAttribute("aria-hidden", "true");
 
-    const badge = document.createElement('div');
-    badge.className = 'paccc-mobile-card-badge';
-    badge.textContent = s.badge || '';
+    const badge = document.createElement("div");
+    badge.className = "paccc-mobile-card-badge";
+    badge.textContent = s.badge || "";
     badge.style.color = s.color;
 
-    const title = document.createElement('h3');
-    title.className = 'paccc-mobile-card-title';
+    const title = document.createElement("h3");
+    title.className = "paccc-mobile-card-title";
     title.textContent = s.title;
 
-    const intro = document.createElement('div');
-    intro.className = 'paccc-mobile-card-intro';
+    const intro = document.createElement("div");
+    intro.className = "paccc-mobile-card-intro";
     intro.textContent = s.intro;
 
-    const long = document.createElement('div');
-    long.className = 'paccc-mobile-card-long';
+    const long = document.createElement("div");
+    long.className = "paccc-mobile-card-long";
     long.textContent = s.long;
 
     body.append(letter, badge, title, intro, long);
 
-    if (key === '4') {
-      const list = document.createElement('div');
-      list.className = 'paccc-mobile-crea-list is-visible';
+    if (key === "4") {
+      const list = document.createElement("div");
+      list.className = "paccc-mobile-crea-list is-visible";
       creaIcons.forEach(({ src, label }) => {
-        const row = document.createElement('div');
+        const row = document.createElement("div");
         row.innerHTML = `<img src="${src}" alt="" loading="lazy" decoding="async">${label}`;
         list.appendChild(row);
       });
@@ -669,21 +350,24 @@ renderDetail(activeKey);
     card.append(photo, body);
     track.appendChild(card);
 
-    const dot = document.createElement('span');
-    dot.className = 'paccc-mobile-dot';
-    dot.style.setProperty('--dot-color', s.color);
+    const dot = document.createElement("span");
+    dot.className = "paccc-mobile-dot";
+    dot.style.setProperty("--dot-color", s.color);
     dotsWrap.appendChild(dot);
   });
 
   const cards = Array.from(track.children);
   const dots = Array.from(dotsWrap.children);
-  const dotObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      const idx = cards.indexOf(entry.target);
-      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-    });
-  }, { root: track, threshold: 0.6 });
+  const dotObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const idx = cards.indexOf(entry.target);
+        dots.forEach((d, i) => d.classList.toggle("active", i === idx));
+      });
+    },
+    { root: track, threshold: 0.6 },
+  );
   cards.forEach((c) => dotObserver.observe(c));
 })();
 
@@ -691,51 +375,135 @@ renderDetail(activeKey);
 // "featured" para armar la primera fila (4) y la segunda fila (4).
 (() => {
   const RECONOCIMIENTOS_ITEMS = [
-    { id: 'youtube', institution: 'YOUTUBE', name: 'Botones de oro', description: 'Entregados por YouTube a los canales Aula365 y Educatina.', src: 'assets/img/premios/premios__youtube.png', alt: 'YouTube', featured: true },
-    { id: 'holoniq', institution: 'HOLONIQ', name: 'Top 200', description: 'Selección global de 200 empresas de tecnología educativa.', src: 'assets/img/premios/premios__holon.png', alt: 'HolonIQ', featured: true },
-    { id: 'guinness', institution: 'GUINNESS WORLD RECORDS', name: 'Récord mundial', description: 'Al cómic colaborativo con la mayor cantidad de autores del mundo.', src: 'assets/img/premios/premios__Guinness.png', alt: 'Guinness World Records', featured: true },
-    { id: 'tato', institution: 'CAPIT', name: 'Premio Tato', description: 'Mejor programa infantil, por la serie Los Creadores (2017).', src: 'assets/img/premios/tato.webp', alt: 'Premio Tato', featured: true, logoSize: 'small' },
-    { id: 'parents', institution: "PARENTS' CHOICE FOUNDATION", name: "Parents' Choice Awards", description: 'Sello de calidad otorgado a productos educativos para chicos y familias.', src: 'assets/img/premios/premios__parents.png', alt: "Parents' Choice", featured: false },
-    { id: 'sadosky', institution: 'CESSI', name: 'Sadosky de Oro', description: 'A la trayectoria empresarial y a la mejor solución de innovación tecnológica aplicada a la educación (2015).', src: 'assets/img/premios/premios__Sadosky.png', alt: 'Premios Sadosky', featured: false },
-    { id: 'wsa', institution: 'WORLD SUMMIT AWARDS', name: 'Innovación educativa', description: 'Otorgado por la ONU al Programa de Alfabetización Digital (2005).', src: 'assets/img/premios/premios__wsa.png', alt: 'World Summit Award', featured: false, logoSize: 'large' },
-    { id: 'martinfierro', institution: 'APTRA', name: 'Premio Martín Fierro', description: 'Mejor programa infantil por la serie transmedia Los Creadores (2016).', src: 'assets/img/premios/martin-fierro.jpg', alt: 'Premio Martín Fierro', featured: false },
+    {
+      id: "time",
+      institution: "TIME / STATISTA",
+      name: "Top 100 EdTech Companies",
+      description:
+        "Selección mundial de las 100 mejores empresas de tecnología educativa (2026).",
+      src: "assets/img/premios/martin-times.png",
+      alt: "TIME - World's Top EdTech Companies",
+      featured: true,
+    },
+    {
+      id: "youtube",
+      institution: "YOUTUBE",
+      name: "Botones de oro",
+      description: "Entregados por YouTube a los canales Aula365 y Educatina.",
+      src: "assets/img/premios/premios__youtube.png",
+      alt: "YouTube",
+      featured: true,
+    },
+    {
+      id: "holoniq",
+      institution: "HOLONIQ",
+      name: "Top 200",
+      description: "Selección global de 200 empresas de tecnología educativa.",
+      src: "assets/img/premios/premios__holon.png",
+      alt: "HolonIQ",
+      featured: true,
+    },
+    {
+      id: "guinness",
+      institution: "GUINNESS WORLD RECORDS",
+      name: "Récord mundial",
+      description:
+        "Al cómic colaborativo con la mayor cantidad de autores del mundo.",
+      src: "assets/img/premios/premios__Guinness.png",
+      alt: "Guinness World Records",
+      featured: true,
+    },
+    {
+      id: "tato",
+      institution: "CAPIT",
+      name: "Premio Tato",
+      description:
+        "Mejor programa infantil, por la serie Los Creadores (2017).",
+      src: "assets/img/premios/tato.webp",
+      alt: "Premio Tato",
+      featured: true,
+      logoSize: "small",
+    },
+    {
+      id: "parents",
+      institution: "PARENTS' CHOICE FOUNDATION",
+      name: "Parents' Choice Awards",
+      description:
+        "Sello de calidad otorgado a productos educativos para chicos y familias.",
+      src: "assets/img/premios/premios__parents.png",
+      alt: "Parents' Choice",
+      featured: false,
+    },
+    {
+      id: "sadosky",
+      institution: "CESSI",
+      name: "Sadosky de Oro",
+      description:
+        "A la trayectoria empresarial y a la mejor solución de innovación tecnológica aplicada a la educación (2015).",
+      src: "assets/img/premios/premios__Sadosky.png",
+      alt: "Premios Sadosky",
+      featured: false,
+    },
+    {
+      id: "wsa",
+      institution: "WORLD SUMMIT AWARDS",
+      name: "Innovación educativa",
+      description:
+        "Otorgado por la ONU al Programa de Alfabetización Digital (2005).",
+      src: "assets/img/premios/premios__wsa.png",
+      alt: "World Summit Award",
+      featured: false,
+      logoSize: "large",
+    },
+    {
+      id: "martinfierro",
+      institution: "APTRA",
+      name: "Premio Martín Fierro",
+      description:
+        "Mejor programa infantil por la serie transmedia Los Creadores (2016).",
+      src: "assets/img/premios/martin-fierro.jpg",
+      alt: "Premio Martín Fierro",
+      featured: false,
+    },
   ];
 
-  const featuredEl = document.getElementById('reconocimientos-featured');
-  const secondaryEl = document.getElementById('reconocimientos-secondary');
-  const mobileRailEl = document.getElementById('reconocimientos-mobile-rail');
+  const featuredEl = document.getElementById("reconocimientos-featured");
+  const secondaryEl = document.getElementById("reconocimientos-secondary");
+  const mobileRailEl = document.getElementById("reconocimientos-mobile-rail");
   if (!featuredEl || !secondaryEl || !mobileRailEl) return;
 
   function buildAwardCard(item) {
-    const card = document.createElement('div');
-    card.className = 'award-card ' + (item.featured ? 'award-card--featured' : 'award-card--secondary');
-    card.setAttribute('role', 'listitem');
-    card.setAttribute('data-reveal-card', '');
+    const card = document.createElement("div");
+    card.className =
+      "award-card " +
+      (item.featured ? "award-card--featured" : "award-card--secondary");
+    card.setAttribute("role", "listitem");
+    card.setAttribute("data-reveal-card", "");
 
-    const stage = document.createElement('div');
-    stage.className = 'award-logo-stage';
-    if (item.logoSize === 'small') stage.classList.add('is-small');
-    else if (item.logoSize === 'large') stage.classList.add('is-large');
+    const stage = document.createElement("div");
+    stage.className = "award-logo-stage";
+    if (item.logoSize === "small") stage.classList.add("is-small");
+    else if (item.logoSize === "large") stage.classList.add("is-large");
 
-    const img = document.createElement('img');
+    const img = document.createElement("img");
     img.src = item.src;
     img.alt = item.alt;
-    img.loading = 'lazy';
+    img.loading = "lazy";
     stage.appendChild(img);
 
-    const body = document.createElement('div');
-    body.className = 'award-body';
+    const body = document.createElement("div");
+    body.className = "award-body";
 
-    const institution = document.createElement('div');
-    institution.className = 'award-institution';
+    const institution = document.createElement("div");
+    institution.className = "award-institution";
     institution.textContent = item.institution;
 
-    const name = document.createElement('h3');
-    name.className = 'award-name';
+    const name = document.createElement("h3");
+    name.className = "award-name";
     name.textContent = item.name;
 
-    const description = document.createElement('div');
-    description.className = 'award-description';
+    const description = document.createElement("div");
+    description.className = "award-description";
     description.textContent = item.description;
 
     body.append(institution, name, description);
@@ -762,51 +530,314 @@ renderDetail(activeKey);
 // sola despues de unos segundos; codeados a mano, igual que la prueba que
 // confirmo que funciona, se sostienen sin problema.
 
-// Creaciones — desktop: el grid estatico se reordena en 2 filas horizontales
-// con loop infinito (mismo mecanismo que las columnas verticales de Entre
-// Rios en referencia/, rotado a horizontal). Se REUBICAN los mismos nodos
-// .creacion-card que ya estaban en el HTML (no se reescribe su contenido —
-// el diseño de la card queda igual), se reparten alternados entre las 2
-// filas y se clonan (aria-hidden, fuera del tab order) para el loop sin
-// salto visual. En mobile no se toca nada, sigue el carrusel swipeable
-// que ya existia.
-if (window.innerWidth > 900) {
-  (() => {
-    const grid = document.getElementById('creaciones-grid');
-    if (!grid) return;
-    const cards = Array.from(grid.querySelectorAll('.creacion-card'));
-    if (!cards.length) return;
+// Creaciones con IA — galeria masonry: coleccion centralizada de datos,
+// render de columnas (con clonado controlado para el loop) y lightbox
+// accesible. Mecanismo copiado tal cual del sitio hermano Entre Rios
+// (referencia/) — mismas 4 columnas verticales con loop infinito por CSS,
+// mismo lightbox; solo cambian los datos (CREACIONES_ITEMS, con las 17
+// creaciones reales de Mendoza) y el reparto en columnas.
+(() => {
+  const GAL = "assets/img/creaciones/";
+  // Cada pieza comunica: area curricular · categoria (formato/soporte) · que
+  // demuestra sobre el aprendizaje. Se renderiza siempre visible (no solo al
+  // hover) para que funcione igual en mobile/touch.
+  const CREACIONES_ITEMS = [
+    {
+      src: GAL + "01.png",
+      alt: "Documento interactivo sobre el uso crítico y responsable de la inteligencia artificial",
+      categoria: "Presentación interactiva",
+      titulo: "El arte de preguntar a la IA",
+      area: "Tecnología y Ciudadanía Digital",
+      demuestra:
+        "Formulación de preguntas y consignas claras, uso responsable de la inteligencia artificial, revisión crítica de respuestas, detección de errores y sesgos, cuidado de la privacidad y toma de decisiones fundamentadas.",
+    },
+    {
+      src: GAL + "02.png",
+      alt: "Historieta educativa sobre Lionel investigando con inteligencia artificial",
+      categoria: "Historieta educativa",
+      titulo: "Lionel y la inteligencia artificial",
+      area: "Tecnología y Ambiente",
+      demuestra:
+        "Uso de la IA como apoyo para investigar, contraste de fuentes confiables, identificación y corrección de información inexacta, análisis de problemáticas ambientales y construcción de conclusiones propias.",
+    },
+    {
+      src: GAL + "03.png",
+      alt: "Línea de tiempo ilustrada del proceso de independencia argentina",
+      categoria: "Línea de tiempo",
+      titulo: "De la Ilustración a la Independencia",
+      area: "Historia",
+      demuestra:
+        "Relación cronológica entre la Ilustración, la Independencia de Estados Unidos, la Revolución Francesa, el Virreinato del Río de la Plata, las Invasiones Inglesas, la Revolución de Mayo y la Independencia argentina.",
+    },
+    {
+      src: GAL + "04.png",
+      alt: "Mapa conceptual sobre nacionalismo, regionalismo y localismo",
+      categoria: "Mapa conceptual",
+      titulo: "Identidad, cultura y territorio",
+      area: "Geografía y Ciencias Sociales",
+      demuestra:
+        "Comprensión de las distintas escalas de pertenencia territorial, construcción de identidades colectivas, diversidad cultural y relaciones entre nacionalismo, regionalismo y localismo, incluyendo formas de convivencia y tensión.",
+    },
+    {
+      src: GAL + "05.png",
+      alt: "Infografía sobre el uso crítico, controlado y responsable de la inteligencia artificial",
+      categoria: "Infografía",
+      titulo: "Criterio, control y responsabilidad frente a la IA",
+      area: "Tecnología y Ciudadanía Digital",
+      demuestra:
+        "Capacidad para decidir cuándo usar IA, preguntar con un propósito definido, revisar sus respuestas, reconocer sesgos, errores y riesgos de privacidad, verificar la información y asumir la decisión final como responsabilidad humana.",
+    },
+    {
+      src: GAL + "06.png",
+      alt: "Afiche artístico de un semáforo mental asociado con sonidos y emociones",
+      categoria: "Afiche",
+      titulo: "Semáforo mental",
+      area: "Educación Emocional y Música",
+      demuestra:
+        "Reconocimiento de estados emocionales mediante la metáfora del semáforo, identificación de señales de pausa, alerta y avance, percepción de estímulos sonoros y desarrollo de estrategias de autorregulación.",
+    },
+    {
+      src: GAL + "07.png",
+      alt: "Infografía histórica sobre la última dictadura militar argentina",
+      categoria: "Infografía histórica",
+      titulo: "Memoria, verdad y justicia",
+      area: "Historia y Construcción de Ciudadanía",
+      demuestra:
+        "Comprensión del golpe de Estado del 24 de marzo de 1976, la dictadura y el terrorismo de Estado, las desapariciones forzadas, la lucha de los organismos de derechos humanos y el valor de la memoria para la vida democrática.",
+    },
+    {
+      src: GAL + "08.png",
+      alt: "Comparación gráfica entre una función afín y una función cuadrática",
+      categoria: "Cuadro comparativo",
+      titulo: "Función afín y función cuadrática",
+      area: "Matemática",
+      demuestra:
+        "Diferenciación entre rectas y parábolas, interpretación de pendiente y ordenada al origen, identificación de raíces, vértice y eje de simetría, y análisis del discriminante de una función cuadrática.",
+    },
+    {
+      src: GAL + "09.png",
+      alt: "Diagrama de Venn aplicado a conjuntos de música y deportes",
+      categoria: "Diagrama de Venn",
+      titulo: "Teoría de conjuntos",
+      area: "Matemática",
+      demuestra:
+        "Representación de conjuntos mediante diagramas de Venn, reconocimiento del universo, pertenencia, intersección y diferencia, y clasificación de elementos según propiedades compartidas.",
+    },
+    {
+      src: GAL + "10.png",
+      alt: "Infografía paso a paso para resolver una división con números decimales",
+      categoria: "Infografía",
+      titulo: "División con decimales",
+      area: "Matemática",
+      demuestra:
+        "Comprensión del procedimiento para dividir por un número decimal, transformación del divisor en entero, aplicación de operaciones equivalentes, resolución del cálculo y comprobación del resultado mediante la multiplicación.",
+    },
+    {
+      src: GAL + "11.jpg",
+      alt: "Mapa mental sobre la conquista de América",
+      categoria: "Mapa mental",
+      titulo: "Conquista de América",
+      area: "Historia",
+      demuestra:
+        "Organización de las causas, actores, procesos y consecuencias de la conquista, comprensión del contexto europeo y americano, reconocimiento de interpretaciones históricas y análisis del impacto sobre los pueblos originarios.",
+    },
+    {
+      src: GAL + "12.png",
+      alt: "Cuadro comparativo ilustrado de las teorías evolutivas de Lamarck y Darwin",
+      categoria: "Cuadro comparativo",
+      titulo: "Lamarck y Darwin: teorías de la evolución",
+      area: "Biología",
+      demuestra:
+        "Comparación entre uso y desuso, herencia de caracteres adquiridos, variación heredable y selección natural, junto con la comprensión de genes, mutaciones, herencia, poblaciones y síntesis evolutiva moderna.",
+    },
+    {
+      src: GAL + "13.png",
+      alt: "Documento interactivo con mapas de los recursos naturales de América y Argentina",
+      categoria: "Presentación interactiva",
+      titulo: "Recursos naturales en América y Argentina",
+      area: "Geografía y Ambiente",
+      demuestra:
+        "Identificación y localización de recursos naturales, diferenciación entre recursos renovables y no renovables, reconocimiento de su distribución territorial y análisis de su aprovechamiento e impacto ambiental.",
+    },
+    {
+      src: GAL + "14.png",
+      alt: "Infografía sobre los procesos y consecuencias de la conquista de América",
+      categoria: "Infografía histórica",
+      titulo: "Conquista de América: procesos y consecuencias",
+      area: "Historia",
+      demuestra:
+        "Comprensión de la diversidad de los pueblos originarios antes de 1492, las rutas europeas, las conquistas y alianzas, las resistencias indígenas y las consecuencias demográficas, económicas, políticas, religiosas, lingüísticas y culturales.",
+    },
+    {
+      src: GAL + "15.png",
+      alt: "Producción sonora sobre la estructura del texto expositivo",
+      categoria: "Producción sonora",
+      titulo: "El texto expositivo",
+      area: "Lengua y Literatura",
+      demuestra:
+        "Reconocimiento de la finalidad informativa del texto expositivo, organización de ideas en introducción, desarrollo y conclusión, producción de explicaciones claras y adaptación de un contenido escrito al lenguaje oral y sonoro.",
+    },
+    {
+      src: GAL + "16.jpg",
+      alt: "Línea de tiempo digital sobre la evolución de las problemáticas ambientales",
+      categoria: "Línea de tiempo",
+      titulo: "Línea del tiempo sobre la problemática ambiental",
+      area: "Geografía y Ambiente",
+      demuestra:
+        "Organización cronológica de acontecimientos ambientales, reconocimiento de cambios en la relación entre sociedad y naturaleza, identificación de causas y consecuencias y comparación de problemáticas de Argentina y el mundo.",
+    },
+    {
+      src: GAL + "17.png",
+      alt: "Infografía sobre el Humanismo y el Renacimiento entre los siglos XIV y XVI",
+      categoria: "Infografía histórica",
+      titulo: "Humanismo y Renacimiento",
+      area: "Historia y Arte",
+      demuestra:
+        "Comprensión del paso de la Edad Media a la Modernidad, recuperación de la Antigüedad clásica, centralidad del ser humano y la razón, desarrollo de la ciencia y la observación, perspectiva artística, imprenta y difusión del conocimiento.",
+    },
+  ];
+  const CREACIONES_COLUMN_LAYOUT = [
+    { direction: "up", indices: [0, 4, 8, 12] },
+    { direction: "down", indices: [1, 5, 9, 13] },
+    { direction: "up", indices: [2, 6, 10, 14] },
+    { direction: "down", indices: [3, 7, 11, 15, 16] },
+  ];
 
-    const rowA = cards.filter((_, i) => i % 2 === 0);
-    const rowB = cards.filter((_, i) => i % 2 === 1);
+  const columnsEl = document.getElementById("creaciones-columns");
+  if (!columnsEl) return;
 
-    function buildRow(rowCards, direction) {
-      const row = document.createElement('div');
-      row.className = `creaciones-row creaciones-row--${direction}`;
-      const track = document.createElement('div');
-      track.className = 'creaciones-row-track';
-      rowCards.forEach((card) => track.appendChild(card));
-      rowCards.forEach((card) => {
-        const clone = card.cloneNode(true);
-        clone.setAttribute('aria-hidden', 'true');
-        clone.querySelectorAll('a,button').forEach((el) => { el.tabIndex = -1; });
-        track.appendChild(clone);
-      });
-      row.appendChild(track);
-      return row;
+  function buildCard(index, isClone) {
+    const item = CREACIONES_ITEMS[index];
+    const wrap = document.createElement("div");
+    wrap.className = "creaciones-item";
+    wrap.setAttribute("role", "listitem");
+
+    const frame = document.createElement("button");
+    frame.type = "button";
+    frame.className = "creaciones-frame";
+    frame.dataset.index = String(index);
+    frame.setAttribute(
+      "aria-label",
+      'Ver "' +
+        item.titulo +
+        '" — ' +
+        item.area +
+        " · " +
+        item.categoria +
+        ". Demuestra: " +
+        item.demuestra,
+    );
+
+    // Los clones (para el loop visual infinito) son el mismo contenido
+    // repetido: se ocultan del lector de pantalla y se sacan del tab order,
+    // sin afectar el click ni la animacion.
+    if (isClone) {
+      wrap.setAttribute("aria-hidden", "true");
+      frame.tabIndex = -1;
     }
 
-    const wrap = document.createElement('div');
-    wrap.className = 'creaciones-rows';
-    wrap.id = 'creaciones-grid';
-    wrap.setAttribute('role', 'list');
-    wrap.setAttribute('aria-label', 'Galería de creaciones curriculares con IA');
-    wrap.appendChild(buildRow(rowA, 'left'));
-    wrap.appendChild(buildRow(rowB, 'right'));
+    const img = document.createElement("img");
+    img.src = item.src;
+    img.alt = item.alt;
+    img.loading = "lazy";
 
-    grid.replaceWith(wrap);
-  })();
-}
+    const meta = document.createElement("div");
+    meta.className = "creaciones-meta";
+
+    const primary = document.createElement("div");
+    primary.className = "creaciones-meta-primary";
+    primary.textContent = item.area + " · " + item.categoria;
+
+    const proof = document.createElement("div");
+    proof.className = "creaciones-meta-proof";
+    proof.textContent = "Demuestra: " + item.demuestra;
+
+    meta.append(primary, proof);
+    frame.append(img, meta);
+    wrap.appendChild(frame);
+    return wrap;
+  }
+
+  CREACIONES_COLUMN_LAYOUT.forEach((colDef) => {
+    const col = document.createElement("div");
+    col.className = "creaciones-col creaciones-col-" + colDef.direction;
+    const track = document.createElement("div");
+    track.className = "creaciones-col-track";
+
+    colDef.indices.forEach((i) => track.appendChild(buildCard(i, false)));
+    // Clonado controlado: misma coleccion, mismo orden, para el loop infinito sin saltos.
+    colDef.indices.forEach((i) => track.appendChild(buildCard(i, true)));
+
+    col.appendChild(track);
+    columnsEl.appendChild(col);
+  });
+
+  // Lightbox
+  const lightbox = document.getElementById("creaciones-lightbox");
+  const lightboxImg = document.getElementById("creaciones-lightbox-img");
+  const lightboxCaption = document.getElementById(
+    "creaciones-lightbox-caption",
+  );
+  const prevBtn = lightbox
+    ? lightbox.querySelector(".creaciones-lightbox-prev")
+    : null;
+  const nextBtn = lightbox
+    ? lightbox.querySelector(".creaciones-lightbox-next")
+    : null;
+  let currentIndex = 0;
+
+  function renderLightbox() {
+    const item = CREACIONES_ITEMS[currentIndex];
+    lightboxImg.src = item.src;
+    lightboxImg.alt = item.alt;
+    lightboxCaption.innerHTML =
+      '<div class="creaciones-lightbox-title">' + item.titulo + "</div>" +
+      '<div class="creaciones-lightbox-tag">' + item.area + " · " + item.categoria + "</div>" +
+      '<p class="creaciones-lightbox-desc">' + item.demuestra + "</p>";
+  }
+
+  function openLightbox(index) {
+    currentIndex = index;
+    renderLightbox();
+    lightbox.classList.add("is-open");
+    lightbox.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove("is-open");
+    lightbox.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  function showRelative(delta) {
+    currentIndex =
+      (currentIndex + delta + CREACIONES_ITEMS.length) %
+      CREACIONES_ITEMS.length;
+    renderLightbox();
+  }
+
+  if (lightbox) {
+    columnsEl.addEventListener("click", (e) => {
+      const frame = e.target.closest(".creaciones-frame");
+      if (!frame) return;
+      openLightbox(Number(frame.dataset.index));
+    });
+
+    lightbox.querySelectorAll("[data-creaciones-dismiss]").forEach((el) => {
+      el.addEventListener("click", closeLightbox);
+    });
+    prevBtn.addEventListener("click", () => showRelative(-1));
+    nextBtn.addEventListener("click", () => showRelative(1));
+
+    document.addEventListener("keydown", (e) => {
+      if (!lightbox.classList.contains("is-open")) return;
+      if (e.key === "Escape") closeLightbox();
+      else if (e.key === "ArrowLeft") showRelative(-1);
+      else if (e.key === "ArrowRight") showRelative(1);
+    });
+  }
+})();
 
 // Hero video source — el atributo media="" en <source> de <video> (a
 // diferencia de <picture>) se evalua una sola vez, cuando el navegador elige
@@ -817,10 +848,10 @@ if (window.innerWidth > 900) {
 // breakpoint de 900px, en vez de confiar solo en la seleccion inicial del
 // <source> estatico (que igual queda como fallback si JS no corre).
 (() => {
-  const video = document.getElementById('hero-video');
+  const video = document.getElementById("hero-video");
   if (!video) return;
-  const MOBILE_SRC = 'assets/videos/Mendoza-Vertical.mp4';
-  const DESKTOP_SRC = 'assets/videos/Intro-Mendoza-Hori.mp4';
+  const MOBILE_SRC = "assets/videos/Mendoza-Vertical.mp4";
+  const DESKTOP_SRC = "assets/videos/Intro-Mendoza-Hori.mp4";
   let isMobileSrc = null;
 
   function syncHeroVideoSource() {
@@ -836,7 +867,7 @@ if (window.innerWidth > 900) {
   }
 
   syncHeroVideoSource();
-  window.addEventListener('resize', syncHeroVideoSource, { passive: true });
+  window.addEventListener("resize", syncHeroVideoSource, { passive: true });
 })();
 
 // Hero bottom fade (desktop). El video (panoramico) va siempre a
@@ -847,9 +878,9 @@ if (window.innerWidth > 900) {
 // no se note. En mobile (<=900px) el degrade lo resuelve el CSS solo
 // (ver style.css, #hero-bottom-fade con !important) — no calcular aca.
 (() => {
-  const heroSection = document.getElementById('hero-section');
-  const video = document.getElementById('hero-video');
-  const fadeEl = document.getElementById('hero-bottom-fade');
+  const heroSection = document.getElementById("hero-section");
+  const video = document.getElementById("hero-video");
+  const fadeEl = document.getElementById("hero-bottom-fade");
   if (!heroSection || !video || !fadeEl) return;
 
   const BLEND_PX = 200; // how far the fade reaches up into the video for a soft transition
@@ -881,14 +912,13 @@ if (window.innerWidth > 900) {
     const totalHeight = gapPx + blendPx + sectionBlendPx;
     const blendPct = totalHeight > 0 ? (blendPx / totalHeight) * 100 : 0;
 
-    fadeEl.style.height = totalHeight + 'px';
-    fadeEl.style.background =
-      `linear-gradient(to bottom,rgba(var(--bg-dark-2-rgb),0) 0%,var(--bg-dark-2) ${blendPct}%,var(--bg-dark-1) 100%)`;
+    fadeEl.style.height = totalHeight + "px";
+    fadeEl.style.background = `linear-gradient(to bottom,rgba(var(--bg-dark-2-rgb),0) 0%,var(--bg-dark-2) ${blendPct}%,var(--bg-dark-1) 100%)`;
   }
 
-  video.addEventListener('loadedmetadata', updateFade);
-  video.addEventListener('canplay', updateFade);
-  window.addEventListener('resize', updateFade);
+  video.addEventListener("loadedmetadata", updateFade);
+  video.addEventListener("canplay", updateFade);
+  window.addEventListener("resize", updateFade);
   updateFade();
   // Reintentos escalonados por si el video tarda en reportar su tamaño
   // real (con el guard de arriba, los intentos tempranos no rompen nada,

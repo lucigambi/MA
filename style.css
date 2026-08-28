@@ -2646,6 +2646,17 @@ img {
   white-space: nowrap;
 }
 
+/* Acordeon mobile (una tarjeta por vez, name="programas-accordion" nativo
+   de <details>) — arma cada item clonando la tarjeta .programa-esquema
+   correspondiente (ver script.js), asi el contenido vive en un solo lugar
+   en vez de duplicarse a mano en el HTML. Regla base ANTES del media query
+   de abajo (mismo selector, misma especificidad — si quedara despues le
+   ganaria siempre al display:block de mobile y el acordeon no se veria
+   nunca). */
+.programas-accordion {
+  display: none;
+}
+
 @media (max-width: 900px) {
   #programas {
     padding: clamp(56px, 10vw, 80px) 20px;
@@ -2653,13 +2664,127 @@ img {
   #programas-title {
     font-size: var(--step-h2-mobile);
   }
-  /* TODO: en mobile las pestañas quedan ocultas y no hay forma de navegar
-     entre los 6 programas (el acordeon que las reemplazaba en la version
-     vieja se elimino junto con esa seccion) — falta definir un patron de
-     navegacion mobile para esta tarjeta. */
-  .programas-tabs {
+  /* Mobile vuelve a ser acordeon (una tarjeta por vez), como en la version
+     vieja — las tabs+panel de #programas-content se ocultan (esas 6 tarjetas
+     .programa-esquema son las mismas que arma el JS del acordeon, clonadas
+     dentro de cada <details>, ver script.js) y se muestra #programas-accordion
+     en su lugar. El selector con ">" apunta solo a las 6 tarjetas originales
+     (hijas directas de #programas-content), no a los clones de adentro del
+     acordeon, que tambien son .programa-esquema. */
+  .programas-tabs,
+  #programas-content > .programa-esquema {
     display: none;
   }
+  .programas-accordion {
+    display: block;
+  }
+}
+.programa-accordion-item {
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.programa-accordion-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 18px;
+  background: var(--programa-color);
+  color: #fff;
+  cursor: pointer;
+  list-style: none;
+  min-height: 44px;
+}
+.programa-accordion-header::-webkit-details-marker {
+  display: none;
+}
+.programa-accordion-header::marker {
+  content: "";
+}
+.programa-accordion-num {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 800;
+  font-size: clamp(12.6px, 11.17px + 0.398vw, 16.1px);
+  flex-shrink: 0;
+}
+.programa-accordion-title {
+  font-family: "Nunito", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: clamp(12.6px, 11.17px + 0.398vw, 16.1px);
+}
+/* Icono +/x dibujado en CSS puro (dos barras) — un "+" rotado 45deg se ve
+   como una "x", asi que solo hace falta rotar en el estado [open]. */
+.programa-accordion-icon {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+.programa-accordion-icon::before,
+.programa-accordion-icon::after {
+  content: "";
+  position: absolute;
+  background: #fff;
+  border-radius: 2px;
+}
+.programa-accordion-icon::before {
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 2px;
+  transform: translateY(-50%);
+}
+.programa-accordion-icon::after {
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+.programa-accordion-item[open] .programa-accordion-icon {
+  transform: rotate(45deg);
+}
+.programa-accordion-body {
+  background: var(--bg-white);
+  padding: 0 0 16px;
+}
+/* La tarjeta clonada adentro trae .programa-esquema { visibility:hidden }
+   de base (pensado para el stacking de tabs en desktop, ver mas arriba) —
+   adentro del acordeon no hay tabs con las que competir, siempre visible.
+   El border-top de color tampoco tiene sentido aca (esta pensado como
+   continuidad visual con la tab activa de arriba, ver .programa-esquema) —
+   en el acordeon ya esta el header solido de color justo arriba, y esa
+   tira quedaba como una segunda caja de color pegada, de mas. */
+.programa-accordion-body .programa-esquema {
+  visibility: visible;
+  border-top: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+.programa-accordion-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: calc(100% - 32px);
+  margin: 16px 16px 0;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: var(--programa-color);
+  color: #fff;
+  font-family: "Nunito", sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: clamp(12.6px, 11.17px + 0.398vw, 16.1px);
+  cursor: pointer;
+  min-height: 44px;
 }
 
 /* ============================= PROGRAMAS: TARJETA ======================
@@ -2844,6 +2969,12 @@ img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+/* Banner rectangular exclusivo de mobile (reemplaza el medallon circular
+   ahi, ver @media 900px) — oculto en desktop. */
+.pe-banner-mobile {
+  display: none;
+  border-radius: 16px;
 }
 .pe-petal {
   position: relative;
@@ -3092,8 +3223,10 @@ img {
   background: linear-gradient(135deg, var(--programa-color), var(--color-violeta));
 }
 .pe-outcomes > b {
-  display: block;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   font-family: "Barlow Condensed", sans-serif;
   font-weight: 500;
   font-size: clamp(12.5px, 11.3px + 0.32vw, 14.5px);
@@ -3106,7 +3239,7 @@ img {
   justify-content: center;
   width: 21px;
   height: 21px;
-  margin: 0 auto 5px;
+  flex-shrink: 0;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.22);
   color: #fff;
@@ -3148,26 +3281,90 @@ img {
     grid-column: 1 / -1;
     background: color-mix(in srgb, var(--programa-color) 6%, white 94%);
   }
+  /* El fondo de .pe-diff pasa de oscuro (tinte fuerte de --programa-color,
+     pintado por .programa-esquema::before) a este casi-blanco — el titulo
+     de cada item, pensado en blanco para el fondo oscuro, quedaba invisible
+     sobre el fondo claro. */
+  .pe-diff-item b {
+    color: var(--bg-dark-2);
+  }
   .pe-outcomes {
     grid-template-columns: 1fr 1fr;
   }
   .pe-outcomes > b {
     grid-column: 1 / -1;
   }
+  /* Con 2 columnas el border-left (divisor con el item de al lado) le
+     queda tambien a los items de la columna izquierda, contra el borde de
+     la card — ahi no separa nada, solo sobra. Solo tiene sentido en la
+     columna derecha. */
+  .pe-outcomes > span:nth-of-type(odd) {
+    border-left: none;
+    padding-left: 0;
+  }
 }
 @media (max-width: 900px) {
   .programa-esquema {
     grid-template-columns: 1fr;
+  }
+  /* Menos "cajitas" en mobile — el badge "Programa" no aporta informacion
+     (ya se entiende por el contexto de la tarjeta) asi que se saca
+     directamente en vez de solo sacarle el fondo; el unico "cajon" que se
+     mantiene es el nivel (4° y 5° año), que es el dato que importa que se
+     note. */
+  .pe-badge {
+    display: none;
+  }
+  /* .pe-lead tiene padding-right chico en desktop a proposito (calle mas
+     angosta hacia la flor de al lado, ver esa regla) — en mobile todo va
+     en una sola columna, no hay "flor al lado", y ese padding chico
+     dejaba el texto casi pegado al borde derecho de la tarjeta. Padding
+     simetrico normal. Tambien el eyebrow de arriba (.pe-small) se lee muy
+     chico a este ancho. */
+  .pe-lead {
+    padding: 20px;
+  }
+  .pe-small {
+    font-size: clamp(13px, 3.6vw, 14.5px);
   }
   .pe-flower {
     min-height: auto;
     max-width: none;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding: 20px;
+    gap: 0;
+    padding: 20px 20px 4px;
   }
-  .pe-core,
+  /* El medallon circular es un recurso pensado para desktop (foto+anillo de
+     color superpuestos en el centro de la rueda de petalos) — en mobile,
+     como en el resto de las secciones del sitio (ver
+     #evidencia-frame-photo-mobile), se reemplaza por un banner rectangular
+     de sangre completa en vez de achicar el circulo. */
+  .pe-core {
+    display: none;
+  }
+  .pe-banner-mobile {
+    display: block;
+    width: calc(100% + 40px);
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    margin: 0 -20px 8px;
+    border-radius: 0;
+  }
+  /* En mobile el petalo deja de ser una card con fondo/padding propio (eso
+     era para separarlo visualmente en la grilla 2x2 de desktop) — aca ya
+     estan todos apilados adentro de la tarjeta blanca, que ya funciona
+     como contenedor; una caja de color adentro de otra caja blanca era
+     redundante. Pasa a ser una fila simple (icono a la izquierda, titulo +
+     bajada a la derecha, mas grandes) separada de la siguiente por un
+     borde, como la columna "que lo hace diferente". */
+  /* Icono con position:absolute (no grid-row:1/3) a proposito: con grid,
+     el icono de 64px abarcando las 2 filas de texto forzaba esas filas a
+     crecer hasta sus 64px, y el titulo/bajada (mas bajos que eso) quedaban
+     centrados adentro de filas infladas — eso se veia como espacio de mas
+     entre titulo y bajada aunque el margin/gap ya estuvieran en 0. Con
+     absolute el icono se centra solo, sin afectar la altura del texto. */
   .pe-petal {
     position: relative;
     inset: auto;
@@ -3176,12 +3373,49 @@ img {
     top: auto;
     bottom: auto;
     transform: none;
+    display: block;
     width: 100%;
     max-width: none;
     height: auto;
     max-height: none;
-    min-height: 100px;
-    border-radius: 20px;
+    min-height: 0;
+    padding: 16px 4px 16px 80px;
+    border-radius: 0;
+    background: none;
+    text-align: left;
+    border-bottom: 1px solid var(--border-on-light);
+  }
+  .pe-petal:last-child {
+    border-bottom: none;
+  }
+  .pe-petal-icon-ring {
+    position: absolute;
+    left: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-bottom: 0;
+  }
+  .pe-petal b {
+    display: block;
+    margin: 0;
+    font-size: clamp(19px, 5vw, 22px);
+  }
+  .pe-petal p {
+    display: block;
+    width: auto;
+    max-width: none;
+    min-width: 0;
+    margin: 0;
+    font-size: clamp(15px, 4vw, 17px);
+    line-height: 1.3;
+    /* Todas las bajadas son frases cortas — entran en una linea con lugar
+       de sobra; nowrap+ellipsis en vez de dejarlas partirse (aunque
+       entrarian igual, sin esto alguna quedaba en 2 lineas por un <br>
+       manual en el HTML) y con un margen de seguridad por si el texto
+       fuera mas largo en el futuro. */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -3421,11 +3655,50 @@ img {
     padding: 64px 20px;
   }
 }
+/* Mobile — el masonry de columnas auto-scrolleando verticalmente (pensado
+   para verse ancho, con varias columnas a la vista a la vez) se ve mal
+   angosto a 2 columnas: cards chiquitas, texto cortado. En su lugar,
+   carrusel de 2 filas que se desliza horizontal con el dedo (mismo patron
+   que .paccc-mobile-carousel — grid-auto-columns 84% en vez de flex:0 0 84%
+   porque aca cada "pantalla" del scroll son 2 cards apiladas, no 1), con un
+   pedacito de la card siguiente siempre asomando a los costados para que
+   se note que se puede seguir deslizando. Contenido armado por JS
+   (#creaciones-mobile-carousel en script.js) desde el mismo CREACIONES_ITEMS,
+   sin clones ni animacion — se navega a mano. */
+.creaciones-mobile-carousel {
+  display: none;
+}
 @media (max-width: 767px) {
   .creaciones-columns {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 13px;
-    height: 620px;
+    display: none;
+  }
+  .creaciones-mobile-carousel {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(2, 1fr);
+    grid-auto-columns: 84%;
+    gap: 14px;
+    height: clamp(360px, 88vw, 440px);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin: 0 -20px;
+    padding: 4px 20px 12px;
+  }
+  .creaciones-mobile-carousel::-webkit-scrollbar {
+    display: none;
+  }
+  .creaciones-mobile-carousel .creaciones-item {
+    height: 100%;
+    scroll-snap-align: start;
+  }
+  .creaciones-mobile-carousel .creaciones-frame {
+    height: 100%;
+  }
+  .creaciones-mobile-carousel .creaciones-frame img {
+    height: 100%;
+    object-fit: cover;
   }
   .creaciones-meta {
     padding: 10px 8px 6px;

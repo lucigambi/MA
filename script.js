@@ -178,10 +178,74 @@
     btn.addEventListener("click", () => {
       const key = btn.dataset.programa;
       tabs.forEach((t) => t.classList.toggle("active", t === btn));
-      document.querySelectorAll(".programa-esquema").forEach((panel) => {
-        panel.classList.toggle("is-active", panel.dataset.programa === key);
-      });
+      document
+        .querySelectorAll("#programas-content > .programa-esquema")
+        .forEach((panel) => {
+          panel.classList.toggle("is-active", panel.dataset.programa === key);
+        });
     });
+  });
+})();
+
+// Programas — acordeon mobile (una tarjeta por vez). Arma cada item
+// clonando la tarjeta .programa-esquema correspondiente (misma fuente que
+// las tabs de desktop, el contenido no se duplica a mano en el HTML).
+// <details name="programas-accordion"> es nativo: abre uno solo por vez
+// sin JS extra.
+(() => {
+  const wrap = document.getElementById("programas-accordion");
+  if (!wrap) return;
+
+  document
+    .querySelectorAll("#programas-content > .programa-esquema")
+    .forEach((panel, i) => {
+      const key = panel.dataset.programa;
+      const tabLabel = document.querySelector(
+        `.programa-tab[data-programa="${key}"] .programa-tab-label`,
+      );
+      const color = panel.style.getPropertyValue("--programa-color");
+
+      const item = document.createElement("details");
+      item.className = "programa-accordion-item";
+      item.name = "programas-accordion";
+      if (color) item.style.setProperty("--programa-color", color);
+
+      const summary = document.createElement("summary");
+      summary.className = "programa-accordion-header";
+      summary.innerHTML =
+        `<span class="programa-accordion-num">${String(i + 1).padStart(2, "0")}</span>` +
+        `<span class="programa-accordion-title">${tabLabel ? tabLabel.textContent : ""}</span>` +
+        `<span class="programa-accordion-icon" aria-hidden="true"></span>`;
+
+      const body = document.createElement("div");
+      body.className = "programa-accordion-body";
+      const clone = panel.cloneNode(true);
+      clone.removeAttribute("id");
+      body.appendChild(clone);
+
+      const closeBtn = document.createElement("button");
+      closeBtn.type = "button";
+      closeBtn.className = "programa-accordion-close";
+      closeBtn.textContent = "Cerrar";
+      body.appendChild(closeBtn);
+
+      item.append(summary, body);
+      wrap.appendChild(item);
+    });
+
+  // Boton "Cerrar" al final del panel — asi no hay que scrollear hasta
+  // arriba para volver a plegar la card despues de leer el contenido.
+  wrap.addEventListener("click", (e) => {
+    const btn = e.target.closest(".programa-accordion-close");
+    if (!btn) return;
+    const details = btn.closest("details");
+    if (!details) return;
+    details.open = false;
+    // Al cerrar un panel largo, el contenido se achica de golpe pero el
+    // scroll (en pixeles) queda donde estaba — visualmente "salta" a la
+    // seccion que haya quedado en esa posicion. Volver al propio acordeon
+    // despues de cerrar evita ese salto.
+    details.scrollIntoView({ block: "start", behavior: "smooth" });
   });
 })();
 
@@ -772,6 +836,20 @@ renderDetail(activeKey);
     columnsEl.appendChild(col);
   });
 
+  // Mobile — el masonry de columnas auto-scrolleando verticalmente (pensado
+  // para desktop) se ve mal angosto: en vez de eso, carrusel de 2 filas que
+  // se desliza horizontal con el dedo (mismo patron que
+  // .paccc-mobile-carousel), sin loop infinito ni clones — las 17 creaciones
+  // reales una sola vez, en el orden del array.
+  const mobileCarouselEl = document.getElementById(
+    "creaciones-mobile-carousel",
+  );
+  if (mobileCarouselEl) {
+    CREACIONES_ITEMS.forEach((_, i) =>
+      mobileCarouselEl.appendChild(buildCard(i, false)),
+    );
+  }
+
   // Lightbox
   const lightbox = document.getElementById("creaciones-lightbox");
   const lightboxImg = document.getElementById("creaciones-lightbox-img");
@@ -818,11 +896,15 @@ renderDetail(activeKey);
   }
 
   if (lightbox) {
-    columnsEl.addEventListener("click", (e) => {
+    const onFrameClick = (e) => {
       const frame = e.target.closest(".creaciones-frame");
       if (!frame) return;
       openLightbox(Number(frame.dataset.index));
-    });
+    };
+    columnsEl.addEventListener("click", onFrameClick);
+    if (mobileCarouselEl) {
+      mobileCarouselEl.addEventListener("click", onFrameClick);
+    }
 
     lightbox.querySelectorAll("[data-creaciones-dismiss]").forEach((el) => {
       el.addEventListener("click", closeLightbox);

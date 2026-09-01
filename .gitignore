@@ -8,6 +8,7 @@ Mejores_creaciones_IA_Mendoza_Aumentada.html
 # OS / editor
 .DS_Store
 Thumbs.db
+.claude/settings.local.json
 
 .vercel
 

@@ -2683,6 +2683,9 @@ img {
   border-radius: 14px;
   overflow: hidden;
   margin-bottom: 10px;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
 }
 .programa-accordion-header {
   display: flex;
@@ -2714,6 +2717,8 @@ img {
   text-transform: uppercase;
   letter-spacing: 0.02em;
   font-size: clamp(12.6px, 11.17px + 0.398vw, 16.1px);
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 /* Icono +/x dibujado en CSS puro (dos barras) — un "+" rotado 45deg se ve
    como una "x", asi que solo hace falta rotar en el estado [open]. */
@@ -2752,6 +2757,9 @@ img {
 .programa-accordion-body {
   background: var(--bg-white);
   padding: 0 0 16px;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
 }
 /* La tarjeta clonada adentro trae .programa-esquema { visibility:hidden }
    de base (pensado para el stacking de tabs en desktop, ver mas arriba) —
@@ -2765,6 +2773,9 @@ img {
   border-top: none;
   border-radius: 0;
   box-shadow: none;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
 }
 .programa-accordion-close {
   display: flex;
@@ -3289,7 +3300,10 @@ img {
     color: var(--bg-dark-2);
   }
   .pe-outcomes {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: auto;
+    min-width: 0;
+    max-width: 100%;
   }
   .pe-outcomes > b {
     grid-column: 1 / -1;
@@ -3305,7 +3319,38 @@ img {
 }
 @media (max-width: 900px) {
   .programa-esquema {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .programa-esquema > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+  /* Jerarquia mobile: el titulo del bloque debe leerse primero y quedar
+     claramente por encima de los cuatro resultados. */
+  .pe-outcomes > b {
+    font-size: clamp(22px, 6vw, 26px);
+    line-height: 1.05;
+    margin-bottom: 6px;
+  }
+  .pe-outcomes > span {
+    font-size: clamp(13px, 3.6vw, 15px);
+    line-height: 1.2;
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .programa-esquema[data-programa="2"] .pe-outcomes > span {
+    font-size: clamp(10.5px, 3vw, 12px);
+    line-height: 1.15;
+  }
+  .pe-outcomes-star {
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
   }
   /* Menos "cajitas" en mobile — el badge "Programa" no aporta informacion
      (ya se entiende por el contexto de la tarjeta) asi que se saca
@@ -3323,13 +3368,24 @@ img {
      chico a este ancho. */
   .pe-lead {
     padding: 20px;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+  .pe-lead * {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
   .pe-small {
     font-size: clamp(13px, 3.6vw, 14.5px);
   }
   .pe-flower {
     min-height: auto;
-    max-width: none;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     gap: 0;
@@ -3346,6 +3402,8 @@ img {
   .pe-banner-mobile {
     display: block;
     width: calc(100% + 40px);
+    min-width: 0;
+    max-width: none;
     height: auto;
     aspect-ratio: 16 / 10;
     object-fit: cover;
@@ -3525,11 +3583,21 @@ img {
   overflow: hidden;
   position: relative;
 }
+/* La distancia exacta del loop ahora se mide en JS hasta el primer clon.
+   Nota historica del arreglo anterior con padding-bottom:
+   lo tanto solo 2N-1 gaps entre ellos, pero para que translateY(-50%) sea
+   exactamente "un set completo + su gap de union" hacen falta 2N gaps (N
+   por set) — sin este padding, el 50% real caia 12px (medio gap) antes de
+   ese punto, y al resetear la animacion de -50% a 0% se veia un salto fijo
+   siempre en la misma transicion (el limite entre el ultimo item original
+   y el primer clon): una barra que parece cortar la creacion en dos. Mismo
+   fix aplicado en el sitio hermano Entre Rios (12px seam jump). */
 .creaciones-col-track {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  transform: translateZ(0);
+  --creaciones-loop-distance: 0px;
+  transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   will-change: transform;
 }
@@ -3550,9 +3618,15 @@ img {
   animation-duration: 50s !important;
   animation-iteration-count: infinite !important;
 }
-.creaciones-columns:hover .creaciones-col-track,
-.creaciones-columns:focus-within .creaciones-col-track {
-  animation-play-state: paused;
+/* Pausa al pasar el mouse — solo en dispositivos con hover real. Sin este
+   gate, en touch el tap sobre una card deja el :hover/:focus-within
+   "pegado" (asi manejan el tap los navegadores mobile) y la animacion
+   quedaba pausada hasta tocar afuera de la galeria. */
+@media (hover: hover) and (pointer: fine) {
+  .creaciones-columns:hover .creaciones-col-track,
+  .creaciones-columns:focus-within .creaciones-col-track {
+    animation-play-state: paused;
+  }
 }
 .creaciones-item {
   width: 100%;
@@ -3628,20 +3702,59 @@ img {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+.creaciones-meta-mobile {
+  display: none;
+}
+@media (min-width: 768px) {
+  .creaciones-meta-primary {
+    color: #8cdbe9;
+  }
+  .creaciones-meta {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    top: auto;
+    min-height: 0;
+    margin-top: -36px;
+    padding: 46px 12px 12px;
+    background: linear-gradient(
+      to top,
+      rgba(var(--bg-dark-2-rgb), 0.92) 0%,
+      rgba(var(--bg-dark-2-rgb), 0.72) 48%,
+      rgba(var(--bg-dark-2-rgb), 0.25) 78%,
+      rgba(var(--bg-dark-2-rgb), 0) 100%
+    );
+  }
+  .creaciones-frame img {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 calc(100% - 36px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 calc(100% - 36px),
+      transparent 100%
+    );
+  }
+}
 @keyframes creacionesUp {
   from {
     transform: translateY(0);
   }
   to {
-    transform: translateY(-50%);
+    transform: translate3d(0, calc(0px - var(--creaciones-loop-distance)), 0);
   }
 }
 @keyframes creacionesDown {
   from {
-    transform: translateY(-50%);
+    transform: translate3d(0, calc(0px - var(--creaciones-loop-distance)), 0);
   }
   to {
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 @media (max-width: 1200px) {
@@ -3655,62 +3768,96 @@ img {
     padding: 64px 20px;
   }
 }
-/* Mobile — el masonry de columnas auto-scrolleando verticalmente (pensado
-   para verse ancho, con varias columnas a la vista a la vez) se ve mal
-   angosto a 2 columnas: cards chiquitas, texto cortado. En su lugar,
-   carrusel de 2 filas que se desliza horizontal con el dedo (mismo patron
-   que .paccc-mobile-carousel — grid-auto-columns 84% en vez de flex:0 0 84%
-   porque aca cada "pantalla" del scroll son 2 cards apiladas, no 1), con un
-   pedacito de la card siguiente siempre asomando a los costados para que
-   se note que se puede seguir deslizando. Contenido armado por JS
-   (#creaciones-mobile-carousel en script.js) desde el mismo CREACIONES_ITEMS,
-   sin clones ni animacion — se navega a mano. */
-.creaciones-mobile-carousel {
-  display: none;
-}
+/* Mobile — comparado directo contra el CSS publicado del sitio hermano
+   entreriosaprende.ai: mismo mecanismo que desktop (las mismas 4 columnas
+   de #creaciones-columns, auto-scrolleando arriba/abajo), solo reflowea a
+   un grid de 2 vía CSS — no hace falta un layout ni un contenedor aparte.
+   El texto largo desbordaba mal porque .creaciones-meta tenia top:35% fijo
+   (un techo que el sitio de referencia no tiene); con top:auto la caja del
+   texto crece con su contenido en vez de toparse contra ese techo, y
+   .creaciones-frame ya tiene overflow:hidden por las dudas si una
+   descripcion fuera muy larga. */
 @media (max-width: 767px) {
   .creaciones-columns {
-    display: none;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    gap: 13px;
+    height: 620px;
   }
-  .creaciones-mobile-carousel {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-rows: repeat(2, 1fr);
-    grid-auto-columns: 84%;
-    gap: 14px;
-    height: clamp(360px, 88vw, 440px);
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    margin: 0 -20px;
-    padding: 4px 20px 12px;
-  }
-  .creaciones-mobile-carousel::-webkit-scrollbar {
-    display: none;
-  }
-  .creaciones-mobile-carousel .creaciones-item {
-    height: 100%;
-    scroll-snap-align: start;
-  }
-  .creaciones-mobile-carousel .creaciones-frame {
-    height: 100%;
-  }
-  .creaciones-mobile-carousel .creaciones-frame img {
-    height: 100%;
-    object-fit: cover;
+  .creaciones-col-track {
+    gap: 12px;
   }
   .creaciones-meta {
-    padding: 10px 8px 6px;
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    top: auto;
+    min-height: 0;
+    margin-top: -36px;
+    padding: 46px 9px 9px;
+    background: linear-gradient(
+      to top,
+      rgba(var(--bg-dark-2-rgb), 0.92) 0%,
+      rgba(var(--bg-dark-2-rgb), 0.72) 48%,
+      rgba(var(--bg-dark-2-rgb), 0.25) 78%,
+      rgba(var(--bg-dark-2-rgb), 0) 100%
+    );
+  }
+  .creaciones-frame {
+    aspect-ratio: auto;
+    border-radius: 8px;
+  }
+  .creaciones-frame img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    background: var(--bg-dark-2);
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 calc(100% - 36px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 calc(100% - 36px),
+      transparent 100%
+    );
   }
   .creaciones-meta-primary {
-    font-size: 12px;
+    display: none;
   }
   .creaciones-meta-proof {
-    font-size: 11px;
-    -webkit-line-clamp: unset;
-    line-clamp: unset;
-    overflow: visible;
+    display: none;
+  }
+  .creaciones-meta-mobile {
+    display: block;
+  }
+  .creaciones-meta-mobile-title {
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.08;
+    max-height: 2.16em;
+    color: #fff;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .creaciones-meta-mobile-category {
+    margin-top: 4px;
+    font-family: "Nunito", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #8cdbe9;
   }
 }
 
@@ -3730,7 +3877,7 @@ img {
 .creaciones-lightbox-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(6, 4, 20, 0.92);
+  background: rgba(var(--bg-dark-1-rgb), 0.6);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
@@ -3750,13 +3897,20 @@ img {
   width: auto;
   height: auto;
   object-fit: contain;
-  border-radius: 12px;
+  border-radius: 0;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 .creaciones-lightbox-caption {
-  margin-top: 18px;
+  margin-top: 20px;
   max-width: 640px;
+  width: 100%;
   text-align: center;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  padding: 20px 28px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 .creaciones-lightbox-title {
   font-family: "Space Grotesk", sans-serif;
@@ -3766,21 +3920,35 @@ img {
   color: var(--text-on-dark);
 }
 .creaciones-lightbox-tag {
-  margin-top: 6px;
+  display: inline-block;
+  margin-top: 10px;
   font-family: "Barlow Condensed", sans-serif;
   font-weight: 650;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-size: clamp(13px, 1.1vw, 15px);
-  color: var(--accent-lime);
+  color: #8cdbe9;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+.creaciones-lightbox-proof-label {
+  margin-top: 14px;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #8cdbe9;
 }
 .creaciones-lightbox-desc {
-  margin: 10px 0 0;
+  margin: 5px 0 0;
   font-family: "Nunito", sans-serif;
   font-weight: 400;
   font-size: clamp(14px, 1vw, 16px);
   line-height: 1.5;
   color: var(--text-on-dark-secondary);
+}
+.creaciones-lightbox-nav {
+  display: contents;
 }
 .creaciones-lightbox-close {
   position: absolute;
@@ -3837,19 +4005,44 @@ img {
 @media (max-width: 767px) {
   .creaciones-lightbox {
     padding: 0;
+    align-items: flex-start;
+    overflow-y: auto;
   }
   .creaciones-lightbox-content {
+    width: 100%;
     max-width: 100vw;
-    max-height: 100vh;
+    max-height: none;
+    padding: 96px 0 24px;
   }
   .creaciones-lightbox-content img {
-    max-height: 82vh;
+    width: 100%;
+    max-height: 70vh;
+    border-radius: 0;
+    box-shadow: none;
   }
-  .creaciones-lightbox-prev {
-    left: 8px;
+  .creaciones-lightbox-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 62px;
+    padding: 8px 16px;
   }
+  .creaciones-lightbox-caption {
+    width: calc(100% - 32px);
+    margin: 0 16px;
+    padding: 20px 18px;
+  }
+  .creaciones-lightbox-prev,
   .creaciones-lightbox-next {
-    right: 8px;
+    position: static;
+    transform: none;
+    width: 42px;
+    height: 42px;
+  }
+  .creaciones-lightbox-tag {
+    display: block;
+    margin-top: 9px;
   }
 }
 

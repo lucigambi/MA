@@ -607,7 +607,9 @@ renderDetail(activeKey);
   // hover) para que funcione igual en mobile/touch.
   const CREACIONES_ITEMS = [
     {
-      src: GAL + "01.png",
+      src: GAL + "01.jpg",
+      width: 1400,
+      height: 788,
       alt: "Documento interactivo sobre el uso crítico y responsable de la inteligencia artificial",
       categoria: "Presentación interactiva",
       titulo: "El arte de preguntar a la IA",
@@ -616,7 +618,9 @@ renderDetail(activeKey);
         "Formulación de preguntas y consignas claras, uso responsable de la inteligencia artificial, revisión crítica de respuestas, detección de errores y sesgos, cuidado de la privacidad y toma de decisiones fundamentadas.",
     },
     {
-      src: GAL + "02.png",
+      src: GAL + "02.jpg",
+      width: 1400,
+      height: 1050,
       alt: "Historieta educativa sobre Lionel investigando con inteligencia artificial",
       categoria: "Historieta educativa",
       titulo: "Lionel y la inteligencia artificial",
@@ -625,7 +629,9 @@ renderDetail(activeKey);
         "Uso de la IA como apoyo para investigar, contraste de fuentes confiables, identificación y corrección de información inexacta, análisis de problemáticas ambientales y construcción de conclusiones propias.",
     },
     {
-      src: GAL + "03.png",
+      src: GAL + "03.jpg",
+      width: 1400,
+      height: 933,
       alt: "Línea de tiempo ilustrada del proceso de independencia argentina",
       categoria: "Línea de tiempo",
       titulo: "De la Ilustración a la Independencia",
@@ -634,7 +640,9 @@ renderDetail(activeKey);
         "Relación cronológica entre la Ilustración, la Independencia de Estados Unidos, la Revolución Francesa, el Virreinato del Río de la Plata, las Invasiones Inglesas, la Revolución de Mayo y la Independencia argentina.",
     },
     {
-      src: GAL + "04.png",
+      src: GAL + "04.jpg",
+      width: 1400,
+      height: 933,
       alt: "Mapa conceptual sobre nacionalismo, regionalismo y localismo",
       categoria: "Mapa conceptual",
       titulo: "Identidad, cultura y territorio",
@@ -643,7 +651,9 @@ renderDetail(activeKey);
         "Comprensión de las distintas escalas de pertenencia territorial, construcción de identidades colectivas, diversidad cultural y relaciones entre nacionalismo, regionalismo y localismo, incluyendo formas de convivencia y tensión.",
     },
     {
-      src: GAL + "05.png",
+      src: GAL + "05.jpg",
+      width: 1400,
+      height: 1050,
       alt: "Infografía sobre el uso crítico, controlado y responsable de la inteligencia artificial",
       categoria: "Infografía",
       titulo: "Criterio, control y responsabilidad frente a la IA",
@@ -652,7 +662,9 @@ renderDetail(activeKey);
         "Capacidad para decidir cuándo usar IA, preguntar con un propósito definido, revisar sus respuestas, reconocer sesgos, errores y riesgos de privacidad, verificar la información y asumir la decisión final como responsabilidad humana.",
     },
     {
-      src: GAL + "06.png",
+      src: GAL + "06.jpg",
+      width: 1254,
+      height: 1254,
       alt: "Afiche artístico de un semáforo mental asociado con sonidos y emociones",
       categoria: "Afiche",
       titulo: "Semáforo mental",
@@ -661,7 +673,9 @@ renderDetail(activeKey);
         "Reconocimiento de estados emocionales mediante la metáfora del semáforo, identificación de señales de pausa, alerta y avance, percepción de estímulos sonoros y desarrollo de estrategias de autorregulación.",
     },
     {
-      src: GAL + "07.png",
+      src: GAL + "07.jpg",
+      width: 1400,
+      height: 1050,
       alt: "Infografía histórica sobre la última dictadura militar argentina",
       categoria: "Infografía histórica",
       titulo: "Memoria, verdad y justicia",
@@ -670,7 +684,9 @@ renderDetail(activeKey);
         "Comprensión del golpe de Estado del 24 de marzo de 1976, la dictadura y el terrorismo de Estado, las desapariciones forzadas, la lucha de los organismos de derechos humanos y el valor de la memoria para la vida democrática.",
     },
     {
-      src: GAL + "08.png",
+      src: GAL + "08.jpg",
+      width: 1400,
+      height: 933,
       alt: "Comparación gráfica entre una función afín y una función cuadrática",
       categoria: "Cuadro comparativo",
       titulo: "Función afín y función cuadrática",
@@ -679,7 +695,9 @@ renderDetail(activeKey);
         "Diferenciación entre rectas y parábolas, interpretación de pendiente y ordenada al origen, identificación de raíces, vértice y eje de simetría, y análisis del discriminante de una función cuadrática.",
     },
     {
-      src: GAL + "09.png",
+      src: GAL + "09.jpg",
+      width: 1400,
+      height: 1050,
       alt: "Diagrama de Venn aplicado a conjuntos de música y deportes",
       categoria: "Diagrama de Venn",
       titulo: "Teoría de conjuntos",
@@ -688,7 +706,9 @@ renderDetail(activeKey);
         "Representación de conjuntos mediante diagramas de Venn, reconocimiento del universo, pertenencia, intersección y diferencia, y clasificación de elementos según propiedades compartidas.",
     },
     {
-      src: GAL + "10.png",
+      src: GAL + "10.jpg",
+      width: 1400,
+      height: 933,
       alt: "Infografía paso a paso para resolver una división con números decimales",
       categoria: "Infografía",
       titulo: "División con decimales",
@@ -698,6 +718,8 @@ renderDetail(activeKey);
     },
     {
       src: GAL + "11.jpg",
+      width: 1536,
+      height: 1024,
       alt: "Mapa mental sobre la conquista de América",
       categoria: "Mapa mental",
       titulo: "Conquista de América",
@@ -706,7 +728,9 @@ renderDetail(activeKey);
         "Organización de las causas, actores, procesos y consecuencias de la conquista, comprensión del contexto europeo y americano, reconocimiento de interpretaciones históricas y análisis del impacto sobre los pueblos originarios.",
     },
     {
-      src: GAL + "12.png",
+      src: GAL + "12.jpg",
+      width: 1400,
+      height: 933,
       alt: "Cuadro comparativo ilustrado de las teorías evolutivas de Lamarck y Darwin",
       categoria: "Cuadro comparativo",
       titulo: "Lamarck y Darwin: teorías de la evolución",
@@ -715,7 +739,9 @@ renderDetail(activeKey);
         "Comparación entre uso y desuso, herencia de caracteres adquiridos, variación heredable y selección natural, junto con la comprensión de genes, mutaciones, herencia, poblaciones y síntesis evolutiva moderna.",
     },
     {
-      src: GAL + "13.png",
+      src: GAL + "13.jpg",
+      width: 1400,
+      height: 788,
       alt: "Documento interactivo con mapas de los recursos naturales de América y Argentina",
       categoria: "Presentación interactiva",
       titulo: "Recursos naturales en América y Argentina",
@@ -724,7 +750,9 @@ renderDetail(activeKey);
         "Identificación y localización de recursos naturales, diferenciación entre recursos renovables y no renovables, reconocimiento de su distribución territorial y análisis de su aprovechamiento e impacto ambiental.",
     },
     {
-      src: GAL + "14.png",
+      src: GAL + "14.jpg",
+      width: 1400,
+      height: 933,
       alt: "Infografía sobre los procesos y consecuencias de la conquista de América",
       categoria: "Infografía histórica",
       titulo: "Conquista de América: procesos y consecuencias",
@@ -733,7 +761,9 @@ renderDetail(activeKey);
         "Comprensión de la diversidad de los pueblos originarios antes de 1492, las rutas europeas, las conquistas y alianzas, las resistencias indígenas y las consecuencias demográficas, económicas, políticas, religiosas, lingüísticas y culturales.",
     },
     {
-      src: GAL + "15.png",
+      src: GAL + "15.jpg",
+      width: 1254,
+      height: 1254,
       alt: "Producción sonora sobre la estructura del texto expositivo",
       categoria: "Producción sonora",
       titulo: "El texto expositivo",
@@ -743,6 +773,8 @@ renderDetail(activeKey);
     },
     {
       src: GAL + "16.jpg",
+      width: 1770,
+      height: 889,
       alt: "Línea de tiempo digital sobre la evolución de las problemáticas ambientales",
       categoria: "Línea de tiempo",
       titulo: "Línea del tiempo sobre la problemática ambiental",
@@ -751,7 +783,9 @@ renderDetail(activeKey);
         "Organización cronológica de acontecimientos ambientales, reconocimiento de cambios en la relación entre sociedad y naturaleza, identificación de causas y consecuencias y comparación de problemáticas de Argentina y el mundo.",
     },
     {
-      src: GAL + "17.png",
+      src: GAL + "17.jpg",
+      width: 1400,
+      height: 1050,
       alt: "Infografía sobre el Humanismo y el Renacimiento entre los siglos XIV y XVI",
       categoria: "Infografía histórica",
       titulo: "Humanismo y Renacimiento",
@@ -760,11 +794,19 @@ renderDetail(activeKey);
         "Comprensión del paso de la Edad Media a la Modernidad, recuperación de la Antigüedad clásica, centralidad del ser humano y la razón, desarrollo de la ciencia y la observación, perspectiva artística, imprenta y difusión del conocimiento.",
     },
   ];
+  // Mismas 4 columnas para desktop y mobile (mecanismo identico al sitio
+  // hermano entreriosaprende.ai, comparado directamente contra su CSS
+  // publicado) — en mobile el propio CSS reflowea estas 4 columnas a un
+  // grid de 2 (ver @media 767px), no hace falta un layout JS aparte.
   const CREACIONES_COLUMN_LAYOUT = [
     { direction: "up", indices: [0, 4, 8, 12] },
     { direction: "down", indices: [1, 5, 9, 13] },
     { direction: "up", indices: [2, 6, 10, 14] },
     { direction: "down", indices: [3, 7, 11, 15, 16] },
+  ];
+  const CREACIONES_MOBILE_LAYOUT = [
+    { direction: "up", indices: [0, 2, 4, 6, 8, 10, 12, 14, 16] },
+    { direction: "down", indices: [1, 3, 5, 7, 9, 11, 13, 15] },
   ];
 
   const columnsEl = document.getElementById("creaciones-columns");
@@ -800,10 +842,29 @@ renderDetail(activeKey);
       frame.tabIndex = -1;
     }
 
+    // width/height = dimension real del archivo (px). Sin esto el <img> no
+    // tiene tamaño intrínseco hasta que carga, asi que .creaciones-col-track
+    // cambiaba de alto a medida que cada imagen entraba — y como la
+    // animacion mueve el track un -50% de SU PROPIO alto en una duracion
+    // fija (creacionesUp/Down), ese alto moviendose durante los primeros
+    // segundos se veia como un arranque lento seguido de una aceleracion
+    // repentina una vez que todas las imagenes terminaban de cargar.
+    // Tampoco lleva loading="lazy": dentro del scroll infinito el espacio
+    // reservado entra en pantalla vacio y la imagen aparece de golpe recien
+    // cuando termina de decodificar — son solo 17 imagenes, cargarlas todas
+    // eager no tiene costo real. Mismo fix que en el sitio hermano Entre Rios.
     const img = document.createElement("img");
     img.src = item.src;
     img.alt = item.alt;
-    img.loading = "lazy";
+    img.width = item.width;
+    img.height = item.height;
+    img.decoding = "async";
+    img.style.opacity = "0";
+    img.style.transition = "opacity 400ms ease";
+    img.addEventListener("load", () => {
+      img.style.opacity = "1";
+    });
+    if (img.complete) img.style.opacity = "1";
 
     const meta = document.createElement("div");
     meta.className = "creaciones-meta";
@@ -816,38 +877,70 @@ renderDetail(activeKey);
     proof.className = "creaciones-meta-proof";
     proof.textContent = "Demuestra: " + item.demuestra;
 
-    meta.append(primary, proof);
+    const mobileMeta = document.createElement("div");
+    mobileMeta.className = "creaciones-meta-mobile";
+
+    const mobileTitle = document.createElement("div");
+    mobileTitle.className = "creaciones-meta-mobile-title";
+    mobileTitle.textContent = item.titulo;
+
+    const mobileCategory = document.createElement("div");
+    mobileCategory.className = "creaciones-meta-mobile-category";
+    mobileCategory.textContent = item.categoria;
+
+    mobileMeta.append(mobileTitle, mobileCategory);
+    meta.append(primary, proof, mobileMeta);
     frame.append(img, meta);
     wrap.appendChild(frame);
     return wrap;
   }
 
-  CREACIONES_COLUMN_LAYOUT.forEach((colDef) => {
-    const col = document.createElement("div");
-    col.className = "creaciones-col creaciones-col-" + colDef.direction;
-    const track = document.createElement("div");
-    track.className = "creaciones-col-track";
+  const mobileColumnsQuery = window.matchMedia("(max-width: 767px)");
+  let loopResizeObservers = [];
 
-    colDef.indices.forEach((i) => track.appendChild(buildCard(i, false)));
-    // Clonado controlado: misma coleccion, mismo orden, para el loop infinito sin saltos.
-    colDef.indices.forEach((i) => track.appendChild(buildCard(i, true)));
+  function renderCreationColumns() {
+    loopResizeObservers.forEach((observer) => observer.disconnect());
+    loopResizeObservers = [];
+    columnsEl.replaceChildren();
 
-    col.appendChild(track);
-    columnsEl.appendChild(col);
-  });
+    const layout = mobileColumnsQuery.matches
+      ? CREACIONES_MOBILE_LAYOUT
+      : CREACIONES_COLUMN_LAYOUT;
 
-  // Mobile — el masonry de columnas auto-scrolleando verticalmente (pensado
-  // para desktop) se ve mal angosto: en vez de eso, carrusel de 2 filas que
-  // se desliza horizontal con el dedo (mismo patron que
-  // .paccc-mobile-carousel), sin loop infinito ni clones — las 17 creaciones
-  // reales una sola vez, en el orden del array.
-  const mobileCarouselEl = document.getElementById(
-    "creaciones-mobile-carousel",
-  );
-  if (mobileCarouselEl) {
-    CREACIONES_ITEMS.forEach((_, i) =>
-      mobileCarouselEl.appendChild(buildCard(i, false)),
-    );
+    layout.forEach((colDef) => {
+      const col = document.createElement("div");
+      col.className = "creaciones-col creaciones-col-" + colDef.direction;
+      const track = document.createElement("div");
+      track.className = "creaciones-col-track";
+
+      colDef.indices.forEach((i) => track.appendChild(buildCard(i, false)));
+      // Clonado controlado: misma coleccion y orden para el loop infinito.
+      colDef.indices.forEach((i) => track.appendChild(buildCard(i, true)));
+
+      col.appendChild(track);
+      columnsEl.appendChild(col);
+
+      const firstClone = track.children[colDef.indices.length];
+      const syncLoopDistance = () => {
+        track.style.setProperty(
+          "--creaciones-loop-distance",
+          firstClone.offsetTop + "px",
+        );
+      };
+      syncLoopDistance();
+      if ("ResizeObserver" in window) {
+        const observer = new ResizeObserver(syncLoopDistance);
+        observer.observe(track);
+        loopResizeObservers.push(observer);
+      }
+    });
+  }
+
+  renderCreationColumns();
+  if (typeof mobileColumnsQuery.addEventListener === "function") {
+    mobileColumnsQuery.addEventListener("change", renderCreationColumns);
+  } else {
+    mobileColumnsQuery.addListener(renderCreationColumns);
   }
 
   // Lightbox
@@ -871,6 +964,7 @@ renderDetail(activeKey);
     lightboxCaption.innerHTML =
       '<div class="creaciones-lightbox-title">' + item.titulo + "</div>" +
       '<div class="creaciones-lightbox-tag">' + item.area + " · " + item.categoria + "</div>" +
+      '<div class="creaciones-lightbox-proof-label">LO QUE DEMUESTRA:</div>' +
       '<p class="creaciones-lightbox-desc">' + item.demuestra + "</p>";
   }
 
@@ -902,9 +996,6 @@ renderDetail(activeKey);
       openLightbox(Number(frame.dataset.index));
     };
     columnsEl.addEventListener("click", onFrameClick);
-    if (mobileCarouselEl) {
-      mobileCarouselEl.addEventListener("click", onFrameClick);
-    }
 
     lightbox.querySelectorAll("[data-creaciones-dismiss]").forEach((el) => {
       el.addEventListener("click", closeLightbox);
